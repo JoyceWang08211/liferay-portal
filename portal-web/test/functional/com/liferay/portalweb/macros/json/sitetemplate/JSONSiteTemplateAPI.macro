@@ -20,7 +20,7 @@ definition {
 	}
 
 	@summary = "Directly calls the JSON WS API to delete all non-default site templates"
-	macro _deleteSiteTemplates {
+	macro _deleteAllSiteTemplates {
 		var portalURL = JSONCompany.getPortalURL();
 
 		var companyId = JSONCompany.getCompanyId();
@@ -32,6 +32,46 @@ definition {
 		''';
 
 		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
+	}
+
+	@summary = "Directly calls the JSON WS API to delete a site templates by using layoutSetPrototypeId"
+	macro _deleteSiteTemplate {
+		Variables.assertDefined(parameterList = "${layoutSetPrototypeId}");
+
+		var portalURL = JSONCompany.getPortalURL();
+
+		var curl = '''
+			${portalURL}/api/jsonws/layoutsetprototype/delete-layout-set-prototype \
+				-u test@liferay.com:test \
+				-d layoutSetPrototypeId=${layoutSetPrototypeId}
+		''';
+
+		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
+	}
+
+	@summary = "Get the layoutSetPrototypeId from a layoutSetPrototype by using siteTemplateName"
+	macro _getLayoutSetPrototypeIdByName {
+		Variables.assertDefined(parameterList = "${siteTemplateName}");
+
+		var portalURL = JSONCompany.getPortalURL();
+
+		var companyId = JSONCompany.getCompanyId();
+
+		var curl = '''
+			${portalURL}/api/jsonws/layoutsetprototype/get-layout-set-prototypes \
+				-u test@liferay.com:test \
+				-d companyId=${companyId}
+		''';
+
+		var layoutSetPrototypeId = JSONCurlUtil.post("${curl}", "$.[?(@['nameCurrentValue'] == '${siteTemplateName}')]['layoutSetPrototypeId']");
+		var layoutSetPrototypeId = StringUtil.replace("${layoutSetPrototypeId}", "[&quot;", "");
+		var layoutSetPrototypeId = StringUtil.replace("${layoutSetPrototypeId}", "&quot;]", "");
+
+		if ("${layoutSetPrototypeId}" == "[]") {
+			fail("FAIL. Cannot find site template.");
+		}
+
+		return "${layoutSetPrototypeId}";
 	}
 
 }

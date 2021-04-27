@@ -21,8 +21,17 @@ definition {
 	}
 
 	@summary = "Delete all non-default site templates"
-	macro deleteSiteTemplates {
-		JSONSiteTemplateAPI._deleteSiteTemplates();
+	macro deleteAllSiteTemplates {
+		JSONSiteTemplateAPI._deleteAllSiteTemplates();
+	}
+
+	@summary = "Delete a site template using its siteTemplateName"
+	macro deleteSiteTemplateByName {
+		Variables.assertDefined(parameterList = "${siteTemplateName}");
+
+		var layoutSetPrototypeId = JSONSiteTemplateSetter.setLayoutSetPrototypeId(siteTemplateName = "${siteTemplateName}");
+
+		JSONSiteTemplateAPI._deleteSiteTemplate(layoutSetPrototypeId = "${layoutSetPrototypeId}");
 	}
 
 }
