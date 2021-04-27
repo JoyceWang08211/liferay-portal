@@ -74,4 +74,29 @@ definition {
 		return "${layoutSetPrototypeId}";
 	}
 
+	@summary = "Get the uuid from a layoutSetPrototype by using siteTemplateName"
+	macro _getLayoutSetPrototypeUuIdByName {
+		Variables.assertDefined(parameterList = "${siteTemplateName}");
+
+		var portalURL = JSONCompany.getPortalURL();
+
+		var companyId = JSONCompany.getCompanyId();
+
+		var curl = '''
+			${portalURL}/api/jsonws/layoutsetprototype/get-layout-set-prototypes \
+				-u test@liferay.com:test \
+				-d companyId=${companyId}
+		''';
+
+		var uuid  = JSONCurlUtil.post("${curl}", "$.[?(@['nameCurrentValue'] == '${siteTemplateName}')]['uuid']");
+		var uuid  = StringUtil.replace("${uuid}", "[&quot;", "");
+		var layoutSetPrototypeUuid  = StringUtil.replace("${uuid}", "&quot;]", "");
+
+		if ("${layoutSetPrototypeUuid }" == "[]") {
+			fail("FAIL. Cannot find site template.");
+		}
+
+		return "${layoutSetPrototypeUuid }";
+	}
+
 }
