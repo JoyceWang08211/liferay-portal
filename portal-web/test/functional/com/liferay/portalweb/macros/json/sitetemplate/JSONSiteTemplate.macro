@@ -1,0 +1,23 @@
+definition {
+
+	@summary = "Add a site template via site template name"
+	macro addSiteTemplate {
+		Variables.assertDefined(parameterList = "${siteTemplateName}");
+
+		var active = JSONSiteTemplateSetter.setActive(active = "${active}");
+
+		var description = JSONSiteTemplateSetter.setDescription(description = "${description}");
+
+		var readyForPropagation = JSONSiteTemplateSetter.setReadyForPropagation(readyForPropagation = "${readyForPropagation}");
+
+		var updateable = JSONSiteTemplateSetter.setUpdateable(updateable = "${updateable}");
+
+		JSONSiteTemplateAPI._addSiteTemplate(
+			active = "${active}",
+			description = "${description}",
+			readyForPropagation = "${readyForPropagation}",
+			siteTemplateName = "${siteTemplateName}",
+			updateable = "${updateable}");
+	}
+
+}

@@ -1,0 +1,35 @@
+definition {
+
+	macro setActive {
+		if (!(isSet(active))) {
+			var active = "true";
+		}
+
+		return "${active}";
+	}
+
+	macro setDescription {
+		if (!(isSet(description))) {
+			var description = "";
+		}
+
+		return "${description}";
+	}
+
+	macro setReadyForPropagation {
+		if (!(isSet(readyForPropagation))) {
+			var readyForPropagation = "true";
+		}
+
+		return "${readyForPropagation}";
+	}
+
+	macro setUpdateable {
+		if (!(isSet(updateable))) {
+			var updateable = "true";
+		}
+
+		return "${updateable}";
+	}
+
+}

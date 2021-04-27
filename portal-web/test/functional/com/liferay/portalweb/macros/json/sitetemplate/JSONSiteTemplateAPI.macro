@@ -1,0 +1,22 @@
+definition {
+
+	@summary = "Directly calls the JSON WS API to add a site template"
+	macro _addSiteTemplate {
+		Variables.assertDefined(parameterList = "${siteTemplateName},${description},${active},${updateable},${readyForPropagation}");
+
+		var portalURL = JSONCompany.getPortalURL();
+
+		var curl = '''
+			${portalURL}/api/jsonws/layoutsetprototype/add-layout-set-prototype \
+				-u test@liferay.com:test \
+				-d name=${siteTemplateName} \
+				-d description=${description} \
+				-d active=${active} \
+				-d layoutsUpdateable=${updateable} \
+				-d readyForPropagation=${readyForPropagation}
+		''';
+
+		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
+	}
+
+}
