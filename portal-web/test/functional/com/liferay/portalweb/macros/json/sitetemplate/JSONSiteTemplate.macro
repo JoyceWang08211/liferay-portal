@@ -20,4 +20,9 @@ definition {
 			updateable = "${updateable}");
 	}
 
+	@summary = "Delete all non-default site templates"
+	macro deleteSiteTemplates {
+		JSONSiteTemplateAPI._deleteSiteTemplates();
+	}
+
 }
