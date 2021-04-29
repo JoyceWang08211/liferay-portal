@@ -20,6 +20,21 @@ definition {
 			updateable = "${updateable}");
 	}
 
+	@summary = "Add a site based on site template via site template name"
+	macro addSiteTemplateSite {
+		Variables.assertDefined(parameterList = "${groupName},${siteTemplateName}");
+
+		JSONGroup.addGroup(groupName = "${groupName}");
+
+		var groupId = JSONGroupSetter.setGroupId(groupName = "${groupName}");
+
+		var layoutSetPrototypeUuid = JSONSiteTemplateSetter.setLayoutSetPrototypeUuid(siteTemplateName = "${siteTemplateName}");
+
+		JSONSiteTemplateAPI._updateLayoutSetPrototypeLinkEnabled(
+			groupId = "${groupId}",
+			layoutSetPrototypeUuid = "${layoutSetPrototypeUuid}");
+	}
+
 	@summary = "Delete all non-default site templates"
 	macro deleteAllSiteTemplates {
 		JSONSiteTemplateAPI._deleteAllSiteTemplates();

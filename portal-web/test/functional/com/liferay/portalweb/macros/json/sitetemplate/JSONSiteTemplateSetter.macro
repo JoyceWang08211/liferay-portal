@@ -24,6 +24,14 @@ definition {
 		return "${layoutSetPrototypeId}";
 	}
 
+	macro setLayoutSetPrototypeUuid {
+		Variables.assertDefined(parameterList = "${siteTemplateName}");
+
+		var layoutSetPrototypeUuid = JSONSiteTemplateAPI._getLayoutSetPrototypeUuIdByName(siteTemplateName = "${siteTemplateName}");
+
+		return "${layoutSetPrototypeUuid}";
+	}
+
 	macro setReadyForPropagation {
 		if (!(isSet(readyForPropagation))) {
 			var readyForPropagation = "true";

@@ -96,7 +96,27 @@ definition {
 			fail("FAIL. Cannot find site template.");
 		}
 
-		return "${layoutSetPrototypeUuid }";
+		echo("## Uuid: ${layoutSetPrototypeUuid}");
+
+		return "${layoutSetPrototypeUuid}";
+	}
+
+	@summary = "Directly calls the JSON WS API to update LayoutSetPrototype"
+	macro _updateLayoutSetPrototypeLinkEnabled {
+		Variables.assertDefined(parameterList = "${groupId},${layoutSetPrototypeUuid}");
+
+		var portalURL = JSONCompany.getPortalURL();
+
+		var curl = '''
+			${portalURL}/api/jsonws/layoutset/update-layout-set-prototype-link-enabled \
+				-u test@liferay.com:test \
+				-d groupId=${groupId} \
+				-d privateLayout=false \
+				-d layoutSetPrototypeLinkEnabled=true \
+				-d layoutSetPrototypeUuid=${layoutSetPrototypeUuid}
+		''';
+
+		com.liferay.poshi.runner.util.JSONCurlUtil.post("${curl}");
 	}
 
 }
