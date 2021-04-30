@@ -1,5 +1,36 @@
 definition {
 
+	@summary = "Add a public site page or public child site page to an existing site template via site template name"
+	macro addLayoutToSiteTemplate {
+		Variables.assertDefined(parameterList = "${layoutName},${siteTemplateName}");
+
+		var groupKey = JSONSiteTemplateSetter.setLayoutSetPrototypeId(siteTemplateName = "${siteTemplateName}");
+
+		var groupId = JSONLayoutSetter.setGroupId(groupKey = "${groupKey}", site = "false");
+
+		var parentLayoutId = JSONLayoutSetter.setParentLayoutId(
+			groupId = "${groupId}",
+			parentLayoutName = "${parentLayoutName}",
+			privateLayout = "true");
+
+		var serviceContext = JSONLayoutSetter.setServiceContext(
+			assetCategoryIds = "${assetCategoryIds}",
+			assetTagNames = "${assetTagNames}",
+			serviceContext = "${serviceContext}",
+			workflowAction = "${workflowAction}");
+
+		var type = JSONLayoutSetter.setType(type = "${type}");
+
+		JSONLayoutAPI._addLayout(
+			friendlyURL = "",
+			groupId = "${groupId}",
+			layoutName = "${layoutName}",
+			parentLayoutId = "${parentLayoutId}",
+			privateLayout = "true",
+			serviceContext = "${serviceContext}",
+			type = "${type}");
+	}
+
 	@summary = "Add a site template via site template name"
 	macro addSiteTemplate {
 		Variables.assertDefined(parameterList = "${siteTemplateName}");
