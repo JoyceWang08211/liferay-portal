@@ -111,7 +111,7 @@ definition {
 			${portalURL}/api/jsonws/layoutset/update-layout-set-prototype-link-enabled \
 				-u test@liferay.com:test \
 				-d groupId=${groupId} \
-				-d privateLayout=false \
+				-d privateLayout=true \
 				-d layoutSetPrototypeLinkEnabled=true \
 				-d layoutSetPrototypeUuid=${layoutSetPrototypeUuid}
 		''';
