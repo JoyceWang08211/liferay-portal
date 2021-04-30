@@ -63,7 +63,7 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 			getPermissionChecker(), groupId, ActionKeys.UPDATE);
 
 		LayoutSet layoutSet = layoutSetLocalService.getLayoutSet(
-			groupId, privateLayout);
+			groupId, true);
 
 		if (layoutSet.isLayoutSetPrototypeLinkEnabled() &&
 			!layoutSetPrototypeLinkEnabled) {
