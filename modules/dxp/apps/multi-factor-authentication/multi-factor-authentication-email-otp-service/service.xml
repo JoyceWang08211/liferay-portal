@@ -4,7 +4,7 @@
 <service-builder auto-import-default-references="false" auto-namespace-tables="false" mvcc-enabled="true" package-path="com.liferay.multi.factor.authentication.email.otp">
 	<author>Arthur Chan</author>
 	<namespace>MFAEmailOTP</namespace>
-	<entity local-service="true" name="MFAEmailOTPEntry" remote-service="false">
+	<entity local-service="true" name="MFAEmailOTPEntry" remote-service="true">
 
 		<!-- PK fields -->
 
