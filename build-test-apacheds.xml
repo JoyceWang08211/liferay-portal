@@ -51,6 +51,29 @@
 		</sequential>
 	</macrodef>
 
+	<macrodef name="unzip-apacheds-instance-multiple-users">
+		<attribute default="" name="apacheds.instance.custom.zip.name" />
+
+		<sequential>
+			<if>
+				<not>
+					<available file="${apacheds.dir}/instances/@{apacheds.instance.custom.zip.name}" />
+				</not>
+				<then>
+					<copy
+						file="${project.dir}/portal-web/test/functional/com/liferay/portalweb/dependencies/@{apacheds.instance.custom.zip.name}"
+						todir="${apacheds.dir}/instances"
+					/>
+				</then>
+			</if>
+
+			<unzip
+				dest="${apacheds.dir}/instances"
+				src="${apacheds.dir}/instances/@{apacheds.instance.custom.zip.name}"
+			/>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="update-apacheds-log4j-level">
 		<sequential>
 			<replace
@@ -77,7 +100,7 @@
 			<elseif>
 				<equals arg1="${apacheds.multiple.users.enabled}" arg2="true" />
 				<then>
-					<unzip-apacheds-instance-custom
+					<unzip-apacheds-instance-multiple-users
 						apacheds.instance.custom.zip.name="${apacheds.instance.multiple.users.custom.zip.name}"
 					/>
 				</then>
