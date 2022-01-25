@@ -64,6 +64,8 @@ definition {
 		JSONSiteTemplateAPI._updateLayoutSetPrototypeLinkEnabled(
 			groupId = "${groupId}",
 			layoutSetPrototypeUuid = "${layoutSetPrototypeUuid}");
+
+		Pause(locator1 = "1000");
 	}
 
 	@summary = "Delete all non-default site templates"

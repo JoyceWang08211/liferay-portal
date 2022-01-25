@@ -25,6 +25,7 @@ definition {
 		}
 	}
 
+	@uitest
 	@priority = "4"
 	test AddSiteTemplate {
 		property portal.acceptance = "true";
@@ -49,9 +50,7 @@ definition {
 	test AddSiteTemplateApplySiteTemplateChangesToSite {
 		property portal.acceptance = "true";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
-
-		SiteTemplates.addCP(siteTemplateName = "Site Template Name");
+		JSONSiteTemplate.addSiteTemplate(siteTemplateName = "Site Template Name");
 
 		Site.openSitesAdmin();
 
@@ -88,19 +87,13 @@ definition {
 	test AddSiteTemplateDisablePageModification {
 		property portal.acceptance = "true";
 
-		SiteTemplates.addCP(
-			disableChanges = "true",
-			siteTemplateName = "Site Template Name");
-
-		ApplicationsMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
-
-		Site.addCP(
-			siteName = "Site Template Site Name",
+		JSONSiteTemplate.addSiteTemplate(
 			siteTemplateName = "Site Template Name",
-			siteType = "Site Template");
+			updateable = "false");
+
+		JSONSiteTemplate.addSiteTemplateSite(
+			groupName = "Site Template Site Name",
+			siteTemplateName = "Site Template Name");
 
 		Navigator.openSiteURL(siteName = "Site Template Site Name");
 
@@ -182,15 +175,10 @@ definition {
 	@description = "This is a use case for LPS-118486."
 	@priority = "3"
 	test AssertNoChildPageOptionForPageDerivedFromSiteTemplate {
-		SiteTemplates.addCP(siteTemplateName = "Site Template Name");
+		JSONSiteTemplate.addSiteTemplate(siteTemplateName = "Site Template Name");
 
-		ApplicationsMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
-
-		Site.addSiteTemplateCP(
-			siteName = "Site Name",
+		JSONSiteTemplate.addSiteTemplateSite(
+			groupName = "Site Name",
 			siteTemplateName = "Site Template Name");
 
 		Navigator.openSiteURL(siteName = "Site Name");

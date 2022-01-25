@@ -100,39 +100,22 @@ definition {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "SitetemplatesUsecase#AdminCanNotAddASubpageOfAChildPageLinkedToSiteTemplatePage";
 
-		SiteTemplates.addCP(siteTemplateName = "Site Template Name");
+		JSONSiteTemplate.addSiteTemplate(siteTemplateName = "Site Template Name");
 
-		SiteTemplates.addSitePageViaSiteTemplateCP(
-			pageName = "Site Page Name",
+		JSONSiteTemplate.addLayoutToSiteTemplate(
+			layoutName = "Site Page Name",
 			siteTemplateName = "Site Template Name");
 
-		ApplicationsMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Site Templates");
-
-		SiteTemplates.addChildPageViaSiteTemplateCP(
-			childSitepageName = "true",
-			pageName = "Site Page Name",
-			siteChildPageName = "Site Child Page Name",
+		JSONSiteTemplate.addLayoutToSiteTemplate(
+			layoutName = "Site Child Page Name",
+			parentLayoutName = "Site Page Name",
 			siteTemplateName = "Site Template Name");
 
-		ApplicationsMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
-
-		Site.addSiteTemplateCP(
-			siteName = "Site Name",
+		JSONSiteTemplate.addSiteTemplateSite(
+			groupName = "Site Name",
 			siteTemplateName = "Site Template Name");
 
-		Navigator.gotoSitePage(
-			pageName = "Home",
-			siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Site Builder",
-			portlet = "Pages");
+		SitePages.openPagesAdmin(siteURLKey = "site-name");
 
 		PagesAdmin.togglePrivacy(privacy = "Public Pages");
 
