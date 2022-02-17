@@ -273,6 +273,8 @@ definition {
 			key_navItem = "Scopes",
 			locator1 = "NavBar#ACTIVE_NAV_ITEM_LINK");
 
+		takeScreenshot();
+
 		if (isSet(checkGlobalScope) || isSet(uncheckGlobalScope)) {
 			Navigator.gotoNavUnderline(navUnderline = "Global scopes");
 
