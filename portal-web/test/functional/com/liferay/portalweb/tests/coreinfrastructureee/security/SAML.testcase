@@ -3365,18 +3365,30 @@ definition {
 	@description = "This is a use case for LPS-50687. Sign into portal by executing a SP initiated SSO login. This is done by clicking on the 'Sign In' link in the top menu on the SP. After the SP is logged in, and if both instances has the same user and email address, the IdP will also be logged in."
 	@priority = "4"
 	test ViewSPInitiatedSSO {
+		property app.server.bundles.size = "0";
 		property app.server.types = "jboss,tcserver,tomcat,weblogic,websphere,wildfly";
 		property database.types = "db2,hypersonic,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
 		property environment.acceptance = "true";
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "SAML#ViewSPInitiatedSSO";
 
+		task ("Add virtual instance able.com") {
+			HeadlessPortalInstanceAPI.addPortalInstance(
+				domain = "www.able.com",
+				portalInstanceId = "www.able.com",
+				virtualHost = "www.able.com");
+
+			User.logoutPG();
+
+			User.viewLoggedOutPG();
+		}
+
 		task ("Configure samlidp as IdP and samlsp as SP") {
 			SAML.configureLiferaySAMLAsIdP(samlEntityId = "samlidp");
 
 			SAML.configureLiferaySAMLAsSP(
 				samlEntityId = "samlsp",
-				spURL = "http://www.able.com:9080",
+				spURL = "http://www.able.com:8080",
 				userEmailAddress = "test@liferay.com");
 		}
 
@@ -3387,7 +3399,7 @@ definition {
 
 			SAML.executeSPInitiatedSSO(
 				password = "test",
-				spURL = "http://www.able.com:9080",
+				spURL = "http://www.able.com:8080",
 				userEmailAddress = "test@liferay.com");
 
 			User.viewLoggedInPG();
@@ -3400,7 +3412,7 @@ definition {
 		}
 
 		task ("Initiate Single Logout via SP") {
-			User.logoutPG(specificURL = "http://www.able.com:9080");
+			User.logoutPG(specificURL = "http://www.able.com:8080");
 
 			User.viewLoggedOutPG();
 		}
