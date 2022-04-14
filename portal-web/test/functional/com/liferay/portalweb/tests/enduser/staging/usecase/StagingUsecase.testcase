@@ -952,6 +952,7 @@ definition {
 	@priority = "5"
 	@uitest
 	test PublishThemeFromStagedToLive {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "StagingUsecase#PublishThemeFromStagedToLive";
 
 		FileInstall.deployFileOnServer(jarFile = "test-theme.war");
