@@ -807,6 +807,7 @@ definition {
 	test SwitchPropagationWithOneClickControl {
 		property osgi.module.configuration.file.names = "com.liferay.layout.set.prototype.configuration.LayoutSetPrototypeConfiguration.config";
 		property osgi.module.configurations = "triggerPropagation=&quot;true&quot;";
+		property portal.upstream = "joyce";
 
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
