@@ -805,6 +805,9 @@ definition {
 	@description = "This is a use case for LPS-124594 and LPS-129081."
 	@priority = "4"
 	test SwitchPropagationWithOneClickControl {
+		property osgi.module.configuration.file.names = "com.liferay.layout.set.prototype.configuration.LayoutSetPrototypeConfiguration.config";
+		property osgi.module.configurations = "triggerPropagation=&quot;true&quot;";
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		SiteTemplates.addCP(siteTemplateName = "Site Template Name");
