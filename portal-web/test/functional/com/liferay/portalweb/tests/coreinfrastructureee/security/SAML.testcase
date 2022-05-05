@@ -5130,6 +5130,7 @@ uuid''',
 	@priority = "4"
 	test ViewSPInitiatedSSOWithUploadMetadataXML {
 		property app.server.bundles.size = "0";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#ViewSPInitiatedSSOWithUploadMetadataXML";
 
 		task ("Add virtual instance able.com") {
