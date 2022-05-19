@@ -144,6 +144,7 @@ definition {
 	@description = "This is a use case for LPS-145190 TC-5 TC-6 TC-7 Request the liferay access token for OAuth2 application with invalid JWTs."
 	@priority = "3"
 	test ApplicationCannotBeAuthorizedWithInvalidJWT {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "OAuth2#ApplicationCannotBeAuthorizedWithInvalidJWT";
 
 		task ("Add the OSGI configuration file") {
@@ -330,6 +331,7 @@ definition {
 	test AuthorizationCanBeIssuedWhenTokenIssuerMatchesWithSystemLevelOrInstanceLevel {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "OAuth2#AuthorizationCanBeIssuedWhenTokenIssuerMatchesWithSystemLevelOrInstanceLevel";
 
 		task ("Add the OSGI configuration file to configure System Settings") {
@@ -1211,6 +1213,7 @@ definition {
 	@priority = "5"
 	test InstanceLevelConfigurationWillCoverSystemLevelWhenTheyConfiguredWithSameIssuer {
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "OAuth2#InstanceLevelConfigurationWillCoverSystemLevelWhenTheyConfiguredWithSameIssuer";
 
 		task ("Add the OSGI configuration file to configure System Settings") {
@@ -1282,6 +1285,7 @@ definition {
 	@priority = "5"
 	test JWTAssertionCanBeAcceptedAsGrantTypeWithEmailAddressAsUserAuthenticationType {
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "OAuth2#ApplicationCanBeAuthorizedWithJWTBearerAsGrantTypeAndEmailAddressAsUserAuthenticationType";
 
 		task ("Add the OSGI configuration file") {
@@ -1396,6 +1400,7 @@ definition {
 	@priority = "5"
 	test JWTAssertionCanBeAcceptedAsGrantTypeWithScreenNameAsUserAuthenticationType {
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "OAuth2#JWTAssertionCanBeAcceptedAsGrantTypeWithScreenNameAsUserAuthenticationType";
 
 		task ("Add the OSGI configuration file") {
