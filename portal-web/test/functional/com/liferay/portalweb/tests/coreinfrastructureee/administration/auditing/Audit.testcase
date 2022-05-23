@@ -18,6 +18,7 @@ definition {
 	@priority = "5"
 	test AssertAuditConsoleInformationIsPresentAfterEnabledLog {
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "Audit#AssertAuditConsoleInformationIsPresentAfterEnabledLog";
 
 		var companyId = JSONCompany.getCompanyId();
@@ -98,6 +99,7 @@ definition {
 	@description = "This is a use case for LPS-150300. Verify that Console outputs the correct clientIP when reading of the X-Forwarded-For http header."
 	@priority = "5"
 	test VerifyCorrectClientIP {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "Audit#VerifyCorrectClientIP";
 
 		task ("Add the OSGI configuration file and enable Audit log") {
