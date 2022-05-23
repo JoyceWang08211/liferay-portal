@@ -18,7 +18,6 @@ definition {
 	@priority = "5"
 	test AssertAuditConsoleInformationIsPresentAfterEnabledLog {
 		property portal.acceptance = "true";
-		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "Audit#AssertAuditConsoleInformationIsPresentAfterEnabledLog";
 
 		var companyId = JSONCompany.getCompanyId();
@@ -112,6 +111,12 @@ definition {
 			ServerAdministration.addCategoryLogLevels(
 				categoryLevel = "INFO",
 				categoryName = "com.liferay.portal.security.audit.router.internal.LoggingAuditMessageProcessor");
+
+			Audit.gotoSystemSettings(portlet = "Logging Message Audit");
+
+			AssertElementPresent(
+				locator1 = "Aduit#AUDIT_LOG_MESSAGE_FORMAT",
+				value1 = "JSON");
 		}
 
 		task ("Verify that console outputs the correct clientIP when reading of the X-Forwarded-For http header") {
@@ -123,7 +128,7 @@ definition {
 
 			var runGet = JSONCurlUtil.get("${curl}");
 
-			AssertConsoleTextPresent(value1 = "clientIP":"127.0.0.1");
+			AssertConsoleTextPresent(value1 = "clientIP&quot;:&quot;127.0.0.1");
 		}
 	}
 
