@@ -24,12 +24,7 @@ definition {
 		var userId = JSONUserAPI._getUserIdByEmailAddress(userEmailAddress = "test@liferay.com");
 
 		task ("Enable log context and Incoming X-Request-ID") {
-			SystemSettings.openSystemSettingsAdmin();
-
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "Audit",
-				configurationName = "Audit Log Context",
-				configurationScope = "System Scope");
+			Audit.gotoSystemSettings(portlet = "Audit Log Context");
 
 			Click(locator1 = "Audit#AUDIT_LOG_CONTEXT_ENABLED_BUTTON");
 
@@ -97,6 +92,36 @@ definition {
 			var userId = JSONCurlUtil.get("${curl}");
 
 			AuditLog.viewLogFileContent(logString = "${validXRequestId}");
+		}
+	}
+
+	@description = "This is a use case for LPS-150300. Verify that Console outputs the correct clientIP when reading of the X-Forwarded-For http header."
+	@priority = "5"
+	test VerifyCorrectClientIP {
+		property test.name.skip.portal.instance = "Audit#VerifyCorrectClientIP";
+
+		task ("Add the OSGI configuration file and enable Audit log") {
+			OSGiConfig.copyOSGiConfigFile(
+				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructureee/administration/auditing/dependencies",
+				osgiConfigFileName = "com.liferay.portal.security.audit.router.configuration.LoggingAuditMessageProcessorConfiguration.config");
+
+			ServerAdministration.openServerAdmin();
+
+			ServerAdministration.addCategoryLogLevels(
+				categoryLevel = "INFO",
+				categoryName = "com.liferay.portal.security.audit.router.internal.LoggingAuditMessageProcessor");
+		}
+
+		task ("Verify that console outputs the correct clientIP when reading of the X-Forwarded-For http header") {
+			var ipAddress = PropsUtil.get("ip.address");
+
+			var curl = '''http://localhost:8080/home?SM_USER=test@liferay.com -H 'X-Forwarded-For: ${ipAddress}' ''';
+
+			echo("## * Read of the X-Forwarded-For http header:");
+
+			var runGet = JSONCurlUtil.get("${curl}");
+
+			AssertConsoleTextPresent(value1 = "clientIP":"127.0.0.1");
 		}
 	}
 
