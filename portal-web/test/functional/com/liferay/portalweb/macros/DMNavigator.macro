@@ -390,6 +390,10 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
+		if (!(contains("${baseURL}", "/liferay"))) {
+			var baseURL = StringUtil.replace("${baseURL}", "080", "080/liferay");
+		}
+
 		if ("${portlet}" == "AWS Translator") {
 			var portletId = "com.liferay.translation.translator.aws.internal.configuration.AWSTranslatorConfiguration";
 		}
