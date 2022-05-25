@@ -109,7 +109,7 @@ definition {
 			ServerAdministration.openServerAdmin();
 
 			ServerAdministration.addCategoryLogLevels(
-				categoryLevel = "INFO",
+				categoryLevel = "DEBUG",
 				categoryName = "com.liferay.portal.security.audit.router.internal.LoggingAuditMessageProcessor");
 
 			Audit.gotoSystemSettings(portlet = "Logging Message Audit");
@@ -127,6 +127,8 @@ definition {
 			echo("## * Read of the X-Forwarded-For http header:");
 
 			var runGet = JSONCurlUtil.get("${curl}");
+
+			AuditLog.viewLogFileContent(logString = "clientIP");
 
 			AssertConsoleTextPresent(value1 = "clientIP&quot;:&quot;127.0.0.1");
 		}
