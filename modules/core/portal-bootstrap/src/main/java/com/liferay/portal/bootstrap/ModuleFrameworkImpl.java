@@ -20,7 +20,6 @@ import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.bootstrap.log.BundleStartStopLogger;
-import com.liferay.portal.bootstrap.log.PortalSynchronousLogListener;
 import com.liferay.portal.kernel.concurrent.DefaultNoticeableFuture;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.io.unsync.UnsyncBufferedInputStream;
@@ -102,7 +101,6 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.BundleListener;
 import org.osgi.framework.Constants;
 import org.osgi.framework.FrameworkEvent;
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.framework.SynchronousBundleListener;
 import org.osgi.framework.Version;
@@ -113,8 +111,6 @@ import org.osgi.framework.startlevel.FrameworkStartLevel;
 import org.osgi.framework.wiring.BundleRevision;
 import org.osgi.framework.wiring.BundleWiring;
 import org.osgi.framework.wiring.FrameworkWiring;
-import org.osgi.service.log.LogListener;
-import org.osgi.service.log.LogReaderService;
 
 import org.springframework.beans.factory.BeanIsAbstractException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -220,18 +216,6 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 
 		bundleContext.addBundleListener(_bundleListener);
 
-		ServiceReference<LogReaderService> serviceReference =
-			bundleContext.getServiceReference(LogReaderService.class);
-
-		if (serviceReference != null) {
-			LogReaderService logReaderService = bundleContext.getService(
-				serviceReference);
-
-			_logListener = new PortalSynchronousLogListener();
-
-			logReaderService.addLogListener(_logListener);
-		}
-
 		if (_log.isDebugEnabled()) {
 			_log.debug("Initialized the OSGi framework");
 		}
@@ -315,16 +299,6 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 		_framework.stop();
 
 		BundleContext bundleContext = _framework.getBundleContext();
-
-		ServiceReference<LogReaderService> serviceReference =
-			bundleContext.getServiceReference(LogReaderService.class);
-
-		if (serviceReference != null) {
-			LogReaderService logReaderService = bundleContext.getService(
-				serviceReference);
-
-			logReaderService.removeLogListener(_logListener);
-		}
 
 		bundleContext.removeBundleListener(_bundleListener);
 
@@ -1768,7 +1742,6 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 
 	private BundleListener _bundleListener;
 	private Framework _framework;
-	private LogListener _logListener;
 	private final Map
 		<ConfigurableApplicationContext, List<ServiceRegistration<?>>>
 			_springContextServices = new ConcurrentHashMap<>();
