@@ -29,6 +29,7 @@ definition {
 	test AntiSamyConfigXMLShouldBeConfigurableInPortal {
 		property antisamy.enabled = "true";
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "AntiSamy#AntiSamyConfigXMLShouldBeConfigurableInPortal";
 
 		task ("Verify that AntiSamy module has been started") {
