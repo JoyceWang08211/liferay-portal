@@ -99,7 +99,7 @@ definition {
 			idpCustomFieldAttributeMappingText = "${idpCustomFieldAttributeMappingText}",
 			idpEntityId = "${idpEntityId}",
 			idpKeepAliveURL = "${idpKeepAliveURL}",
-			idpMetadataURL = "${idpURL}/c/portal/saml/metadata",
+			idpMetadataURL = "${idpURL}/liferay/c/portal/saml/metadata",
 			idpNameId = "${idpEntityId}",
 			nameIdentifierFormat = "${nameIdentifierFormat}",
 			uploadMetadataXML = "${uploadMetadataXML}",
@@ -357,7 +357,7 @@ definition {
 			idpCustomFieldAttributeMappingText = "${idpCustomFieldAttributeMappingText}",
 			idpEntityId = "${idpEntityId}",
 			idpKeepAliveURL = "${idpKeepAliveURL}",
-			idpMetadataURL = "${idpURL}/c/portal/saml/metadata",
+			idpMetadataURL = "${idpURL}/liferay/c/portal/saml/metadata",
 			idpNameId = "${idpEntityId}",
 			nameIdentifierFormat = "${nameIdentifierFormat}",
 			userMatchingAttributeIndex = "${userMatchingAttributeIndex}",
@@ -390,7 +390,7 @@ definition {
 			spAttributes = "${spAttributes}",
 			spEntityId = "${spEntityId}",
 			spKeepAliveURL = "${spKeepAliveURL}",
-			spMetadataURL = "${spURL}/c/portal/saml/metadata",
+			spMetadataURL = "${spURL}/liferay/c/portal/saml/metadata",
 			spNameId = "${spEntityId}");
 	}
 
@@ -617,6 +617,10 @@ definition {
 		var userEmailAddress = "${newUserEmailAddress}";
 		var creatorEmailAddress = "${creatorEmailAddress}";
 		var creatorPassword = "${creatorPassword}";
+
+		if (!(contains("${specificURL}", "/liferay"))) {
+			var specificURL = StringUtil.replace("${specificURL}", "080", "080/liferay");
+		}
 
 		// Get Company ID
 
