@@ -686,7 +686,7 @@ definition {
 		}
 
 		task ("Assert ds:Signature present in HTML source text") {
-			Open.openNoError(locator1 = "http://localhost:8080/c/portal/saml/metadata");
+			Open.openNoError(locator1 = "http://localhost:8080/liferay/c/portal/saml/metadata");
 
 			AssertHTMLSourceTextPresent(value1 = "ds:Signature");
 
@@ -702,7 +702,7 @@ definition {
 		}
 
 		task ("Assert ds:Signature not present in HTML source text") {
-			Open.openNoError(locator1 = "http://localhost:8080/c/portal/saml/metadata");
+			Open.openNoError(locator1 = "http://localhost:8080/liferay/c/portal/saml/metadata");
 
 			AssertHTMLSourceTextNotPresent(value1 = "ds:Signature");
 		}
@@ -725,13 +725,13 @@ definition {
 		}
 
 		task ("Assert http://www.w3.org/2000/09/xmldsig#rsa-sha1 not present in able.com:9080 HTML source text ") {
-			Open.openNoError(locator1 = "http://www.able.com:9080/c/portal/saml/metadata");
+			Open.openNoError(locator1 = "http://www.able.com:9080/liferay/c/portal/saml/metadata");
 
 			AssertHTMLSourceTextNotPresent(value1 = "http://www.w3.org/2000/09/xmldsig#rsa-sha1");
 		}
 
 		task ("Assert http://www.w3.org/2001/04/xmldsig-more#rsa-sha256,http://www.w3.org/2001/04/xmldsig-more#rsa-sha384,http://www.w3.org/2001/04/xmldsig-more#rsa-sha512 not present in localhost:8080 HTML source text ") {
-			Open.openNoError(locator1 = "http://localhost:8080/c/portal/saml/metadata");
+			Open.openNoError(locator1 = "http://localhost:8080/liferay/c/portal/saml/metadata");
 
 			for (var algorithm : list "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256,http://www.w3.org/2001/04/xmldsig-more#rsa-sha384,http://www.w3.org/2001/04/xmldsig-more#rsa-sha512") {
 				AssertHTMLSourceTextNotPresent(value1 = "algorithm");
@@ -743,7 +743,7 @@ definition {
 
 			User.viewLoggedOutPG();
 
-			Open.openNoError(locator1 = "http://www.able.com:9080");
+			Open.openNoError(locator1 = "http://www.able.com:9080/liferay");
 		}
 
 		task ("Assert console message: validation of protocol message signature failed") {
@@ -779,7 +779,7 @@ definition {
 			var portalURL = PropsUtil.get("portal.url");
 
 			SAML.executeIdPInitiatedSSO(
-				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
+				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080/liferay",
 				password = "test",
 				samlEnabled = "true",
 				spURL = "http://www.able.com:9080",
@@ -814,7 +814,7 @@ definition {
 			User.viewLoggedOutPG();
 
 			SAML.executeIdPInitiatedSSO(
-				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
+				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080/liferay",
 				password = "test",
 				samlEnabled = "true",
 				spURL = "http://www.able.com:9080",
@@ -828,7 +828,7 @@ definition {
 
 			SAML.executeIdPInitiatedSSO(
 				autoLogin = "true",
-				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
+				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080/liferay",
 				password = "test",
 				samlEnabled = "true",
 				spURL = "http://www.able.com:9080",
@@ -961,7 +961,7 @@ definition {
 			var portalURL = PropsUtil.get("portal.url");
 
 			SAML.executeIdPInitiatedSSO(
-				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
+				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080/liferay",
 				password = "test",
 				spURL = "http://www.able.com:9080",
 				userEmailAddress = "test@liferay.com");
@@ -1010,7 +1010,7 @@ definition {
 			var portalURL = PropsUtil.get("portal.url");
 
 			SAML.executeIdPInitiatedSSO(
-				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
+				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080/liferay",
 				password = "test",
 				samlEnabled = "true",
 				spURL = "http://www.able.com:9080",
@@ -1174,7 +1174,7 @@ definition {
 			var portalURL = PropsUtil.get("portal.url");
 
 			SAML.executeIdPInitiatedSSO(
-				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
+				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080/liferay",
 				password = "test",
 				spURL = "http://www.able.com:9080",
 				userEmailAddress = "test@liferay.com");
@@ -3702,7 +3702,7 @@ definition {
 			var portalURL = PropsUtil.get("portal.url");
 
 			SAML.executeIdPInitiatedSSO(
-				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
+				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080/liferay",
 				password = "test",
 				spURL = "http://www.able.com:9080",
 				userEmailAddress = "test@liferay.com");
@@ -3750,7 +3750,7 @@ definition {
 			var portalURL = PropsUtil.get("portal.url");
 
 			SAML.executeIdPInitiatedSSO(
-				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
+				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080/liferay",
 				password = "test",
 				rememberMeChecked = "true",
 				spURL = "http://www.able.com:9080",
@@ -4130,7 +4130,7 @@ definition {
 			var portalURL = PropsUtil.get("portal.url");
 
 			SAML.executeIdPInitiatedSSO(
-				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
+				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080/liferay",
 				password = "test",
 				rememberMeChecked = "true",
 				spURL = "http://www.able.com:9080",
