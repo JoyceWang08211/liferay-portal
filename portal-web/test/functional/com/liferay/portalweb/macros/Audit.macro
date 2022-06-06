@@ -27,6 +27,10 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
+		if (!(contains("${baseURL}", "/liferay"))) {
+			var baseURL = StringUtil.replace("${baseURL}", "080", "080/liferay");
+		}
+
 		Open(locator1 = "${baseURL}/group/control_panel/manage?p_p_id=com_liferay_portal_security_audit_web_portlet_AuditPortlet");
 	}
 
