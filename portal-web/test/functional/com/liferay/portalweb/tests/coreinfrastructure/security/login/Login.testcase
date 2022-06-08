@@ -47,6 +47,7 @@ definition {
 	@priority = "4"
 	test FacebookSSOSmoke {
 		property portal.ssl.enabled = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "Login#FacebookSSOSmoke";
 
 		var facebookApplicationId = PropsUtil.get("facebook.application.id");

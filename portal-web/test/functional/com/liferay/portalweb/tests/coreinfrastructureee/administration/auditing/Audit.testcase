@@ -100,6 +100,7 @@ definition {
 	test VerifyCorrectClientIP {
 		property osgi.module.configuration.file.names = "com.liferay.portal.security.audit.wiring.internal.configuration.AuditLogContextConfiguration.config";
 		property osgi.module.configurations = "enabled=&quot;true&quot;${line.separator}useIncomingXRequestId=&quot;true&quot;";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "Audit#VerifyCorrectClientIP";
 
 		task ("Add the OSGI configuration file") {
