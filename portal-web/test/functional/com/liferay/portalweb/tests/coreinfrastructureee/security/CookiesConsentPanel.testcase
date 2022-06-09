@@ -77,6 +77,7 @@ definition {
 	@description = "This is a use case for LPS-152844. AC-8. Verify that Cookie Consent panel could be enabled and customized on a Site page."
 	@priority = "5"
 	test CookiesConsentPanelCouldBeEnabledAndCustomizedOnASitePage {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "CookiesConsentPanel#CookieConsentPanelCouldBeEnabledAndCustomizedOnASitePage";
 
 		task ("Given: a site configured to show the Banner") {

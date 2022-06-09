@@ -103,6 +103,7 @@ definition {
 	test PrivacyPolicyLinksCanBeConfiguredFromALocalSite {
 		property osgi.module.configuration.file.names = "com.liferay.cookies.configuration.CookiesBannerConfiguration.config";
 		property osgi.module.configurations = "enabled=&quot;true&quot;";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "CookiesBanner#PrivacyPolicyLinksCanBeConfiguredFromALocalSite";
 
 		task ("Given: a site configured to show the Banner") {
