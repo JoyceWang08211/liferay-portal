@@ -27,7 +27,7 @@ definition {
 
 			SAML.executeSPInitiatedSSO(
 				password = "test",
-				specificURL = "http://www.able.com:8080",
+				spURL = "http://www.able.com:8080",
 				userEmailAddress = "userea2@liferay.com");
 
 			User.viewLoggedInPG();
