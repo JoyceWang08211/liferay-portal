@@ -3063,6 +3063,7 @@ definition {
 	test MetadataSourceIsChangedAfterChangedFromXMLFileToURL {
 		property app.server.bundles.size = "0";
 		property keystore.enabled = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#MetadataSourceIsChangedAfterChangedFromXMLFileToURL";
 
 		task ("Add SAML configuration files") {
