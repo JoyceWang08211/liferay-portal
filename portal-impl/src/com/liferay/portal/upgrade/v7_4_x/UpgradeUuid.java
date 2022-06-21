@@ -54,15 +54,15 @@ public class UpgradeUuid extends UpgradeProcess {
 		throws Exception {
 
 		if (!hasTable(tableName)) {
-			if (_log.isDebugEnabled()) {
-				_log.debug("Skip nonexistent table " + tableName);
+			if (_log.isWarnEnabled()) {
+				_log.warn("Skip nonexistent table " + tableName);
 			}
 
 			return;
 		}
 
-		if (_log.isDebugEnabled()) {
-			_log.debug("Upgrade table " + tableName);
+		if (_log.isWarnEnabled()) {
+			_log.warn("Upgrade table " + tableName);
 		}
 
 		if (!hasColumn(tableName, "uuid_")) {
