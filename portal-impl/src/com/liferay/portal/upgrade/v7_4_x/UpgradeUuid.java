@@ -31,22 +31,19 @@ public class UpgradeUuid extends UpgradeProcess {
 	protected void addUuidColumn(String tableName, String primKeyColumnName)
 		throws Exception {
 
-		if (!hasTable(tableName)) {
+		if (hasColumn(tableName, "uuid_")) {
 			return;
 		}
 
-		if (!hasColumn(tableName, "uuid_")) {
-			alterTableAddColumn(tableName, "uuid_", "VARCHAR(75) null");
-		}
+		alterTableAddColumn(tableName, "uuid_", "VARCHAR(75) null");
 
 		try (LoggingTimer loggingTimer = new LoggingTimer()) {
-			StringBundler selectSB = new StringBundler(5);
+			StringBundler selectSB = new StringBundler(7);
 
 			selectSB.append("select ");
 			selectSB.append(primKeyColumnName);
 			selectSB.append(" from ");
 			selectSB.append(tableName);
-			selectSB.append(" where uuid_ is null or uuid_ = ''");
 
 			StringBundler updateSB = new StringBundler(5);
 
