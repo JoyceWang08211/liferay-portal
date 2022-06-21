@@ -94,12 +94,12 @@ public class UpgradeExternalReferenceCode extends UpgradeProcess {
 				tableName, "externalReferenceCode", "VARCHAR(75)");
 		}
 
+		boolean hasUuid = hasColumn(tableName, "uuid_");
+
 		StringBundler selectSB = new StringBundler(7);
 
 		selectSB.append("select ");
 		selectSB.append(primKeyColumnName);
-
-		boolean hasUuid = hasColumn(tableName, "uuid_");
 
 		if (hasUuid) {
 			selectSB.append(", uuid_");
