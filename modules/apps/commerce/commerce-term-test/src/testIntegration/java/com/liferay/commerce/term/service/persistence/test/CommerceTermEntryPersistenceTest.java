@@ -128,8 +128,6 @@ public class CommerceTermEntryPersistenceTest {
 
 		newCommerceTermEntry.setMvccVersion(RandomTestUtil.nextLong());
 
-		newCommerceTermEntry.setUuid(RandomTestUtil.randomString());
-
 		newCommerceTermEntry.setExternalReferenceCode(
 			RandomTestUtil.randomString());
 
@@ -178,9 +176,6 @@ public class CommerceTermEntryPersistenceTest {
 		Assert.assertEquals(
 			existingCommerceTermEntry.getMvccVersion(),
 			newCommerceTermEntry.getMvccVersion());
-		Assert.assertEquals(
-			existingCommerceTermEntry.getUuid(),
-			newCommerceTermEntry.getUuid());
 		Assert.assertEquals(
 			existingCommerceTermEntry.getExternalReferenceCode(),
 			newCommerceTermEntry.getExternalReferenceCode());
@@ -243,24 +238,6 @@ public class CommerceTermEntryPersistenceTest {
 		Assert.assertEquals(
 			Time.getShortTimestamp(existingCommerceTermEntry.getStatusDate()),
 			Time.getShortTimestamp(newCommerceTermEntry.getStatusDate()));
-	}
-
-	@Test
-	public void testCountByUuid() throws Exception {
-		_persistence.countByUuid("");
-
-		_persistence.countByUuid("null");
-
-		_persistence.countByUuid((String)null);
-	}
-
-	@Test
-	public void testCountByUuid_C() throws Exception {
-		_persistence.countByUuid_C("", RandomTestUtil.nextLong());
-
-		_persistence.countByUuid_C("null", 0L);
-
-		_persistence.countByUuid_C((String)null, 0L);
 	}
 
 	@Test
@@ -361,14 +338,14 @@ public class CommerceTermEntryPersistenceTest {
 
 	protected OrderByComparator<CommerceTermEntry> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
-			"CommerceTermEntry", "mvccVersion", true, "uuid", true,
-			"externalReferenceCode", true, "defaultLanguageId", true,
-			"commerceTermEntryId", true, "companyId", true, "userId", true,
-			"userName", true, "createDate", true, "modifiedDate", true,
-			"active", true, "displayDate", true, "expirationDate", true, "name",
-			true, "priority", true, "type", true, "typeSettings", true,
-			"lastPublishDate", true, "status", true, "statusByUserId", true,
-			"statusByUserName", true, "statusDate", true);
+			"CommerceTermEntry", "mvccVersion", true, "externalReferenceCode",
+			true, "defaultLanguageId", true, "commerceTermEntryId", true,
+			"companyId", true, "userId", true, "userName", true, "createDate",
+			true, "modifiedDate", true, "active", true, "displayDate", true,
+			"expirationDate", true, "name", true, "priority", true, "type",
+			true, "typeSettings", true, "lastPublishDate", true, "status", true,
+			"statusByUserId", true, "statusByUserName", true, "statusDate",
+			true);
 	}
 
 	@Test
@@ -689,8 +666,6 @@ public class CommerceTermEntryPersistenceTest {
 		CommerceTermEntry commerceTermEntry = _persistence.create(pk);
 
 		commerceTermEntry.setMvccVersion(RandomTestUtil.nextLong());
-
-		commerceTermEntry.setUuid(RandomTestUtil.randomString());
 
 		commerceTermEntry.setExternalReferenceCode(
 			RandomTestUtil.randomString());

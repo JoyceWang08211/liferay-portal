@@ -81,12 +81,10 @@ public class CommerceInventoryWarehouseCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(45);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
-		sb.append(", uuid=");
-		sb.append(uuid);
 		sb.append(", externalReferenceCode=");
 		sb.append(externalReferenceCode);
 		sb.append(", commerceInventoryWarehouseId=");
@@ -138,13 +136,6 @@ public class CommerceInventoryWarehouseCacheModel
 			new CommerceInventoryWarehouseImpl();
 
 		commerceInventoryWarehouseImpl.setMvccVersion(mvccVersion);
-
-		if (uuid == null) {
-			commerceInventoryWarehouseImpl.setUuid("");
-		}
-		else {
-			commerceInventoryWarehouseImpl.setUuid(uuid);
-		}
 
 		if (externalReferenceCode == null) {
 			commerceInventoryWarehouseImpl.setExternalReferenceCode("");
@@ -266,7 +257,6 @@ public class CommerceInventoryWarehouseCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		mvccVersion = objectInput.readLong();
-		uuid = objectInput.readUTF();
 		externalReferenceCode = objectInput.readUTF();
 
 		commerceInventoryWarehouseId = objectInput.readLong();
@@ -298,13 +288,6 @@ public class CommerceInventoryWarehouseCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(mvccVersion);
-
-		if (uuid == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(uuid);
-		}
 
 		if (externalReferenceCode == null) {
 			objectOutput.writeUTF("");
@@ -407,7 +390,6 @@ public class CommerceInventoryWarehouseCacheModel
 	}
 
 	public long mvccVersion;
-	public String uuid;
 	public String externalReferenceCode;
 	public long commerceInventoryWarehouseId;
 	public long companyId;

@@ -60,11 +60,9 @@ public class ERCGroupEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(9);
 
-		sb.append("{uuid=");
-		sb.append(uuid);
-		sb.append(", externalReferenceCode=");
+		sb.append("{externalReferenceCode=");
 		sb.append(externalReferenceCode);
 		sb.append(", ercGroupEntryId=");
 		sb.append(ercGroupEntryId);
@@ -80,13 +78,6 @@ public class ERCGroupEntryCacheModel
 	@Override
 	public ERCGroupEntry toEntityModel() {
 		ERCGroupEntryImpl ercGroupEntryImpl = new ERCGroupEntryImpl();
-
-		if (uuid == null) {
-			ercGroupEntryImpl.setUuid("");
-		}
-		else {
-			ercGroupEntryImpl.setUuid(uuid);
-		}
 
 		if (externalReferenceCode == null) {
 			ercGroupEntryImpl.setExternalReferenceCode("");
@@ -106,7 +97,6 @@ public class ERCGroupEntryCacheModel
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
-		uuid = objectInput.readUTF();
 		externalReferenceCode = objectInput.readUTF();
 
 		ercGroupEntryId = objectInput.readLong();
@@ -118,13 +108,6 @@ public class ERCGroupEntryCacheModel
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
-		if (uuid == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(uuid);
-		}
-
 		if (externalReferenceCode == null) {
 			objectOutput.writeUTF("");
 		}
@@ -139,7 +122,6 @@ public class ERCGroupEntryCacheModel
 		objectOutput.writeLong(companyId);
 	}
 
-	public String uuid;
 	public String externalReferenceCode;
 	public long ercGroupEntryId;
 	public long groupId;

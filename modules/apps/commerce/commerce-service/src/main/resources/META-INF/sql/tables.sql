@@ -160,7 +160,6 @@ create table CommerceOrder (
 
 create table CommerceOrderItem (
 	mvccVersion LONG default 0 not null,
-	uuid_ VARCHAR(75) null,
 	externalReferenceCode VARCHAR(75) null,
 	commerceOrderItemId LONG not null primary key,
 	groupId LONG,
@@ -224,7 +223,6 @@ create table CommerceOrderItem (
 
 create table CommerceOrderNote (
 	mvccVersion LONG default 0 not null,
-	uuid_ VARCHAR(75) null,
 	externalReferenceCode VARCHAR(75) null,
 	commerceOrderNoteId LONG not null primary key,
 	groupId LONG,
@@ -255,7 +253,6 @@ create table CommerceOrderPayment (
 
 create table CommerceOrderType (
 	mvccVersion LONG default 0 not null,
-	uuid_ VARCHAR(75) null,
 	externalReferenceCode VARCHAR(75) null,
 	commerceOrderTypeId LONG not null primary key,
 	companyId LONG,
@@ -278,7 +275,6 @@ create table CommerceOrderType (
 
 create table CommerceOrderTypeRel (
 	mvccVersion LONG default 0 not null,
-	uuid_ VARCHAR(75) null,
 	externalReferenceCode VARCHAR(75) null,
 	commerceOrderTypeRelId LONG not null primary key,
 	companyId LONG,
@@ -293,7 +289,6 @@ create table CommerceOrderTypeRel (
 
 create table CommerceShipment (
 	mvccVersion LONG default 0 not null,
-	uuid_ VARCHAR(75) null,
 	externalReferenceCode VARCHAR(75) null,
 	commerceShipmentId LONG not null primary key,
 	groupId LONG,
@@ -315,7 +310,6 @@ create table CommerceShipment (
 
 create table CommerceShipmentItem (
 	mvccVersion LONG default 0 not null,
-	uuid_ VARCHAR(75) null,
 	externalReferenceCode VARCHAR(75) null,
 	commerceShipmentItemId LONG not null primary key,
 	groupId LONG,

@@ -3995,14 +3995,15 @@ public class KBFolderPersistenceImpl
 
 		KBFolderModelImpl kbFolderModelImpl = (KBFolderModelImpl)kbFolder;
 
+		if (Validator.isNull(kbFolder.getExternalReferenceCode())) {
+			kbFolder.setExternalReferenceCode(
+				String.valueOf(kbFolder.getPrimaryKey()));
+		}
+
 		if (Validator.isNull(kbFolder.getUuid())) {
 			String uuid = _portalUUID.generate();
 
 			kbFolder.setUuid(uuid);
-		}
-
-		if (Validator.isNull(kbFolder.getExternalReferenceCode())) {
-			kbFolder.setExternalReferenceCode(kbFolder.getUuid());
 		}
 
 		ServiceContext serviceContext =

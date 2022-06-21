@@ -77,12 +77,10 @@ public class AccountGroupCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
-		sb.append(", uuid=");
-		sb.append(uuid);
 		sb.append(", externalReferenceCode=");
 		sb.append(externalReferenceCode);
 		sb.append(", accountGroupId=");
@@ -115,13 +113,6 @@ public class AccountGroupCacheModel
 		AccountGroupImpl accountGroupImpl = new AccountGroupImpl();
 
 		accountGroupImpl.setMvccVersion(mvccVersion);
-
-		if (uuid == null) {
-			accountGroupImpl.setUuid("");
-		}
-		else {
-			accountGroupImpl.setUuid(uuid);
-		}
 
 		if (externalReferenceCode == null) {
 			accountGroupImpl.setExternalReferenceCode("");
@@ -186,7 +177,6 @@ public class AccountGroupCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		mvccVersion = objectInput.readLong();
-		uuid = objectInput.readUTF();
 		externalReferenceCode = objectInput.readUTF();
 
 		accountGroupId = objectInput.readLong();
@@ -207,13 +197,6 @@ public class AccountGroupCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(mvccVersion);
-
-		if (uuid == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(uuid);
-		}
 
 		if (externalReferenceCode == null) {
 			objectOutput.writeUTF("");
@@ -263,7 +246,6 @@ public class AccountGroupCacheModel
 	}
 
 	public long mvccVersion;
-	public String uuid;
 	public String externalReferenceCode;
 	public long accountGroupId;
 	public long companyId;

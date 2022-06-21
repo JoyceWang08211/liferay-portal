@@ -21,7 +21,6 @@ import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.model.LocalizedModel;
 import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
-import com.liferay.portal.kernel.model.StagedAuditedModel;
 
 import java.math.BigDecimal;
 
@@ -45,7 +44,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CommerceOrderItemModel
 	extends BaseModel<CommerceOrderItem>, GroupedModel, LocalizedModel,
-			MVCCModel, ShardedModel, StagedAuditedModel {
+			MVCCModel, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -82,23 +81,6 @@ public interface CommerceOrderItemModel
 	 */
 	@Override
 	public void setMvccVersion(long mvccVersion);
-
-	/**
-	 * Returns the uuid of this commerce order item.
-	 *
-	 * @return the uuid of this commerce order item
-	 */
-	@AutoEscape
-	@Override
-	public String getUuid();
-
-	/**
-	 * Sets the uuid of this commerce order item.
-	 *
-	 * @param uuid the uuid of this commerce order item
-	 */
-	@Override
-	public void setUuid(String uuid);
 
 	/**
 	 * Returns the external reference code of this commerce order item.

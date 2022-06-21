@@ -130,8 +130,6 @@ public class CommerceOrderItemPersistenceTest {
 
 		newCommerceOrderItem.setMvccVersion(RandomTestUtil.nextLong());
 
-		newCommerceOrderItem.setUuid(RandomTestUtil.randomString());
-
 		newCommerceOrderItem.setExternalReferenceCode(
 			RandomTestUtil.randomString());
 
@@ -283,9 +281,6 @@ public class CommerceOrderItemPersistenceTest {
 		Assert.assertEquals(
 			existingCommerceOrderItem.getMvccVersion(),
 			newCommerceOrderItem.getMvccVersion());
-		Assert.assertEquals(
-			existingCommerceOrderItem.getUuid(),
-			newCommerceOrderItem.getUuid());
 		Assert.assertEquals(
 			existingCommerceOrderItem.getExternalReferenceCode(),
 			newCommerceOrderItem.getExternalReferenceCode());
@@ -471,33 +466,6 @@ public class CommerceOrderItemPersistenceTest {
 	}
 
 	@Test
-	public void testCountByUuid() throws Exception {
-		_persistence.countByUuid("");
-
-		_persistence.countByUuid("null");
-
-		_persistence.countByUuid((String)null);
-	}
-
-	@Test
-	public void testCountByUUID_G() throws Exception {
-		_persistence.countByUUID_G("", RandomTestUtil.nextLong());
-
-		_persistence.countByUUID_G("null", 0L);
-
-		_persistence.countByUUID_G((String)null, 0L);
-	}
-
-	@Test
-	public void testCountByUuid_C() throws Exception {
-		_persistence.countByUuid_C("", RandomTestUtil.nextLong());
-
-		_persistence.countByUuid_C("null", 0L);
-
-		_persistence.countByUuid_C((String)null, 0L);
-	}
-
-	@Test
 	public void testCountByBookedQuantityId() throws Exception {
 		_persistence.countByBookedQuantityId(RandomTestUtil.nextLong());
 
@@ -583,13 +551,13 @@ public class CommerceOrderItemPersistenceTest {
 
 	protected OrderByComparator<CommerceOrderItem> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
-			"CommerceOrderItem", "mvccVersion", true, "uuid", true,
-			"externalReferenceCode", true, "commerceOrderItemId", true,
-			"groupId", true, "companyId", true, "userId", true, "userName",
-			true, "createDate", true, "modifiedDate", true, "bookedQuantityId",
-			true, "commerceOrderId", true, "commercePriceListId", true,
-			"CPInstanceId", true, "CPMeasurementUnitId", true, "CProductId",
-			true, "parentCommerceOrderItemId", true, "shippingAddressId", true,
+			"CommerceOrderItem", "mvccVersion", true, "externalReferenceCode",
+			true, "commerceOrderItemId", true, "groupId", true, "companyId",
+			true, "userId", true, "userName", true, "createDate", true,
+			"modifiedDate", true, "bookedQuantityId", true, "commerceOrderId",
+			true, "commercePriceListId", true, "CPInstanceId", true,
+			"CPMeasurementUnitId", true, "CProductId", true,
+			"parentCommerceOrderItemId", true, "shippingAddressId", true,
 			"decimalQuantity", true, "deliveryGroup", true,
 			"deliveryMaxSubscriptionCycles", true, "deliverySubscriptionLength",
 			true, "deliverySubscriptionType", true,
@@ -888,17 +856,6 @@ public class CommerceOrderItemPersistenceTest {
 
 	private void _assertOriginalValues(CommerceOrderItem commerceOrderItem) {
 		Assert.assertEquals(
-			commerceOrderItem.getUuid(),
-			ReflectionTestUtil.invoke(
-				commerceOrderItem, "getColumnOriginalValue",
-				new Class<?>[] {String.class}, "uuid_"));
-		Assert.assertEquals(
-			Long.valueOf(commerceOrderItem.getGroupId()),
-			ReflectionTestUtil.<Long>invoke(
-				commerceOrderItem, "getColumnOriginalValue",
-				new Class<?>[] {String.class}, "groupId"));
-
-		Assert.assertEquals(
 			Long.valueOf(commerceOrderItem.getBookedQuantityId()),
 			ReflectionTestUtil.<Long>invoke(
 				commerceOrderItem, "getColumnOriginalValue",
@@ -922,8 +879,6 @@ public class CommerceOrderItemPersistenceTest {
 		CommerceOrderItem commerceOrderItem = _persistence.create(pk);
 
 		commerceOrderItem.setMvccVersion(RandomTestUtil.nextLong());
-
-		commerceOrderItem.setUuid(RandomTestUtil.randomString());
 
 		commerceOrderItem.setExternalReferenceCode(
 			RandomTestUtil.randomString());

@@ -76,12 +76,10 @@ public class COREntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(45);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
-		sb.append(", uuid=");
-		sb.append(uuid);
 		sb.append(", externalReferenceCode=");
 		sb.append(externalReferenceCode);
 		sb.append(", COREntryId=");
@@ -132,13 +130,6 @@ public class COREntryCacheModel
 		COREntryImpl corEntryImpl = new COREntryImpl();
 
 		corEntryImpl.setMvccVersion(mvccVersion);
-
-		if (uuid == null) {
-			corEntryImpl.setUuid("");
-		}
-		else {
-			corEntryImpl.setUuid(uuid);
-		}
 
 		if (externalReferenceCode == null) {
 			corEntryImpl.setExternalReferenceCode("");
@@ -252,7 +243,6 @@ public class COREntryCacheModel
 		throws ClassNotFoundException, IOException {
 
 		mvccVersion = objectInput.readLong();
-		uuid = objectInput.readUTF();
 		externalReferenceCode = objectInput.readUTF();
 
 		COREntryId = objectInput.readLong();
@@ -285,13 +275,6 @@ public class COREntryCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(mvccVersion);
-
-		if (uuid == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(uuid);
-		}
 
 		if (externalReferenceCode == null) {
 			objectOutput.writeUTF("");
@@ -368,7 +351,6 @@ public class COREntryCacheModel
 	}
 
 	public long mvccVersion;
-	public String uuid;
 	public String externalReferenceCode;
 	public long COREntryId;
 	public long companyId;

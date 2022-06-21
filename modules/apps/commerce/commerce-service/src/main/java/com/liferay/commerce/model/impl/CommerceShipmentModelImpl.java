@@ -18,7 +18,6 @@ import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentModel;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
-import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -31,7 +30,6 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -74,8 +72,7 @@ public class CommerceShipmentModelImpl
 	public static final String TABLE_NAME = "CommerceShipment";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
-		{"externalReferenceCode", Types.VARCHAR},
+		{"mvccVersion", Types.BIGINT}, {"externalReferenceCode", Types.VARCHAR},
 		{"commerceShipmentId", Types.BIGINT}, {"groupId", Types.BIGINT},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
@@ -92,7 +89,6 @@ public class CommerceShipmentModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("externalReferenceCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("commerceShipmentId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
@@ -113,7 +109,7 @@ public class CommerceShipmentModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommerceShipment (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commerceShipmentId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceAccountId LONG,commerceAddressId LONG,commerceShippingMethodId LONG,shippingOptionName TEXT null,carrier VARCHAR(75) null,trackingNumber VARCHAR(75) null,shippingDate DATE null,expectedDate DATE null,status INTEGER)";
+		"create table CommerceShipment (mvccVersion LONG default 0 not null,externalReferenceCode VARCHAR(75) null,commerceShipmentId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,commerceAccountId LONG,commerceAddressId LONG,commerceShippingMethodId LONG,shippingOptionName TEXT null,carrier VARCHAR(75) null,trackingNumber VARCHAR(75) null,shippingDate DATE null,expectedDate DATE null,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table CommerceShipment";
 
@@ -178,17 +174,11 @@ public class CommerceShipmentModelImpl
 	public static final long STATUS_COLUMN_BITMASK = 16L;
 
 	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
-	 */
-	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 32L;
-
-	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long CREATEDATE_COLUMN_BITMASK = 64L;
+	public static final long CREATEDATE_COLUMN_BITMASK = 32L;
 
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
 		com.liferay.commerce.service.util.ServiceProps.get(
@@ -298,10 +288,6 @@ public class CommerceShipmentModelImpl
 			"mvccVersion",
 			(BiConsumer<CommerceShipment, Long>)
 				CommerceShipment::setMvccVersion);
-		attributeGetterFunctions.put("uuid", CommerceShipment::getUuid);
-		attributeSetterBiConsumers.put(
-			"uuid",
-			(BiConsumer<CommerceShipment, String>)CommerceShipment::setUuid);
 		attributeGetterFunctions.put(
 			"externalReferenceCode",
 			CommerceShipment::getExternalReferenceCode);
@@ -416,35 +402,6 @@ public class CommerceShipmentModelImpl
 		}
 
 		_mvccVersion = mvccVersion;
-	}
-
-	@JSON
-	@Override
-	public String getUuid() {
-		if (_uuid == null) {
-			return "";
-		}
-		else {
-			return _uuid;
-		}
-	}
-
-	@Override
-	public void setUuid(String uuid) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_uuid = uuid;
-	}
-
-	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *             #getColumnOriginalValue(String)}
-	 */
-	@Deprecated
-	public String getOriginalUuid() {
-		return getColumnOriginalValue("uuid_");
 	}
 
 	@JSON
@@ -797,12 +754,6 @@ public class CommerceShipmentModelImpl
 			this.<Integer>getColumnOriginalValue("status"));
 	}
 
-	@Override
-	public StagedModelType getStagedModelType() {
-		return new StagedModelType(
-			PortalUtil.getClassNameId(CommerceShipment.class.getName()));
-	}
-
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -860,7 +811,6 @@ public class CommerceShipmentModelImpl
 		CommerceShipmentImpl commerceShipmentImpl = new CommerceShipmentImpl();
 
 		commerceShipmentImpl.setMvccVersion(getMvccVersion());
-		commerceShipmentImpl.setUuid(getUuid());
 		commerceShipmentImpl.setExternalReferenceCode(
 			getExternalReferenceCode());
 		commerceShipmentImpl.setCommerceShipmentId(getCommerceShipmentId());
@@ -892,8 +842,6 @@ public class CommerceShipmentModelImpl
 
 		commerceShipmentImpl.setMvccVersion(
 			this.<Long>getColumnOriginalValue("mvccVersion"));
-		commerceShipmentImpl.setUuid(
-			this.<String>getColumnOriginalValue("uuid_"));
 		commerceShipmentImpl.setExternalReferenceCode(
 			this.<String>getColumnOriginalValue("externalReferenceCode"));
 		commerceShipmentImpl.setCommerceShipmentId(
@@ -1008,14 +956,6 @@ public class CommerceShipmentModelImpl
 			new CommerceShipmentCacheModel();
 
 		commerceShipmentCacheModel.mvccVersion = getMvccVersion();
-
-		commerceShipmentCacheModel.uuid = getUuid();
-
-		String uuid = commerceShipmentCacheModel.uuid;
-
-		if ((uuid != null) && (uuid.length() == 0)) {
-			commerceShipmentCacheModel.uuid = null;
-		}
 
 		commerceShipmentCacheModel.externalReferenceCode =
 			getExternalReferenceCode();
@@ -1211,7 +1151,6 @@ public class CommerceShipmentModelImpl
 	}
 
 	private long _mvccVersion;
-	private String _uuid;
 	private String _externalReferenceCode;
 	private long _commerceShipmentId;
 	private long _groupId;
@@ -1232,8 +1171,6 @@ public class CommerceShipmentModelImpl
 	private int _status;
 
 	public <T> T getColumnValue(String columnName) {
-		columnName = _attributeNames.getOrDefault(columnName, columnName);
-
 		Function<CommerceShipment, Object> function =
 			_attributeGetterFunctions.get(columnName);
 
@@ -1261,7 +1198,6 @@ public class CommerceShipmentModelImpl
 		_columnOriginalValues = new HashMap<String, Object>();
 
 		_columnOriginalValues.put("mvccVersion", _mvccVersion);
-		_columnOriginalValues.put("uuid_", _uuid);
 		_columnOriginalValues.put(
 			"externalReferenceCode", _externalReferenceCode);
 		_columnOriginalValues.put("commerceShipmentId", _commerceShipmentId);
@@ -1283,16 +1219,6 @@ public class CommerceShipmentModelImpl
 		_columnOriginalValues.put("status", _status);
 	}
 
-	private static final Map<String, String> _attributeNames;
-
-	static {
-		Map<String, String> attributeNames = new HashMap<>();
-
-		attributeNames.put("uuid_", "uuid");
-
-		_attributeNames = Collections.unmodifiableMap(attributeNames);
-	}
-
 	private transient Map<String, Object> _columnOriginalValues;
 
 	public static long getColumnBitmask(String columnName) {
@@ -1306,41 +1232,39 @@ public class CommerceShipmentModelImpl
 
 		columnBitmasks.put("mvccVersion", 1L);
 
-		columnBitmasks.put("uuid_", 2L);
+		columnBitmasks.put("externalReferenceCode", 2L);
 
-		columnBitmasks.put("externalReferenceCode", 4L);
+		columnBitmasks.put("commerceShipmentId", 4L);
 
-		columnBitmasks.put("commerceShipmentId", 8L);
+		columnBitmasks.put("groupId", 8L);
 
-		columnBitmasks.put("groupId", 16L);
+		columnBitmasks.put("companyId", 16L);
 
-		columnBitmasks.put("companyId", 32L);
+		columnBitmasks.put("userId", 32L);
 
-		columnBitmasks.put("userId", 64L);
+		columnBitmasks.put("userName", 64L);
 
-		columnBitmasks.put("userName", 128L);
+		columnBitmasks.put("createDate", 128L);
 
-		columnBitmasks.put("createDate", 256L);
+		columnBitmasks.put("modifiedDate", 256L);
 
-		columnBitmasks.put("modifiedDate", 512L);
+		columnBitmasks.put("commerceAccountId", 512L);
 
-		columnBitmasks.put("commerceAccountId", 1024L);
+		columnBitmasks.put("commerceAddressId", 1024L);
 
-		columnBitmasks.put("commerceAddressId", 2048L);
+		columnBitmasks.put("commerceShippingMethodId", 2048L);
 
-		columnBitmasks.put("commerceShippingMethodId", 4096L);
+		columnBitmasks.put("shippingOptionName", 4096L);
 
-		columnBitmasks.put("shippingOptionName", 8192L);
+		columnBitmasks.put("carrier", 8192L);
 
-		columnBitmasks.put("carrier", 16384L);
+		columnBitmasks.put("trackingNumber", 16384L);
 
-		columnBitmasks.put("trackingNumber", 32768L);
+		columnBitmasks.put("shippingDate", 32768L);
 
-		columnBitmasks.put("shippingDate", 65536L);
+		columnBitmasks.put("expectedDate", 65536L);
 
-		columnBitmasks.put("expectedDate", 131072L);
-
-		columnBitmasks.put("status", 262144L);
+		columnBitmasks.put("status", 131072L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

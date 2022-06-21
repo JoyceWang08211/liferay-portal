@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.inventory.model;
 
-import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
@@ -47,7 +46,6 @@ public class CommerceInventoryWarehouseWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("mvccVersion", getMvccVersion());
-		attributes.put("uuid", getUuid());
 		attributes.put("externalReferenceCode", getExternalReferenceCode());
 		attributes.put(
 			"commerceInventoryWarehouseId", getCommerceInventoryWarehouseId());
@@ -80,12 +78,6 @@ public class CommerceInventoryWarehouseWrapper
 
 		if (mvccVersion != null) {
 			setMvccVersion(mvccVersion);
-		}
-
-		String uuid = (String)attributes.get("uuid");
-
-		if (uuid != null) {
-			setUuid(uuid);
 		}
 
 		String externalReferenceCode = (String)attributes.get(
@@ -446,16 +438,6 @@ public class CommerceInventoryWarehouseWrapper
 	}
 
 	/**
-	 * Returns the uuid of this commerce inventory warehouse.
-	 *
-	 * @return the uuid of this commerce inventory warehouse
-	 */
-	@Override
-	public String getUuid() {
-		return model.getUuid();
-	}
-
-	/**
 	 * Returns the zip of this commerce inventory warehouse.
 	 *
 	 * @return the zip of this commerce inventory warehouse
@@ -708,16 +690,6 @@ public class CommerceInventoryWarehouseWrapper
 	}
 
 	/**
-	 * Sets the uuid of this commerce inventory warehouse.
-	 *
-	 * @param uuid the uuid of this commerce inventory warehouse
-	 */
-	@Override
-	public void setUuid(String uuid) {
-		model.setUuid(uuid);
-	}
-
-	/**
 	 * Sets the zip of this commerce inventory warehouse.
 	 *
 	 * @param zip the zip of this commerce inventory warehouse
@@ -725,11 +697,6 @@ public class CommerceInventoryWarehouseWrapper
 	@Override
 	public void setZip(String zip) {
 		model.setZip(zip);
-	}
-
-	@Override
-	public StagedModelType getStagedModelType() {
-		return model.getStagedModelType();
 	}
 
 	@Override

@@ -126,8 +126,6 @@ public class AccountGroupPersistenceTest {
 
 		newAccountGroup.setMvccVersion(RandomTestUtil.nextLong());
 
-		newAccountGroup.setUuid(RandomTestUtil.randomString());
-
 		newAccountGroup.setExternalReferenceCode(RandomTestUtil.randomString());
 
 		newAccountGroup.setCompanyId(RandomTestUtil.nextLong());
@@ -157,8 +155,6 @@ public class AccountGroupPersistenceTest {
 			existingAccountGroup.getMvccVersion(),
 			newAccountGroup.getMvccVersion());
 		Assert.assertEquals(
-			existingAccountGroup.getUuid(), newAccountGroup.getUuid());
-		Assert.assertEquals(
 			existingAccountGroup.getExternalReferenceCode(),
 			newAccountGroup.getExternalReferenceCode());
 		Assert.assertEquals(
@@ -187,24 +183,6 @@ public class AccountGroupPersistenceTest {
 			existingAccountGroup.getName(), newAccountGroup.getName());
 		Assert.assertEquals(
 			existingAccountGroup.getType(), newAccountGroup.getType());
-	}
-
-	@Test
-	public void testCountByUuid() throws Exception {
-		_persistence.countByUuid("");
-
-		_persistence.countByUuid("null");
-
-		_persistence.countByUuid((String)null);
-	}
-
-	@Test
-	public void testCountByUuid_C() throws Exception {
-		_persistence.countByUuid_C("", RandomTestUtil.nextLong());
-
-		_persistence.countByUuid_C("null", 0L);
-
-		_persistence.countByUuid_C((String)null, 0L);
 	}
 
 	@Test
@@ -278,11 +256,11 @@ public class AccountGroupPersistenceTest {
 
 	protected OrderByComparator<AccountGroup> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create(
-			"AccountGroup", "mvccVersion", true, "uuid", true,
-			"externalReferenceCode", true, "accountGroupId", true, "companyId",
-			true, "userId", true, "userName", true, "createDate", true,
-			"modifiedDate", true, "defaultAccountGroup", true, "description",
-			true, "name", true, "type", true);
+			"AccountGroup", "mvccVersion", true, "externalReferenceCode", true,
+			"accountGroupId", true, "companyId", true, "userId", true,
+			"userName", true, "createDate", true, "modifiedDate", true,
+			"defaultAccountGroup", true, "description", true, "name", true,
+			"type", true);
 	}
 
 	@Test
@@ -567,8 +545,6 @@ public class AccountGroupPersistenceTest {
 		AccountGroup accountGroup = _persistence.create(pk);
 
 		accountGroup.setMvccVersion(RandomTestUtil.nextLong());
-
-		accountGroup.setUuid(RandomTestUtil.randomString());
 
 		accountGroup.setExternalReferenceCode(RandomTestUtil.randomString());
 

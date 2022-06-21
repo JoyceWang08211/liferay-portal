@@ -15,10 +15,10 @@
 package com.liferay.account.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
-import com.liferay.portal.kernel.model.StagedAuditedModel;
 
 import java.util.Date;
 
@@ -37,8 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface AccountEntryModel
-	extends BaseModel<AccountEntry>, MVCCModel, ShardedModel,
-			StagedAuditedModel {
+	extends AuditedModel, BaseModel<AccountEntry>, MVCCModel, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -75,23 +74,6 @@ public interface AccountEntryModel
 	 */
 	@Override
 	public void setMvccVersion(long mvccVersion);
-
-	/**
-	 * Returns the uuid of this account entry.
-	 *
-	 * @return the uuid of this account entry
-	 */
-	@AutoEscape
-	@Override
-	public String getUuid();
-
-	/**
-	 * Sets the uuid of this account entry.
-	 *
-	 * @param uuid the uuid of this account entry
-	 */
-	@Override
-	public void setUuid(String uuid);
 
 	/**
 	 * Returns the external reference code of this account entry.

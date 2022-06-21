@@ -37,7 +37,6 @@ public class CommerceOrderItemFinderBaseImpl
 
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
-		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put(
 			"deliverySubscriptionTypeSettings", "deliverySubTypeSettings");
 		dbColumnNames.put(

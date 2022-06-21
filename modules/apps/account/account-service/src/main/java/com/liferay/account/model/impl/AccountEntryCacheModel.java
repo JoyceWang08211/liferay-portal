@@ -77,12 +77,10 @@ public class AccountEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(47);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
-		sb.append(", uuid=");
-		sb.append(uuid);
 		sb.append(", externalReferenceCode=");
 		sb.append(externalReferenceCode);
 		sb.append(", accountEntryId=");
@@ -137,13 +135,6 @@ public class AccountEntryCacheModel
 		AccountEntryImpl accountEntryImpl = new AccountEntryImpl();
 
 		accountEntryImpl.setMvccVersion(mvccVersion);
-
-		if (uuid == null) {
-			accountEntryImpl.setUuid("");
-		}
-		else {
-			accountEntryImpl.setUuid(uuid);
-		}
 
 		if (externalReferenceCode == null) {
 			accountEntryImpl.setExternalReferenceCode("");
@@ -255,7 +246,6 @@ public class AccountEntryCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		mvccVersion = objectInput.readLong();
-		uuid = objectInput.readUTF();
 		externalReferenceCode = objectInput.readUTF();
 
 		accountEntryId = objectInput.readLong();
@@ -293,13 +283,6 @@ public class AccountEntryCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(mvccVersion);
-
-		if (uuid == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(uuid);
-		}
 
 		if (externalReferenceCode == null) {
 			objectOutput.writeUTF("");
@@ -396,7 +379,6 @@ public class AccountEntryCacheModel
 	}
 
 	public long mvccVersion;
-	public String uuid;
 	public String externalReferenceCode;
 	public long accountEntryId;
 	public long companyId;

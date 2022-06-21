@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.model.ShardedModel;
-import com.liferay.portal.kernel.model.StagedAuditedModel;
 
 import java.util.Date;
 
@@ -38,8 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface CommerceShipmentModel
-	extends BaseModel<CommerceShipment>, GroupedModel, MVCCModel, ShardedModel,
-			StagedAuditedModel {
+	extends BaseModel<CommerceShipment>, GroupedModel, MVCCModel, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -76,23 +74,6 @@ public interface CommerceShipmentModel
 	 */
 	@Override
 	public void setMvccVersion(long mvccVersion);
-
-	/**
-	 * Returns the uuid of this commerce shipment.
-	 *
-	 * @return the uuid of this commerce shipment
-	 */
-	@AutoEscape
-	@Override
-	public String getUuid();
-
-	/**
-	 * Sets the uuid of this commerce shipment.
-	 *
-	 * @param uuid the uuid of this commerce shipment
-	 */
-	@Override
-	public void setUuid(String uuid);
 
 	/**
 	 * Returns the external reference code of this commerce shipment.

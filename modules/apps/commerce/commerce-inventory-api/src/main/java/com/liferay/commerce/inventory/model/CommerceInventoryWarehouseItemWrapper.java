@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.inventory.model;
 
-import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
@@ -47,7 +46,6 @@ public class CommerceInventoryWarehouseItemWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("mvccVersion", getMvccVersion());
-		attributes.put("uuid", getUuid());
 		attributes.put("externalReferenceCode", getExternalReferenceCode());
 		attributes.put(
 			"commerceInventoryWarehouseItemId",
@@ -72,12 +70,6 @@ public class CommerceInventoryWarehouseItemWrapper
 
 		if (mvccVersion != null) {
 			setMvccVersion(mvccVersion);
-		}
-
-		String uuid = (String)attributes.get("uuid");
-
-		if (uuid != null) {
-			setUuid(uuid);
 		}
 
 		String externalReferenceCode = (String)attributes.get(
@@ -303,16 +295,6 @@ public class CommerceInventoryWarehouseItemWrapper
 		return model.getUserUuid();
 	}
 
-	/**
-	 * Returns the uuid of this commerce inventory warehouse item.
-	 *
-	 * @return the uuid of this commerce inventory warehouse item
-	 */
-	@Override
-	public String getUuid() {
-		return model.getUuid();
-	}
-
 	@Override
 	public void persist() {
 		model.persist();
@@ -461,21 +443,6 @@ public class CommerceInventoryWarehouseItemWrapper
 	@Override
 	public void setUserUuid(String userUuid) {
 		model.setUserUuid(userUuid);
-	}
-
-	/**
-	 * Sets the uuid of this commerce inventory warehouse item.
-	 *
-	 * @param uuid the uuid of this commerce inventory warehouse item
-	 */
-	@Override
-	public void setUuid(String uuid) {
-		model.setUuid(uuid);
-	}
-
-	@Override
-	public StagedModelType getStagedModelType() {
-		return model.getStagedModelType();
 	}
 
 	@Override

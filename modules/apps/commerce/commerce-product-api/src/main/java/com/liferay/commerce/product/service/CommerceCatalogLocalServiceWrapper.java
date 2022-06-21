@@ -320,21 +320,6 @@ public class CommerceCatalogLocalServiceWrapper
 			companyId, externalReferenceCode);
 	}
 
-	/**
-	 * Returns the commerce catalog with the matching UUID and company.
-	 *
-	 * @param uuid the commerce catalog's UUID
-	 * @param companyId the primary key of the company
-	 * @return the matching commerce catalog, or <code>null</code> if a matching commerce catalog could not be found
-	 */
-	@Override
-	public CommerceCatalog fetchCommerceCatalogByUuidAndCompanyId(
-		String uuid, long companyId) {
-
-		return _commerceCatalogLocalService.
-			fetchCommerceCatalogByUuidAndCompanyId(uuid, companyId);
-	}
-
 	@Override
 	public CommerceCatalog forceDeleteCommerceCatalog(
 			CommerceCatalog commerceCatalog)
@@ -384,23 +369,6 @@ public class CommerceCatalogLocalServiceWrapper
 				companyId, externalReferenceCode);
 	}
 
-	/**
-	 * Returns the commerce catalog with the matching UUID and company.
-	 *
-	 * @param uuid the commerce catalog's UUID
-	 * @param companyId the primary key of the company
-	 * @return the matching commerce catalog
-	 * @throws PortalException if a matching commerce catalog could not be found
-	 */
-	@Override
-	public CommerceCatalog getCommerceCatalogByUuidAndCompanyId(
-			String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceCatalogLocalService.
-			getCommerceCatalogByUuidAndCompanyId(uuid, companyId);
-	}
-
 	@Override
 	public com.liferay.portal.kernel.model.Group getCommerceCatalogGroup(
 			long commerceCatalogId)
@@ -444,16 +412,6 @@ public class CommerceCatalogLocalServiceWrapper
 	@Override
 	public int getCommerceCatalogsCount() {
 		return _commerceCatalogLocalService.getCommerceCatalogsCount();
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
-		getExportActionableDynamicQuery(
-			com.liferay.exportimport.kernel.lar.PortletDataContext
-				portletDataContext) {
-
-		return _commerceCatalogLocalService.getExportActionableDynamicQuery(
-			portletDataContext);
 	}
 
 	@Override

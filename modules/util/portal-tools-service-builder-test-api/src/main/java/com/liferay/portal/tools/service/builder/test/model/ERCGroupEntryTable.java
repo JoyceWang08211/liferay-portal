@@ -30,8 +30,6 @@ public class ERCGroupEntryTable extends BaseTable<ERCGroupEntryTable> {
 
 	public static final ERCGroupEntryTable INSTANCE = new ERCGroupEntryTable();
 
-	public final Column<ERCGroupEntryTable, String> uuid = createColumn(
-		"uuid_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ERCGroupEntryTable, String> externalReferenceCode =
 		createColumn(
 			"externalReferenceCode", String.class, Types.VARCHAR,

@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.product.model;
 
-import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
@@ -47,7 +46,6 @@ public class CommerceChannelWrapper
 
 		attributes.put("mvccVersion", getMvccVersion());
 		attributes.put("ctCollectionId", getCtCollectionId());
-		attributes.put("uuid", getUuid());
 		attributes.put("externalReferenceCode", getExternalReferenceCode());
 		attributes.put("commerceChannelId", getCommerceChannelId());
 		attributes.put("companyId", getCompanyId());
@@ -78,12 +76,6 @@ public class CommerceChannelWrapper
 
 		if (ctCollectionId != null) {
 			setCtCollectionId(ctCollectionId);
-		}
-
-		String uuid = (String)attributes.get("uuid");
-
-		if (uuid != null) {
-			setUuid(uuid);
 		}
 
 		String externalReferenceCode = (String)attributes.get(
@@ -377,16 +369,6 @@ public class CommerceChannelWrapper
 	}
 
 	/**
-	 * Returns the uuid of this commerce channel.
-	 *
-	 * @return the uuid of this commerce channel
-	 */
-	@Override
-	public String getUuid() {
-		return model.getUuid();
-	}
-
-	/**
 	 * Returns <code>true</code> if this commerce channel is discounts target net price.
 	 *
 	 * @return <code>true</code> if this commerce channel is discounts target net price; <code>false</code> otherwise
@@ -589,16 +571,6 @@ public class CommerceChannelWrapper
 		model.setUserUuid(userUuid);
 	}
 
-	/**
-	 * Sets the uuid of this commerce channel.
-	 *
-	 * @param uuid the uuid of this commerce channel
-	 */
-	@Override
-	public void setUuid(String uuid) {
-		model.setUuid(uuid);
-	}
-
 	@Override
 	public Map<String, Function<CommerceChannel, Object>>
 		getAttributeGetterFunctions() {
@@ -611,11 +583,6 @@ public class CommerceChannelWrapper
 		getAttributeSetterBiConsumers() {
 
 		return model.getAttributeSetterBiConsumers();
-	}
-
-	@Override
-	public StagedModelType getStagedModelType() {
-		return model.getStagedModelType();
 	}
 
 	@Override

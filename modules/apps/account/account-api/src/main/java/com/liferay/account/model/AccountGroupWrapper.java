@@ -14,7 +14,6 @@
 
 package com.liferay.account.model;
 
-import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
@@ -44,7 +43,6 @@ public class AccountGroupWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("mvccVersion", getMvccVersion());
-		attributes.put("uuid", getUuid());
 		attributes.put("externalReferenceCode", getExternalReferenceCode());
 		attributes.put("accountGroupId", getAccountGroupId());
 		attributes.put("companyId", getCompanyId());
@@ -66,12 +64,6 @@ public class AccountGroupWrapper
 
 		if (mvccVersion != null) {
 			setMvccVersion(mvccVersion);
-		}
-
-		String uuid = (String)attributes.get("uuid");
-
-		if (uuid != null) {
-			setUuid(uuid);
 		}
 
 		String externalReferenceCode = (String)attributes.get(
@@ -289,16 +281,6 @@ public class AccountGroupWrapper
 	}
 
 	/**
-	 * Returns the uuid of this account group.
-	 *
-	 * @return the uuid of this account group
-	 */
-	@Override
-	public String getUuid() {
-		return model.getUuid();
-	}
-
-	/**
 	 * Returns <code>true</code> if this account group is default account group.
 	 *
 	 * @return <code>true</code> if this account group is default account group; <code>false</code> otherwise
@@ -451,21 +433,6 @@ public class AccountGroupWrapper
 	@Override
 	public void setUserUuid(String userUuid) {
 		model.setUserUuid(userUuid);
-	}
-
-	/**
-	 * Sets the uuid of this account group.
-	 *
-	 * @param uuid the uuid of this account group
-	 */
-	@Override
-	public void setUuid(String uuid) {
-		model.setUuid(uuid);
-	}
-
-	@Override
-	public StagedModelType getStagedModelType() {
-		return model.getStagedModelType();
 	}
 
 	@Override
