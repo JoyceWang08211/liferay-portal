@@ -4805,14 +4805,15 @@ public class ObjectFieldPersistenceImpl
 		ObjectFieldModelImpl objectFieldModelImpl =
 			(ObjectFieldModelImpl)objectField;
 
+		if (Validator.isNull(objectField.getExternalReferenceCode())) {
+			objectField.setExternalReferenceCode(
+				String.valueOf(objectField.getPrimaryKey()));
+		}
+
 		if (Validator.isNull(objectField.getUuid())) {
 			String uuid = _portalUUID.generate();
 
 			objectField.setUuid(uuid);
-		}
-
-		if (Validator.isNull(objectField.getExternalReferenceCode())) {
-			objectField.setExternalReferenceCode(objectField.getUuid());
 		}
 
 		ServiceContext serviceContext =
