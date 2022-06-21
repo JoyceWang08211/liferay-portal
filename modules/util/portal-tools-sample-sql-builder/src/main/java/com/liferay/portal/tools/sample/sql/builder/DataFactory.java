@@ -1682,10 +1682,6 @@ public class DataFactory {
 		CommerceOrderItemModel commerceOrderItemModel =
 			new CommerceOrderItemModelImpl();
 
-		// UUID
-
-		commerceOrderItemModel.setUuid(SequentialUUID.generate());
-
 		// PK fields
 
 		long commerceOrderItemId = _counter.get();
