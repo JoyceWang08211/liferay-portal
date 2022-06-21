@@ -41,18 +41,24 @@ public class UpgradeExternalReferenceCode extends UpgradeProcess {
 		upgradeExternalReference("CommerceChannel", "commerceChannelId");
 		upgradeExternalReference("CommerceDiscount", "commerceDiscountId");
 		upgradeExternalReference("CommerceOrder", "commerceOrderId");
-		upgradeExternalReference("CommerceOrderItem", "commerceOrderItemId");
-		upgradeExternalReference("CommerceOrderNote", "commerceOrderNoteId");
-		upgradeExternalReference("CommerceOrderType", "commerceOrderTypeId");
+		upgradeExternalReference(
+			"CommerceOrderItem", "commerceOrderItemId");
+		upgradeExternalReference(
+			"CommerceOrderNote", "commerceOrderNoteId");
+		upgradeExternalReference(
+			"CommerceOrderType", "commerceOrderTypeId");
 		upgradeExternalReference(
 			"CommerceOrderTypeRel", "commerceOrderTypeRelId");
-		upgradeExternalReference("CommercePriceEntry", "commercePriceEntryId");
-		upgradeExternalReference("CommercePriceList", "commercePriceListId");
+		upgradeExternalReference(
+			"CommercePriceEntry", "commercePriceEntryId");
+		upgradeExternalReference(
+			"CommercePriceList", "commercePriceListId");
 		upgradeExternalReference(
 			"CommercePriceModifier", "commercePriceModifierId");
 		upgradeExternalReference(
 			"CommercePricingClass", "commercePricingClassId");
-		upgradeExternalReference("CommerceTermEntry", "commerceTermEntryId");
+		upgradeExternalReference(
+			"CommerceTermEntry", "commerceTermEntryId");
 		upgradeExternalReference(
 			"CommerceTierPriceEntry", "commerceTierPriceEntryId");
 		upgradeExternalReference("COREntry", "COREntryId");
