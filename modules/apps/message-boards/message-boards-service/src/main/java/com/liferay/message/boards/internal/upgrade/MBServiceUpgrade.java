@@ -31,6 +31,7 @@ import com.liferay.message.boards.internal.upgrade.v4_0_0.MBCategoryLastPostDate
 import com.liferay.message.boards.internal.upgrade.v4_0_0.MBCategoryMessageCountUpgradeProcess;
 import com.liferay.message.boards.internal.upgrade.v4_0_0.MBCategoryThreadCountUpgradeProcess;
 import com.liferay.message.boards.internal.upgrade.v5_0_0.MBThreadMessageCountUpgradeProcess;
+import com.liferay.message.boards.internal.upgrade.v5_2_0.MBMessageExternalReferenceCodeUpgradeProcess;
 import com.liferay.message.boards.internal.upgrade.v6_0_0.MBStatsUserUpgradeProcess;
 import com.liferay.message.boards.internal.upgrade.v6_1_0.MBThreadTableUpgradeProcess;
 import com.liferay.message.boards.internal.upgrade.v6_1_1.MBMessageTableUpgradeProcess;
@@ -38,10 +39,8 @@ import com.liferay.message.boards.model.MBThread;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
-import com.liferay.portal.kernel.upgrade.BaseExternalReferenceCodeUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.BaseSQLServerDatetimeUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.CTModelUpgradeProcess;
-import com.liferay.portal.kernel.upgrade.DummyUpgradeStep;
 import com.liferay.portal.kernel.upgrade.MVCCVersionUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.ViewCountUpgradeProcess;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
@@ -111,7 +110,9 @@ public class MBServiceUpgrade implements UpgradeStepRegistrator {
 				"MBBan", "MBCategory", "MBDiscussion", "MBMailingList",
 				"MBMessage", "MBStatsUser", "MBThread", "MBThreadFlag"));
 
-		registry.register("5.1.0", "5.2.0", new DummyUpgradeStep());
+		registry.register(
+			"5.1.0", "5.2.0",
+			new MBMessageExternalReferenceCodeUpgradeProcess());
 
 		registry.register("5.2.0", "6.0.0", new MBStatsUserUpgradeProcess());
 
@@ -121,17 +122,6 @@ public class MBServiceUpgrade implements UpgradeStepRegistrator {
 			"6.1.0", "6.1.1", new MBMessageTableUpgradeProcess(),
 			new com.liferay.message.boards.internal.upgrade.v6_1_1.
 				MBThreadTableUpgradeProcess());
-
-		registry.register(
-			"6.1.1", "6.2.0",
-			new BaseExternalReferenceCodeUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {{"MBMessage", "messageId"}};
-				}
-
-			});
 	}
 
 	@Reference

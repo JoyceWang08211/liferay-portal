@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.order.rule.internal.upgrade;
 
-import com.liferay.portal.kernel.upgrade.BaseExternalReferenceCodeUpgradeProcess;
-import com.liferay.portal.kernel.upgrade.BaseUuidUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.MVCCVersionUpgradeProcess;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
@@ -39,28 +37,6 @@ public class CommerceOrderRuleUpgradeStepRegistrator
 				@Override
 				protected String[] getModuleTableNames() {
 					return new String[] {"COREntry", "COREntryRel"};
-				}
-
-			});
-
-		registry.register(
-			"1.1.0", "1.2.0",
-			new BaseUuidUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {{"COREntry", "COREntryId"}};
-				}
-
-			});
-
-		registry.register(
-			"1.2.0", "1.2.1",
-			new BaseExternalReferenceCodeUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {{"COREntry", "COREntryId"}};
 				}
 
 			});

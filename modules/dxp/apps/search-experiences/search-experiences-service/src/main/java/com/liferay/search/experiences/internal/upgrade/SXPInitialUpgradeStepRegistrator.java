@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	enabled = true, immediate = true, service = UpgradeStepRegistrator.class
 )
-public class SXPServiceInitialUpgradeStepRegistrator
+public class SXPInitialUpgradeStepRegistrator
 	implements UpgradeStepRegistrator {
 
 	@Override

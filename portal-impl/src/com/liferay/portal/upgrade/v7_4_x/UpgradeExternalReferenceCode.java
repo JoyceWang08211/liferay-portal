@@ -31,14 +31,51 @@ public class UpgradeExternalReferenceCode extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
+		upgradeExternalReference("AccountEntry", "accountEntryId");
+		upgradeExternalReference("AccountGroup", "accountGroupId");
 		upgradeExternalReference("Address", "addressId");
 		upgradeExternalReference("AssetCategory", "categoryId");
 		upgradeExternalReference("AssetVocabulary", "vocabularyId");
 		upgradeExternalReference("BlogsEntry", "entryId");
+		upgradeExternalReference("CIWarehouse", "CIWarehouseId");
+		upgradeExternalReference("CIWarehouseItem", "CIWarehouseItemId");
+		upgradeExternalReference("CommerceCatalog", "commerceCatalogId");
+		upgradeExternalReference("CommerceChannel", "commerceChannelId");
+		upgradeExternalReference("CommerceDiscount", "commerceDiscountId");
+		upgradeExternalReference("CommerceOrder", "commerceOrderId");
+		upgradeExternalReference("CommerceOrderItem", "commerceOrderItemId");
+		upgradeExternalReference("CommerceOrderNote", "commerceOrderNoteId");
+		upgradeExternalReference("CommerceOrderType", "commerceOrderTypeId");
+		upgradeExternalReference(
+			"CommerceOrderTypeRel", "commerceOrderTypeRelId");
+		upgradeExternalReference("CommercePriceEntry", "commercePriceEntryId");
+		upgradeExternalReference("CommercePriceList", "commercePriceListId");
+		upgradeExternalReference(
+			"CommercePriceModifier", "commercePriceModifierId");
+		upgradeExternalReference(
+			"CommercePricingClass", "commercePricingClassId");
+		upgradeExternalReference("CommerceTermEntry", "commerceTermEntryId");
+		upgradeExternalReference(
+			"CommerceTierPriceEntry", "commerceTierPriceEntryId");
+		upgradeExternalReference("COREntry", "COREntryId");
+		upgradeExternalReference(
+			"CPAttachmentFileEntry", "CPAttachmentFileEntryId");
+		upgradeExternalReference("CPInstance", "CPInstanceId");
+		upgradeExternalReference("CPOption", "CPOptionId");
+		upgradeExternalReference("CPOptionValue", "CPOptionValueId");
+		upgradeExternalReference("CProduct", "CProductId");
+		upgradeExternalReference("CPTaxCategory", "CPTaxCategoryId");
 		upgradeExternalReference("DLFileEntry", "fileEntryId");
+		upgradeExternalReference("KBArticle", "kbArticleId");
+		upgradeExternalReference("KBFolder", "kbFolderId");
+		upgradeExternalReference("MBMessage", "messageId");
+		upgradeExternalReference("ObjectEntry", "objectEntryId");
 		upgradeExternalReference("Organization_", "organizationId");
+		upgradeExternalReference("RemoteAppEntry", "remoteAppEntryId");
 		upgradeExternalReference("User_", "userId");
 		upgradeExternalReference("UserGroup", "userGroupId");
+		upgradeExternalReference("WikiNode", "nodeId");
+		upgradeExternalReference("WikiPage", "pageId");
 	}
 
 	protected void upgradeExternalReference(

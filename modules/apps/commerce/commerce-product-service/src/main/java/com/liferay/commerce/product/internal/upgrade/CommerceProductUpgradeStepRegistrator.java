@@ -52,8 +52,6 @@ import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.settings.SettingsFactory;
-import com.liferay.portal.kernel.upgrade.BaseExternalReferenceCodeUpgradeProcess;
-import com.liferay.portal.kernel.upgrade.BaseUuidUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.CTModelUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeStep;
@@ -263,41 +261,6 @@ public class CommerceProductUpgradeStepRegistrator
 			"3.8.0", "3.8.1",
 			new com.liferay.commerce.product.internal.upgrade.v3_8_1.
 				CPAttachmentFileEntryUpgradeProcess());
-
-		registry.register(
-			"3.8.1", "3.9.0",
-			new BaseUuidUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {
-						{"CommerceCatalog", "commerceCatalogId"},
-						{"CommerceChannel", "commerceChannelId"},
-						{"CPTaxCategory", "CPTaxCategoryId"}
-					};
-				}
-
-			});
-
-		registry.register(
-			"3.9.0", "3.9.1",
-			new BaseExternalReferenceCodeUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {
-						{"CommerceCatalog", "commerceCatalogId"},
-						{"CommerceChannel", "commerceChannelId"},
-						{"CPAttachmentFileEntry", "CPAttachmentFileEntryId"},
-						{"CPInstance", "CPInstanceId"},
-						{"CPOption", "CPOptionId"},
-						{"CPOptionValue", "CPOptionValueId"},
-						{"CProduct", "CProductId"},
-						{"CPTaxCategory", "CPTaxCategoryId"}
-					};
-				}
-
-			});
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Commerce product upgrade step registrator finished");

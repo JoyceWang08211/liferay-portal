@@ -21,8 +21,6 @@ import com.liferay.account.internal.upgrade.v2_5_0.AccountRoleResourceUpgradePro
 import com.liferay.account.internal.upgrade.v2_7_1.AccountEntryUserRelUpgradeProcess;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.ResourceLocalService;
-import com.liferay.portal.kernel.upgrade.BaseExternalReferenceCodeUpgradeProcess;
-import com.liferay.portal.kernel.upgrade.BaseUuidUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeStep;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
@@ -115,34 +113,6 @@ public class AccountServiceUpgrade implements UpgradeStepRegistrator {
 
 		registry.register(
 			"2.7.0", "2.7.1", new AccountEntryUserRelUpgradeProcess());
-
-		registry.register(
-			"2.7.1", "2.8.0",
-			new BaseUuidUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {
-						{"AccountEntry", "accountEntryId"},
-						{"AccountGroup", "accountGroupId"}
-					};
-				}
-
-			});
-
-		registry.register(
-			"2.8.0", "2.8.1",
-			new BaseExternalReferenceCodeUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {
-						{"AccountEntry", "accountEntryId"},
-						{"AccountGroup", "accountGroupId"}
-					};
-				}
-
-			});
 	}
 
 	@Reference

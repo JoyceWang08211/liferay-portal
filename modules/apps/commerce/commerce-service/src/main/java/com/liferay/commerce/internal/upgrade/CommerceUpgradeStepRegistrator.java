@@ -59,8 +59,6 @@ import com.liferay.portal.kernel.service.RegionLocalService;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.upgrade.BaseExternalReferenceCodeUpgradeProcess;
-import com.liferay.portal.kernel.upgrade.BaseUuidUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.CTModelUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.MVCCVersionUpgradeProcess;
@@ -291,41 +289,6 @@ public class CommerceUpgradeStepRegistrator implements UpgradeStepRegistrator {
 		registry.register(
 			"8.4.0", "8.5.0",
 			new CommerceAddressTypeUpgradeProcess(_listTypeLocalService));
-
-		registry.register(
-			"8.5.0", "8.6.0",
-			new BaseUuidUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {
-						{"CommerceOrderItem", "commerceOrderItemId"},
-						{"CommerceOrderNote", "commerceOrderNoteId"},
-						{"CommerceOrderType", "commerceOrderTypeId"},
-						{"CommerceOrderTypeRel", "commerceOrderTypeRelId"},
-						{"CommerceShipment", "commerceShipmentId"},
-						{"CommerceShipmentItem", "commerceShipmentItemId"}
-					};
-				}
-
-			});
-
-		registry.register(
-			"8.6.0", "8.6.1",
-			new BaseExternalReferenceCodeUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {
-						{"CommerceOrder", "commerceOrderId"},
-						{"CommerceOrderItem", "commerceOrderItemId"},
-						{"CommerceOrderNote", "commerceOrderNoteId"},
-						{"CommerceOrderType", "commerceOrderTypeId"},
-						{"CommerceOrderTypeRel", "commerceOrderTypeRelId"}
-					};
-				}
-
-			});
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Commerce upgrade step registrator finished");

@@ -19,8 +19,6 @@ import com.liferay.commerce.inventory.internal.upgrade.v2_0_0.CommerceInventoryA
 import com.liferay.commerce.inventory.internal.upgrade.v2_1_0.MVCCUpgradeProcess;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.upgrade.BaseExternalReferenceCodeUpgradeProcess;
-import com.liferay.portal.kernel.upgrade.BaseUuidUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.MVCCVersionUpgradeProcess;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
@@ -63,34 +61,6 @@ public class CommerceInventoryUpgradeStepRegistrator
 					return new String[] {
 						"CIAudit", "CIBookedQuantity", "CIReplenishmentItem",
 						"CIWarehouse", "CIWarehouseGroupRel", "CIWarehouseItem"
-					};
-				}
-
-			});
-
-		registry.register(
-			"2.2.0", "2.3.0",
-			new BaseUuidUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {
-						{"CIWarehouse", "CIWarehouseId"},
-						{"CIWarehouseItem", "CIWarehouseItemId"}
-					};
-				}
-
-			});
-
-		registry.register(
-			"2.3.0", "2.3.1",
-			new BaseExternalReferenceCodeUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {
-						{"CIWarehouse", "CIWarehouseId"},
-						{"CIWarehouseItem", "CIWarehouseItemId"}
 					};
 				}
 

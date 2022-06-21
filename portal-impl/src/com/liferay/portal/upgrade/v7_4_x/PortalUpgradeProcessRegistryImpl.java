@@ -15,7 +15,6 @@
 package com.liferay.portal.upgrade.v7_4_x;
 
 import com.liferay.portal.kernel.upgrade.CTModelUpgradeProcess;
-import com.liferay.portal.kernel.upgrade.DummyUpgradeStep;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.version.Version;
 import com.liferay.portal.upgrade.util.PortalUpgradeProcessRegistry;
@@ -101,7 +100,7 @@ public class PortalUpgradeProcessRegistryImpl
 
 		upgradeProcesses.put(new Version(15, 0, 0), new UpgradeOrgGroupRole());
 
-		upgradeProcesses.put(new Version(16, 0, 0), new DummyUpgradeStep());
+		upgradeProcesses.put(new Version(16, 0, 0), new UpgradeUuid());
 	}
 
 }

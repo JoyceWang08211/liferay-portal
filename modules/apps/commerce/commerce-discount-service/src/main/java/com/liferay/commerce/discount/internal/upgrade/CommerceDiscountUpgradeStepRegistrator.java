@@ -25,7 +25,6 @@ import com.liferay.commerce.discount.internal.upgrade.v2_2_0.util.CommerceDiscou
 import com.liferay.commerce.discount.internal.upgrade.v2_6_0.util.CommerceDiscountOrderTypeRelTable;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.upgrade.BaseExternalReferenceCodeUpgradeProcess;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeStep;
 import com.liferay.portal.kernel.upgrade.MVCCVersionUpgradeProcess;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
@@ -101,19 +100,6 @@ public class CommerceDiscountUpgradeStepRegistrator
 						"CommerceDiscountAccountRel",
 						"CommerceDiscountOrderTypeRel", "CommerceDiscountRel",
 						"CommerceDiscountRule", "CommerceDiscountUsageEntry"
-					};
-				}
-
-			});
-
-		registry.register(
-			"2.7.0", "2.8.0",
-			new BaseExternalReferenceCodeUpgradeProcess() {
-
-				@Override
-				protected String[][] getTableAndPrimaryKeyColumnNames() {
-					return new String[][] {
-						{"CommerceDiscount", "commerceDiscountId"}
 					};
 				}
 
