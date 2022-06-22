@@ -470,7 +470,7 @@ definition {
 
 		SAML.assertSAMLMetadataAlertMessage();
 
-		AssertElementNotPresent(locator1 = "TextInput#SAML_METADATA_URL_FIELD");
+		AssertNotVisible(locator1 = "TextInput#SAML_METADATA_URL_FIELD");
 
 		PortletEntry.save();
 	}
