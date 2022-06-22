@@ -3170,6 +3170,7 @@ definition {
 	test MetadataURLDisappearsAfterChangedFromURLToXMLFile {
 		property app.server.bundles.size = "0";
 		property keystore.enabled = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#MetadataURLDisappearsAfterChangedFromURLToXMLFile";
 
 		task ("Add SAML configuration files") {
