@@ -19,6 +19,7 @@ definition {
 	@priority = "4"
 	test CanProvisionNewSPUserAfterUpgrade71103 {
 		property data.archive.type = "data-archive-saml-broken-mapping";
+		property portal.upstream = "joyce";
 		property portal.version = "7.1.10.3";
 
 		task ("Assert portal can provision a new SP user after successfully authenticating on the IDP") {
@@ -41,6 +42,7 @@ definition {
 	@priority = "4"
 	test CanProvisionNewSPUserAfterUpgrade72101 {
 		property data.archive.type = "data-archive-saml-broken-mapping";
+		property portal.upstream = "joyce";
 		property portal.version = "7.2.10.1";
 
 		task ("Assert portal can provision a new SP user after successfully authenticating on the IDP") {
@@ -85,6 +87,7 @@ definition {
 	@priority = "4"
 	test CanProvisionNewSPUserAfterUpgrade701016 {
 		property data.archive.type = "data-archive-saml-broken-mapping";
+		property portal.upstream = "joyce";
 		property portal.version = "7.0.10.16";
 
 		task ("Assert portal can provision a new SP user after successfully authenticating on the IDP") {
