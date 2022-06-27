@@ -3441,6 +3441,7 @@ definition {
 		property database.types = "hypersonic,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
 		property environment.acceptance = "true";
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#SPInitiatedSSOSyncsUserAttributesFromIdPToSPDefaultMapping";
 
 		var identityProviderEntityId = "samlidp";
