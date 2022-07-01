@@ -222,8 +222,6 @@ definition {
 		property portal.ssl.enabled = "true";
 		property test.name.skip.portal.instance = "OpenIDConnect#OpenIDConnectOnInstanceLevelSmoke";
 
-		var openIdConnectClientId = PropsUtil.get("google.client.id.1");
-		var openIdConnectClientSecret = PropsUtil.get("google.client.secret.1");
 		var userEmailAddress = PropsUtil.get("email.address.2");
 		var userPassword = PropsUtil.get("email.password.2");
 
@@ -250,18 +248,14 @@ definition {
 			PortalSettings.enableOpenIDConnectCP();
 		}
 
-		task ("Add SSO openID connect provider") {
-			PortalSettings.openInstanceSettingsAdmin(baseURL = "https://www.able.com:8443");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin();
 
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "SSO",
-				configurationName = "OpenID Connect Provider Connection",
-				configurationScope = "Virtual Instance Scope");
+			OAuthClient.addClient(jsonFileName = "GoogleClient1.json");
 
-			OpenIDConnect.addProvider(
-				openIdConnectClientId = "${openIdConnectClientId}",
-				openIdConnectClientSecret = "${openIdConnectClientSecret}",
-				providerName = "Google");
+			// Workaround for LPS-157297
+
+			//LexiconEntry.viewEntryName(rowEntry = "Google");
 		}
 
 		task ("Sign out and Login at able.com with OpenID Connect enabled") {
@@ -289,12 +283,10 @@ definition {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "OpenIDConnect#OpenIDConnectSmoke";
 
-		var openIdConnectClientId = PropsUtil.get("google.client.id.3");
-		var openIdConnectClientSecret = PropsUtil.get("google.client.secret.3");
 		var userEmailAddress = PropsUtil.get("email.address.2");
 		var userPassword = PropsUtil.get("email.password.2");
 
-		task ("Add SSO OpenID Connect provider") {
+		task ("Add OAuth Client and enable OpenID Connect") {
 			PortalSettings.gotoConfiguration(
 				baseURL = "http://localhost:8080",
 				configurationCategory = "SSO",
@@ -303,17 +295,13 @@ definition {
 
 			PortalSettings.enableOpenIDConnectCP();
 
-			SystemSettings.openSystemSettingsAdmin();
+			OAuthClient.openOAuthClientAdmin();
 
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "SSO",
-				configurationName = "OpenID Connect Provider Connection",
-				configurationScope = "Virtual Instance Scope");
+			OAuthClient.addClient(jsonFileName = "GoogleClient3.json");
 
-			OpenIDConnect.addProvider(
-				openIdConnectClientId = "${openIdConnectClientId}",
-				openIdConnectClientSecret = "${openIdConnectClientSecret}",
-				providerName = "Google");
+			// Workaround for LPS-157297
+
+			//LexiconEntry.viewEntryName(rowEntry = "Google");
 		}
 
 		task ("Logout and login with OpenID Connect") {
@@ -340,10 +328,17 @@ definition {
 		var userEmailAddress = PropsUtil.get("openid.provider.auth0.test.account.email.address");
 		var userPassword = PropsUtil.get("openid.provider.auth0.test.account.password");
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~Auth0.config");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin();
+
+			OAuthClient.addClient(
+				jsonFileName = "Auth0.json",
+				wellknownURI = "https://dev-uarox1yh.us.auth0.com/.well-known/openid-configuration");
+
+			// Workaround for LPS-157297
+
+			//LexiconEntry.viewEntryName(rowEntry = "Auth0");
+
 		}
 
 		task ("Logout and login with OpenID Connect") {
@@ -371,10 +366,17 @@ definition {
 		var userEmailAddress = PropsUtil.get("openid.provider.azure.test.account.email.address");
 		var userPassword = PropsUtil.get("openid.provider.azure.test.account.password");
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~Azure.config");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin();
+
+			OAuthClient.addClient(
+				jsonFileName = "Azure.json",
+				wellknownURI = "https://login.microsoftonline.com/70bee5ea-04fe-4beb-97f0-e400919ada0c/v2.0/.well-known/openid-configuration");
+
+			// Workaround for LPS-157297
+
+			//LexiconEntry.viewEntryName(rowEntry = "Azure");
+
 		}
 
 		task ("Logout and login with OpenID Connect") {
@@ -390,7 +392,7 @@ definition {
 		}
 	}
 
-	@description = "This is a use case for LRQA-72792. Users could login and logout using Okta as OpenID Connect provider."
+	@description = "This is a use case for LRQA-72792 and LPS-157260 TC1. Users could login and logout using Okta as OpenID Connect provider."
 	@priority = "5"
 	test OpenIDConnectSmokeWithOkta {
 		property osgi.module.configuration.file.names = "com.liferay.portal.security.sso.openid.connect.configuration.OpenIdConnectConfiguration.config";
@@ -401,10 +403,17 @@ definition {
 		var userEmailAddress = PropsUtil.get("openid.provider.okta.test.account.email.address");
 		var userPassword = PropsUtil.get("openid.provider.okta.test.account.password");
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~Okta.config");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin();
+
+			OAuthClient.addClient(
+				jsonFileName = "OKTA.json",
+				wellknownURI = "https://dev-5081331.okta.com/.well-known/openid-configuration");
+
+			// Workaround for LPS-157297
+
+			//LexiconEntry.viewEntryName(rowEntry = "OKTA");
+
 		}
 
 		task ("Logout and login with OpenID Connect") {
@@ -431,10 +440,17 @@ definition {
 		var userName = PropsUtil.get("openid.provider.pingone.test.account.username");
 		var userPassword = PropsUtil.get("openid.provider.pingone.test.account.password");
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~PingOne.config");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin();
+
+			OAuthClient.addClient(
+				jsonFileName = "PingOne.json",
+				wellknownURI = "https://auth.pingone.ca/e4d31037-b99a-4a9b-b613-08d09aecb074/as/.well-known/openid-configuration");
+
+			// Workaround for LPS-157297
+
+			//LexiconEntry.viewEntryName(rowEntry = "PingOne");
+
 		}
 
 		task ("Logout and login with OpenID Connect") {
