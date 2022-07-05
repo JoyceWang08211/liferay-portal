@@ -40,10 +40,20 @@ definition {
 				value1 = "prepare-selenium-keycloak-server");
 		}
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~default.config");
+		task ("Add Auth Server Local Metadata") {
+			OAuthClient.openOAuthClientAdmin(navbar = "Auth Server Local Metadata");
+
+			OAuthClient.addAuthServer(jsonFileName = "keycloak-local-metadata");
+
+			var wellknownURI = selenium.getAttribute("OAuthClient#AUTH_SERVER_LOCAL_WELL_KNOWN_URI");
+		}
+
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin(navbar = "Clients");
+
+			OAuthClient.addClient(
+				jsonFileName = "keycloak.json",
+				wellknownURI = "${wellknownURI}");
 		}
 
 		User.logoutPG();
@@ -68,10 +78,6 @@ definition {
 		property osgi.module.configurations = "enabled=&quot;true&quot;";
 		property test.name.skip.portal.instance = "OpenIDConnect#ConfigureMultipleOpenIDConnectProviders";
 
-		var openIdConnectClientId = PropsUtil.get("google.client.id.2");
-		var openIdConnectClientSecret = PropsUtil.get("google.client.secret.2");
-		var openIdConnectClientId1 = PropsUtil.get("google.client.id.3");
-		var openIdConnectClientSecret1 = PropsUtil.get("google.client.secret.3");
 		var userEmailAddress = PropsUtil.get("email.address.2");
 		var userPassword = PropsUtil.get("email.password.2");
 
@@ -82,44 +88,19 @@ definition {
 				virtualHost = "www.able.com");
 		}
 
-		task ("Add CP www.baker.com") {
-			HeadlessPortalInstanceAPI.addPortalInstance(
-				domain = "www.baker.com",
-				portalInstanceId = "www.baker.com",
-				virtualHost = "www.baker.com");
-		}
-
-		task ("Add SSO OpenID Connect provider") {
-			SystemSettings.openSystemSettingsAdmin();
-
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "SSO",
-				configurationName = "OpenID Connect Provider Connection",
-				configurationScope = "Virtual Instance Scope");
-
-			OpenIDConnect.addProvider(
-				openIdConnectClientId = "${openIdConnectClientId}",
-				openIdConnectClientSecret = "${openIdConnectClientSecret}",
-				providerName = "Google");
-		}
-
-		task ("Login at www.able.com and add SSO OpenID Connect provider") {
+		task ("Add OAuth Clients") {
 			User.firstLoginPG(
 				password = "test",
 				userEmailAddress = "test@www.able.com",
 				virtualHostsURL = "http://www.able.com:8080");
 
-			PortalSettings.openInstanceSettingsAdmin(baseURL = "http://www.able.com:8080");
+			OAuthClient.openOAuthClientAdmin(
+				baseURL = "http://www.able.com:8080",
+				navbar = "Clients");
 
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "SSO",
-				configurationName = "OpenID Connect Provider Connection",
-				configurationScope = "Virtual Instance Scope");
+			OAuthClient.addClient(jsonFileName = "googleClient2.json");
 
-			OpenIDConnect.addProvider(
-				openIdConnectClientId = "${openIdConnectClientId1}",
-				openIdConnectClientSecret = "${openIdConnectClientSecret1}",
-				providerName = "Test Google");
+			OAuthClient.addClient(jsonFileName = "googleClient3.json");
 		}
 
 		task ("Sign out and go to able.com") {
@@ -132,86 +113,8 @@ definition {
 			OpenIDConnect.viewProvider();
 
 			AssertElementPresent(
-				key_providerNname = "Test Google",
+				key_providerNname = "Google2",
 				locator1 = "OpenIDConnectLogin#OPENID_CONNECT_DROPDOWN_OPTION");
-		}
-
-		task ("Login and logout at baker.com and view provider") {
-			User.firstLoginPG(
-				password = "test",
-				userEmailAddress = "test@www.baker.com",
-				virtualHostsURL = "http://www.baker.com:8080");
-
-			UserBar.signOut();
-
-			Navigator.openSpecificURL(
-				domain = "www.baker.com",
-				url = "http://www.baker.com:8080/");
-
-			OpenIDConnect.viewProvider();
-		}
-	}
-
-	@description = "This is a use case for LPS-105151. Enabled system level OpenID Connect Provider is also enabled in instance."
-	@priority = "4"
-	test EnabledOpenIDConnectOnSystemLevel {
-		property dummy.socket.proxy.disabled = "true";
-		property portal.ssl.enabled = "true";
-		property test.name.skip.portal.instance = "OpenIDConnect#EnabledOpenIDConnectOnSystemLevel";
-
-		var openIdConnectClientId = PropsUtil.get("google.client.id.2");
-		var openIdConnectClientSecret = PropsUtil.get("google.client.secret.2");
-		var userEmailAddress = PropsUtil.get("email.address.2");
-		var userPassword = PropsUtil.get("email.password.2");
-
-		task ("Add CP") {
-			HeadlessPortalInstanceAPI.addPortalInstance(
-				domain = "www.able.com",
-				portalInstanceId = "www.able.com",
-				virtualHost = "www.able.com");
-		}
-
-		task ("Goto new CP url and sign in") {
-			Navigator.openSpecificURL(
-				domain = "www.able.com",
-				url = "https://www.able.com:8443/");
-
-			OpenIDConnect.viewNoProvider();
-		}
-
-		task ("Enable openID connect CP") {
-			Navigator.openURL(baseURL = "https://localhost:8443");
-
-			SystemSettings.openSystemSettingsAdmin();
-
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "SSO",
-				configurationName = "OpenID Connect",
-				configurationScope = "System Scope");
-
-			PortalSettings.enableOpenIDConnectCP(systemLevel = "true");
-		}
-
-		task ("Add OpenID connect provider") {
-			SystemSettings.openSystemSettingsAdmin();
-
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "SSO",
-				configurationName = "OpenID Connect Provider Connection",
-				configurationScope = "Virtual Instance Scope");
-
-			OpenIDConnect.addProvider(
-				openIdConnectClientId = "${openIdConnectClientId}",
-				openIdConnectClientSecret = "${openIdConnectClientSecret}",
-				providerName = "Google");
-		}
-
-		task ("Go to able.com and assert openId connect") {
-			Navigator.openSpecificURL(
-				domain = "www.able.com",
-				url = "https://www.able.com:8443/");
-
-			OpenIDConnect.viewProvider();
 		}
 	}
 
@@ -222,8 +125,6 @@ definition {
 		property portal.ssl.enabled = "true";
 		property test.name.skip.portal.instance = "OpenIDConnect#OpenIDConnectOnInstanceLevelSmoke";
 
-		var openIdConnectClientId = PropsUtil.get("google.client.id.1");
-		var openIdConnectClientSecret = PropsUtil.get("google.client.secret.1");
 		var userEmailAddress = PropsUtil.get("email.address.2");
 		var userPassword = PropsUtil.get("email.password.2");
 
@@ -250,18 +151,12 @@ definition {
 			PortalSettings.enableOpenIDConnectCP();
 		}
 
-		task ("Add SSO openID connect provider") {
-			PortalSettings.openInstanceSettingsAdmin(baseURL = "https://www.able.com:8443");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin(
+				baseURL = "https://www.able.com:8443",
+				navbar = "Clients");
 
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "SSO",
-				configurationName = "OpenID Connect Provider Connection",
-				configurationScope = "Virtual Instance Scope");
-
-			OpenIDConnect.addProvider(
-				openIdConnectClientId = "${openIdConnectClientId}",
-				openIdConnectClientSecret = "${openIdConnectClientSecret}",
-				providerName = "Google");
+			OAuthClient.addClient(jsonFileName = "googleClient1.json");
 		}
 
 		task ("Sign out and Login at able.com with OpenID Connect enabled") {
@@ -289,12 +184,10 @@ definition {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "OpenIDConnect#OpenIDConnectSmoke";
 
-		var openIdConnectClientId = PropsUtil.get("google.client.id.3");
-		var openIdConnectClientSecret = PropsUtil.get("google.client.secret.3");
 		var userEmailAddress = PropsUtil.get("email.address.2");
 		var userPassword = PropsUtil.get("email.password.2");
 
-		task ("Add SSO OpenID Connect provider") {
+		task ("Add OAuth Client and enable OpenID Connect") {
 			PortalSettings.gotoConfiguration(
 				baseURL = "http://localhost:8080",
 				configurationCategory = "SSO",
@@ -303,17 +196,9 @@ definition {
 
 			PortalSettings.enableOpenIDConnectCP();
 
-			SystemSettings.openSystemSettingsAdmin();
+			OAuthClient.openOAuthClientAdmin(navbar = "Clients");
 
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "SSO",
-				configurationName = "OpenID Connect Provider Connection",
-				configurationScope = "Virtual Instance Scope");
-
-			OpenIDConnect.addProvider(
-				openIdConnectClientId = "${openIdConnectClientId}",
-				openIdConnectClientSecret = "${openIdConnectClientSecret}",
-				providerName = "Google");
+			OAuthClient.addClient(jsonFileName = "googleClient3.json");
 		}
 
 		task ("Logout and login with OpenID Connect") {
@@ -340,10 +225,12 @@ definition {
 		var userEmailAddress = PropsUtil.get("openid.provider.auth0.test.account.email.address");
 		var userPassword = PropsUtil.get("openid.provider.auth0.test.account.password");
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~Auth0.config");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin(navbar = "Clients");
+
+			OAuthClient.addClient(
+				jsonFileName = "auth0.json",
+				wellknownURI = "https://dev-uarox1yh.us.auth0.com/.well-known/openid-configuration");
 		}
 
 		task ("Logout and login with OpenID Connect") {
@@ -371,10 +258,12 @@ definition {
 		var userEmailAddress = PropsUtil.get("openid.provider.azure.test.account.email.address");
 		var userPassword = PropsUtil.get("openid.provider.azure.test.account.password");
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~Azure.config");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin(navbar = "Clients");
+
+			OAuthClient.addClient(
+				jsonFileName = "azure.json",
+				wellknownURI = "https://login.microsoftonline.com/70bee5ea-04fe-4beb-97f0-e400919ada0c/v2.0/.well-known/openid-configuration");
 		}
 
 		task ("Logout and login with OpenID Connect") {
@@ -390,7 +279,7 @@ definition {
 		}
 	}
 
-	@description = "This is a use case for LRQA-72792. Users could login and logout using Okta as OpenID Connect provider."
+	@description = "This is a use case for LRQA-72792 and LPS-157260 TC1. Users could login and logout using Okta as OpenID Connect provider."
 	@priority = "5"
 	test OpenIDConnectSmokeWithOkta {
 		property osgi.module.configuration.file.names = "com.liferay.portal.security.sso.openid.connect.configuration.OpenIdConnectConfiguration.config";
@@ -401,10 +290,12 @@ definition {
 		var userEmailAddress = PropsUtil.get("openid.provider.okta.test.account.email.address");
 		var userPassword = PropsUtil.get("openid.provider.okta.test.account.password");
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~Okta.config");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin(navbar = "Clients");
+
+			OAuthClient.addClient(
+				jsonFileName = "okta.json",
+				wellknownURI = "https://dev-5081331.okta.com/.well-known/openid-configuration");
 		}
 
 		task ("Logout and login with OpenID Connect") {
@@ -431,10 +322,12 @@ definition {
 		var userName = PropsUtil.get("openid.provider.pingone.test.account.username");
 		var userPassword = PropsUtil.get("openid.provider.pingone.test.account.password");
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~PingOne.config");
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin(navbar = "Clients");
+
+			OAuthClient.addClient(
+				jsonFileName = "pingone.json",
+				wellknownURI = "https://auth.pingone.ca/e4d31037-b99a-4a9b-b613-08d09aecb074/as/.well-known/openid-configuration");
 		}
 
 		task ("Logout and login with OpenID Connect") {
@@ -453,12 +346,25 @@ definition {
 	@description = "This is a use case for LPS-148619. User could log in and log out using Google as OpenID Connect provider, using custom parameters for the connection."
 	test OpenIDConnectWithGoogleCustomParameters {
 		property dummy.socket.proxy.disabled = "true";
-		property test.name.skip.portal.instance = "OpenIDConnect#EnabledOpenIDConnectOnSystemLevel";
+		property test.name.skip.portal.instance = "OpenIDConnect#OpenIDConnectWithGoogleCustomParameters";
 
-		var customTokenRequestParameters = "resource=https://contacts.google.com";
-		var customAuthorizationRequestParameters = "access_type=offline";
-		var openIdConnectClientId = PropsUtil.get("google.client.id.2");
-		var openIdConnectClientSecret = PropsUtil.get("google.client.secret.2");
+		var authRequestParametersJSON = '''
+		{
+		    "resource":
+		    [
+		        "https://contacts.google.com"
+		    ],
+		    "response_type": "code",
+		    "scope": "openid email profile"
+		}
+		''';
+		var tokenRequestParametersJSON = '''
+		{
+		    "access_type": "offline",
+		    "grant_type": "authorization_code",
+		    "scope": "openid email profile"
+		}
+		''';
 		var userEmailAddress = PropsUtil.get("email.address.2");
 		var userPassword = PropsUtil.get("email.password.2");
 
@@ -468,7 +374,7 @@ definition {
 			OpenIDConnect.enableOpenIDConnectCustomParametersDebugLogs();
 		}
 
-		task ("When OpenID Connect provider is set to Google and the connection is established with custom parameters") {
+		task ("When OAuth Client is created and the connection is established with custom parameters") {
 			SystemSettings.openSystemSettingsAdmin();
 
 			SystemSettings.gotoConfiguration(
@@ -478,19 +384,12 @@ definition {
 
 			PortalSettings.enableOpenIDConnectCP(systemLevel = "true");
 
-			SystemSettings.openSystemSettingsAdmin();
+			OAuthClient.openOAuthClientAdmin(navbar = "Clients");
 
-			SystemSettings.gotoConfiguration(
-				configurationCategory = "SSO",
-				configurationName = "OpenID Connect Provider Connection",
-				configurationScope = "Virtual Instance Scope");
-
-			OpenIDConnect.addProvider(
-				customAuthorizationRequestParameters = "${customAuthorizationRequestParameters}",
-				customTokenRequestParameters = "${customTokenRequestParameters}",
-				openIdConnectClientId = "${openIdConnectClientId}",
-				openIdConnectClientSecret = "${openIdConnectClientSecret}",
-				providerName = "Google");
+			OAuthClient.addClient(
+				authRequestParametersJSON = "${authRequestParametersJSON}",
+				jsonFileName = "googleClient2.json",
+				tokenRequestParametersJSON = "${tokenRequestParametersJSON}");
 		}
 
 		task ("Then the user can log in and log out through the provider and the correct parameters are shown in the console") {
@@ -500,7 +399,7 @@ definition {
 				userEmailAddress = "${userEmailAddress}",
 				userPassword = "${userPassword}");
 
-			AssertConsoleTextPresent(value1 = "${customAuthorizationRequestParameters}");
+			AssertConsoleTextPresent(value1 = "access_type=offline");
 
 			AssertConsoleTextPresent(value1 = "resource");
 		}
@@ -559,10 +458,20 @@ definition {
 				value1 = "prepare-selenium-keycloak-server");
 		}
 
-		task ("Add the OSGI configuration file") {
-			OSGiConfig.copyOSGiConfigFile(
-				osgiConfigFileBaseDir = "test/functional/com/liferay/portalweb/tests/coreinfrastructure/security/openidconnect/dependencies",
-				osgiConfigFileName = "com.liferay.portal.security.sso.openid.connect.internal.configuration.OpenIdConnectProviderConfiguration~default.config");
+		task ("Add Auth Server Local Metadata") {
+			OAuthClient.openOAuthClientAdmin(navbar = "Auth Server Local Metadata");
+
+			OAuthClient.addAuthServer(jsonFileName = "keycloak-local-metadata");
+
+			var wellknownURI = selenium.getAttribute("OAuthClient#AUTH_SERVER_LOCAL_WELL_KNOWN_URI");
+		}
+
+		task ("Add OAuth Client") {
+			OAuthClient.openOAuthClientAdmin(navbar = "Clients");
+
+			OAuthClient.addClient(
+				jsonFileName = "keycloak.json",
+				wellknownURI = "${wellknownURI}");
 		}
 
 		User.logoutPG();
