@@ -1,24 +1,21 @@
 {
-    "application_type": "web",
-    "client_id": "6Ko608nCF44eCNWfZlQk2IjQZXm8k3cG",
-    "client_name": "Auth0",
-    "client_secret": "Fetz2IxF5yECfBGlhGQJj5h4EWXQ6taXxqxkB3uT1vG3dRFr-nHGF3GzbAWfIrUk",
-    "client_secret_expires_at": 0,
-    "grant_types":
-    [
-        "authorization_code",
-        "refresh_token"
-    ],
-    "id_token_signed_response_alg": "RS256",
-    "redirect_uris":
-    [
-        ""
-    ],
-    "response_types":
-    [
-        "code"
-    ],
-    "scope": "openid email profile",
-    "subject_type": "public",
-    "token_endpoint_auth_method": "client_secret_basic"
+	"application_type": "web",
+	"client_id": "6Ko608nCF44eCNWfZlQk2IjQZXm8k3cG",
+	"client_name": "Auth0",
+	"client_secret": "Fetz2IxF5yECfBGlhGQJj5h4EWXQ6taXxqxkB3uT1vG3dRFr-nHGF3GzbAWfIrUk",
+	"client_secret_expires_at": 0,
+	"grant_types": [
+		"authorization_code",
+		"refresh_token"
+	],
+	"id_token_signed_response_alg": "RS256",
+	"redirect_uris": [
+		""
+	],
+	"response_types": [
+		"code"
+	],
+	"scope": "openid email profile",
+	"subject_type": "public",
+	"token_endpoint_auth_method": "client_secret_basic"
 }
