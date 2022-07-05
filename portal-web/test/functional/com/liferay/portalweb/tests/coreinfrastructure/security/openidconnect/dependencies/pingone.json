@@ -1,0 +1,24 @@
+{
+    "application_type": "web",
+    "client_id": "31c257d5-873f-4d5a-9be1-abc76eafffe8",
+    "client_name": "PingOne",
+    "client_secret": "uqpPv8DuTsi0yCn14v.weqTR7CLtPv0sh7pEmfCe5WuTlKT44UhoEyUX7jMYVjM3",
+    "client_secret_expires_at": 0,
+    "grant_types":
+    [
+        "authorization_code",
+        "refresh_token"
+    ],
+    "id_token_signed_response_alg": "RS256",
+    "redirect_uris":
+    [
+        ""
+    ],
+    "response_types":
+    [
+        "code"
+    ],
+    "scope": "openid email profile",
+    "subject_type": "public",
+    "token_endpoint_auth_method": "client_secret_basic"
+}
