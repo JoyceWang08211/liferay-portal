@@ -43,9 +43,9 @@ definition {
 		task ("Add Auth Server Local Metadata") {
 			OAuthClient.openOAuthClientAdmin(navbar = "Auth Server Local Metadata");
 
-			OAuthClient.addAuthServer(jsonFileName = "keycloak-local-metadata");
+			OAuthClient.addAuthServer(jsonFileName = "keycloak-local-metadata.json");
 
-			var wellknownURI = selenium.getAttribute("OAuthClient#AUTH_SERVER_LOCAL_WELL_KNOWN_URI");
+			var wellknownURI = OAuthClient.getWellKnownURI();
 		}
 
 		task ("Add OAuth Client") {
@@ -350,17 +350,21 @@ definition {
 
 		var authRequestParametersJSON = '''
 		{
-		    "resource":
-		    [
-		        "https://contacts.google.com"
-		    ],
-		    "response_type": "code",
-		    "scope": "openid email profile"
+		    "scope": "openid email profile",
+		    "custom_request_parameters":
+		    {
+		        "access_type": [
+		            "offline"
+		        ]
+		    },
+		    "response_type": "code"
 		}
 		''';
 		var tokenRequestParametersJSON = '''
 		{
-		    "access_type": "offline",
+		    "resource": [
+		        "https://contacts.google.com"
+		    ],
 		    "grant_type": "authorization_code",
 		    "scope": "openid email profile"
 		}
@@ -461,9 +465,9 @@ definition {
 		task ("Add Auth Server Local Metadata") {
 			OAuthClient.openOAuthClientAdmin(navbar = "Auth Server Local Metadata");
 
-			OAuthClient.addAuthServer(jsonFileName = "keycloak-local-metadata");
+			OAuthClient.addAuthServer(jsonFileName = "keycloak-local-metadata.json");
 
-			var wellknownURI = selenium.getAttribute("OAuthClient#AUTH_SERVER_LOCAL_WELL_KNOWN_URI");
+			var wellknownURI = OAuthClient.getWellKnownURI();
 		}
 
 		task ("Add OAuth Client") {
