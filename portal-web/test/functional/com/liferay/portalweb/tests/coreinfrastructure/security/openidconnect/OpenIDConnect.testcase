@@ -350,17 +350,20 @@ definition {
 
 		var authRequestParametersJSON = '''
 		{
-		    "resource":
-		    [
-		        "https://contacts.google.com"
-		    ],
-		    "response_type": "code",
-		    "scope": "openid email profile"
+		    "scope": "openid email profile",
+		    "custom_request_parameters":
+		    {
+		        "access_type": "offline"
+		    },
+		    "response_type": "code"
 		}
 		''';
 		var tokenRequestParametersJSON = '''
 		{
-		    "access_type": "offline",
+		    "resource":
+		    [
+		        "https://contacts.google.com"
+		    ],
 		    "grant_type": "authorization_code",
 		    "scope": "openid email profile"
 		}
