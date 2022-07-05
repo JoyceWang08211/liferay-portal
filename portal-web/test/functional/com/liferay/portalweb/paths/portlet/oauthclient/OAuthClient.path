@@ -12,7 +12,7 @@
 <tbody>
 <tr>
 	<td>AUTH_SERVER_LOCAL_WELL_KNOWN_URI</td>
-	<td>//td[contains(@class,'well-known-uri')]//a@href</td>
+	<td>//td[contains(@class,'well-known-uri')]//a</td>
 	<td></td>
 </tr>
 </tbody>
