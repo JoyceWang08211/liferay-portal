@@ -32,6 +32,8 @@ definition {
 	}
 
 	macro _selectField {
+		WaitForEditable(locator1 = "PageEditorEditableLink#FIELD");
+
 		Select(
 			locator1 = "PageEditorEditableLink#FIELD",
 			value1 = "${field}");
