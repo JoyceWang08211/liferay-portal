@@ -631,7 +631,7 @@ definition {
 				userEmailAddress = "userea@liferay.com");
 		}
 
-		task ("Add OAuth application") {
+		task ("Add OAuth application and edit OAuth scopes") {
 			OAuth2.openOAuth2Admin();
 
 			OAuth2.addApplication(
@@ -642,6 +642,13 @@ definition {
 				clientCredentialsUser = "usersn",
 				clientId = "abc123",
 				clientSecret = "abc123");
+
+			Navigator.gotoBack();
+
+			OAuth2.editScopes(
+				applicationName = "OAuth Application",
+				resourceCheckList = "liferay-json-web-services.delete.journalarticles",
+				resourcePanels = "Portal Services");
 		}
 
 		task ("Verify permission is required to delete article") {
@@ -654,16 +661,14 @@ definition {
 
 			OAuth2.assertPermissionsDenied(
 				deleteOutput = "${deleteOutput1}",
-				msg = "Access denied to com.liferay.journal.service.JournalArticleService#deleteArticle");
+				msg = "must have DELETE permission for com.liferay.journal.model.JournalArticle");
 		}
 
 		task ("Verify WC is deleted after granted the delete permission") {
-			OAuth2.openOAuth2Admin();
-
-			OAuth2.editScopes(
-				applicationName = "OAuth Application",
-				resourceCheckList = "liferay-json-web-services.delete.journalarticles",
-				resourcePanels = "Portal Services");
+			Permissions.definePermissionViaJSONAPI(
+				resourceAction = "DELETE",
+				resourceName = "com.liferay.journal.model.JournalArticle",
+				roleTitle = "Guest");
 
 			var accessToken2 = OAuth2.getAccessToken(
 				client_id = "abc123",
@@ -674,7 +679,7 @@ definition {
 
 			OAuth2.assertAbleToDeleteJournalArticle(
 				deleteOutput = "${deleteOutput2}",
-				msg = "Access denied to com.liferay.journal.service.JournalArticleService#deleteArticle");
+				msg = "must have DELETE permission for com.liferay.journal.model.JournalArticle");
 
 			WebContentNavigator.openWebContentAdmin(siteURLKey = "guest");
 
