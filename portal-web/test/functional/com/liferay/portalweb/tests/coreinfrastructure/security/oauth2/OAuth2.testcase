@@ -595,6 +595,7 @@ definition {
 	@priority = "4"
 	test ClientCredentialsShouldBeConfigurableInUserScope {
 		property custom.properties = "access.control.sanitize.security.exception=false${line.separator}json.service.serialize.throwable=true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "OAuth2#ClientCredentialsShouldBeConfigurableInUserScope";
 
 		task ("Add a test web content") {
