@@ -867,6 +867,7 @@ definition {
 	test TemplatePropagationShouldWorkAfterUpgrade73101 {
 		property data.archive.type = "data-archive-page-from-template";
 		property database.types = "db2,mysql,oracle,postgresql,sybase";
+		property portal.upstream = "joyce";
 		property portal.version = "7.3.10.1";
 
 		task ("Verify that the AP Widget is still present on the Site Name page") {
@@ -903,6 +904,7 @@ definition {
 	test TemplatePropagationShouldWorkAfterUpgrade701016 {
 		property data.archive.type = "data-archive-page-from-template";
 		property database.types = "db2,mysql,oracle,postgresql,sybase";
+		property portal.upstream = "joyce";
 		property portal.version = "7.0.10.16";
 
 		task ("Verify that the AP Widget is still present on the Site Name page") {
