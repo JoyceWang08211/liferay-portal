@@ -1525,6 +1525,8 @@ definition {
 	@description = "This is a use case for LPS-91017, LPS-89646."
 	@priority = "4"
 	test StagingPublishWCWithWebContentFieldViaAP {
+		property portal.upstream = "joyce";
+
 		JSONLayout.addWidgetToPublicLayout(
 			column = "1",
 			groupName = "Site Name (Staging)",
@@ -1604,6 +1606,8 @@ definition {
 
 	@priority = "4"
 	test StagingWithPublishTemplateSmoke {
+		property portal.upstream = "joyce";
+
 		JSONLayout.addWidgetToPublicLayout(
 			column = "1",
 			groupName = "Site Name (Staging)",
@@ -1655,6 +1659,8 @@ definition {
 	@description = "This is a use case for LPS-98473."
 	@priority = "3"
 	test SubscribeWebContentWithStaging {
+		property portal.upstream = "joyce";
+
 		JSONGroup.addGroup(groupName = "Test Site");
 
 		JSONRole.addRegularRole(
@@ -1808,6 +1814,8 @@ definition {
 
 	@priority = "4"
 	test ViewPublishDMWithModifiedTitle {
+		property portal.upstream = "joyce";
+
 		JSONLayout.addWidgetToPublicLayout(
 			column = "1",
 			groupName = "Site Name (Staging)",

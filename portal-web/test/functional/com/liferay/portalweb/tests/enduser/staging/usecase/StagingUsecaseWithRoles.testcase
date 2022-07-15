@@ -387,6 +387,7 @@ definition {
 
 	@priority = "5"
 	test StagingDemoLocalLive4 {
+		property portal.upstream = "joyce";
 		property testray.component.names = "Training";
 
 		JSONLayout.addPublicLayout(
@@ -590,6 +591,8 @@ definition {
 
 	@priority = "4"
 	test StagingLocalLiveWorkflow {
+		property portal.upstream = "joyce";
+
 		JSONStaging.enableLocalStaging(
 			branchingPrivate = "true",
 			branchingPublic = "true",
@@ -845,6 +848,7 @@ definition {
 
 	@priority = "5"
 	test StagingPublishPage {
+		property portal.upstream = "joyce";
 		property testray.component.names = "Training";
 
 		JSONLayout.addPublicLayout(
