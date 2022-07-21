@@ -1051,6 +1051,7 @@ definition {
 		property custom.properties = "virtual.hosts.default.site.name=Guest";
 		property portal.acceptance = "true";
 		property portal.ssl.enabled = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "OAuth2#ExternalApplicationCanBeAuthorized";
 
 		task ("Add and edit an external application") {
