@@ -200,6 +200,11 @@ definition {
 				locator1 = "OAuth2#OAUTH2_TESTER_PORTAL_URL",
 				value1 = "${portalURL}");
 		}
+		else {
+			Type(
+				locator1 = "OAuth2#OAUTH2_TESTER_PORTAL_URL",
+				value1 = "https://localhost:8443");
+		}
 
 		Type(
 			locator1 = "OAuth2#OAUTH2_TESTER_CLIENT_ID",
@@ -248,6 +253,11 @@ definition {
 			Type(
 				locator1 = "OAuth2#OAUTH2_TESTER_PORTAL_URL",
 				value1 = "${portalURL}");
+		}
+		else {
+			Type(
+				locator1 = "OAuth2#OAUTH2_TESTER_PORTAL_URL",
+				value1 = "https://localhost:8443");
 		}
 
 		Type(
