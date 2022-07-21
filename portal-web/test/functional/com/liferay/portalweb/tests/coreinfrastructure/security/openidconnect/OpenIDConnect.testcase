@@ -19,6 +19,7 @@ definition {
 		property osgi.module.configuration.file.names = "com.liferay.portal.security.sso.openid.connect.configuration.OpenIdConnectConfiguration.config";
 		property osgi.module.configurations = "enabled=&quot;true&quot;${line.separator}tokenRefreshOffset=&quot;120&quot;";
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "OpenIDConnect#AssertRegularRoleIsAssignedToOIDCUser";
 
 		var userEmailAddress = PropsUtil.get("openid.provider.okta.test.account.email.address");
