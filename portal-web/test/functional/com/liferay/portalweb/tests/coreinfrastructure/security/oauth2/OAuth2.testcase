@@ -91,7 +91,7 @@ definition {
 		task ("Add and edit an external application with remember device enabled") {
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "Third-party Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=abc123''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=abc123''',
 				checkboxCheckList = "Remember Device",
 				clientId = "abc123",
 				clientProfile = "Web Application",
@@ -126,7 +126,7 @@ definition {
 		task ("Add and edit an external application") {
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "My Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=abc123''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=abc123''',
 				clientAuthenticationMethod = "Client Secret JWT",
 				clientId = "abc123",
 				clientProfile = "Web Application",
@@ -234,7 +234,7 @@ definition {
 		task ("Add and edit an external application") {
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "My Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=abc123''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=abc123''',
 				clientAuthenticationMethod = "Private Key JWT",
 				clientId = "abc123",
 				clientProfile = "Web Application",
@@ -423,7 +423,7 @@ definition {
 		task ("Add and edit an external application") {
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "My Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=default''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=default''',
 				clientId = "default",
 				clientProfile = "Web Application",
 				clientSecret = "defaultsecret",
@@ -474,7 +474,7 @@ definition {
 		task ("Add and edit an external application") {
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "My Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=default''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=default''',
 				checkboxCheckList = "Trusted Application",
 				clientId = "default",
 				clientProfile = "Web Application",
@@ -865,17 +865,13 @@ definition {
 		property portal.ssl.enabled = "true";
 
 		task ("Add a new OAuth 2 application") {
-			var portalURL = PropsUtil.get("portal.url");
-
 			OAuth2.openOAuth2Admin();
-
-			var clientId = "abc123";
-			var clientSecret = "abc123";
-			var portalURL = PropsUtil.get("portal.url");
 
 			OAuth2.addApplication(
 				applicationName = "Test Expired Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=${clientId}''');
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=${clientId}''',
+				clientId = "abc123",
+				clientSecret = "abc123");
 		}
 
 		task ("Edit scopes") {
@@ -895,16 +891,16 @@ definition {
 				rowEntry = "Test Expired Application");
 
 			OAuth2.inputApplicationValues(
-				clientId = "${clientId}",
-				clientSecret = "${clientSecret}");
+				clientId = "abc123",
+				clientSecret = "abc123");
 		}
 
 		task ("Get authorization code") {
-			var authorizationCode = OAuth2.getAuthorizationCode();
+			var authorizationCode = OAuth2.getAuthorizationCode(portalURL = "https://localhost:8443");
 		}
 
 		task ("Verify OAuth 2 access is valid") {
-			OAuth2.viewValidOAuth2LaunchRequest(clientSecret = "${clientSecret}");
+			OAuth2.viewValidOAuth2LaunchRequest(clientSecret = "abc123");
 		}
 
 		task ("Verify authorization is granted via user") {
@@ -1052,15 +1048,18 @@ definition {
 
 	@description = "This is a use case for LRQA-47381. User can authorize external applications."
 	test ExternalApplicationCanBeAuthorized {
-		property custom.properties = "virtual.hosts.default.site.name=Guest";
+		property custom.properties = "web.server.host=localhost${line.separator}redirect.url.security.mode=domain${line.separator}redirect.url.domains.allowed=${line.separator}web.server.https.port=8443${line.separator}web.server.protocol=https";
 		property portal.acceptance = "true";
 		property portal.ssl.enabled = "true";
 		property test.name.skip.portal.instance = "OAuth2#ExternalApplicationCanBeAuthorized";
 
 		task ("Add and edit an external application") {
+			OAuth2.openSSLPage();
+
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "Third-party Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=abc123''',
+				baseURL = "https://localhost:8443",
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=abc123''',
 				clientId = "abc123",
 				clientProfile = "Web Application",
 				clientSecret = "abc123");
@@ -1087,7 +1086,7 @@ definition {
 		task ("Add and edit an external trusted application") {
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "Third-party Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=abc123''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=abc123''',
 				checkboxCheckList = "Trusted Application",
 				clientId = "abc123",
 				clientProfile = "Web Application",
@@ -1611,7 +1610,7 @@ definition {
 		task ("Add and edit an external application") {
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "Third-party Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=abc123''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=abc123''',
 				clientId = "abc123",
 				clientProfile = "Web Application",
 				clientSecret = "abc123");
@@ -1643,14 +1642,11 @@ definition {
 		property test.name.skip.portal.instance = "OAuth2#RememberDeviceExternalPropertyShouldBeVisible";
 
 		task ("Add a new external application with remember device checked") {
-			var portalURL = PropsUtil.get("portal.url");
-			var clientId = "abc123";
-
 			OAuth2.openOAuth2Admin();
 
 			OAuth2.addApplication(
 				applicationName = "Remember Device Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=${clientId}''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=abc123''',
 				checkboxCheckList = "Remember Device",
 				clientProfile = "Web Application");
 		}
@@ -1730,7 +1726,7 @@ definition {
 		task ("Add and edit an external application") {
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "My Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=default''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=default''',
 				checkboxCheckList = "Remember Device",
 				clientId = "default",
 				clientProfile = "Web Application",
@@ -1920,7 +1916,7 @@ definition {
 		task ("Given: Add and edit an PKCE application") {
 			OAuth2.addAndEditExternalApplication(
 				applicationName = "My Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/pkce/?url=${portalURL}&client_id=pkce''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/pkce/?url=https://localhost:8443&client_id=pkce''',
 				checkboxCheckList = "Token Introspection",
 				checkboxUncheckList = "Authorization Code,Client Credentials,JWT_BEARER,Resource Owner Password Credentials",
 				clientAuthenticationMethod = "None",
@@ -1945,15 +1941,11 @@ definition {
 		property test.name.skip.portal.instance = "OAuth2#TrustedExternalPropertyShouldBeVisible";
 
 		task ("Add a trusted OAuth 2 application") {
-			var portalURL = PropsUtil.get("portal.url");
-
 			OAuth2.openOAuth2Admin();
-
-			var clientId = "abc123";
 
 			OAuth2.addApplication(
 				applicationName = "Trusted Application",
-				callbackUri = '''http://martamedio.com/oauth2-tester/?url=${portalURL}&client_id=${clientId}''',
+				callbackUri = '''http://martamedio.com/oauth2-tester/?url=https://localhost:8443&client_id=abc123''',
 				checkboxCheckList = "Trusted Application",
 				clientProfile = "Web Application");
 		}
