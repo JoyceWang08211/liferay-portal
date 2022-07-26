@@ -1590,6 +1590,7 @@ definition {
 	@description = "This is a use case for LPS-110393. Verify that panels under global scopes can be expanded."
 	@priority = "4"
 	test PanelsShouldBeExpandableOnGlobalScopes {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "OAuth2#PanelsShouldBeExpandableOnGlobalScopes";
 
 		task ("Delete OSGi JAX-RS Default configuration") {
@@ -1614,6 +1615,8 @@ definition {
 
 		task ("Expand global panels in global scopes") {
 			Navigator.gotoNavUnderline(navUnderline = "Global scopes");
+
+			takeScreenshot();
 
 			for (var globalPanel : list "analytics.read,analytics.write,everything.write,everything.read,everything") {
 				OAuth2.expandGlobalPanel(globalPanel = "${globalPanel}");
