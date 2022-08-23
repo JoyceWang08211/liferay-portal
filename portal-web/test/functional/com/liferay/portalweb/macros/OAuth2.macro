@@ -55,9 +55,9 @@ definition {
 			privacyPolicyURL = "${privacyPolicyURL}",
 			websiteURL = "${websiteURL}");
 
-		AssertTextEquals(
-			locator1 = "Portlet#HEADER",
-			value1 = "${applicationName}");
+		AssertElementPresent(
+			key_tableName = "${applicationName}",
+			locator1 = "OAuth2#ADMIN_TABLE_APP_NAME");
 	}
 
 	macro addApplicationPermissionToRole {
@@ -318,9 +318,9 @@ definition {
 			websiteURL = "${websiteURL}");
 
 		if (isSet(newApplicationName)) {
-			AssertTextEquals(
-				locator1 = "Portlet#HEADER",
-				value1 = "${newApplicationName}");
+			AssertElementPresent(
+				key_tableName = "${newApplicationName}",
+				locator1 = "OAuth2#ADMIN_TABLE_APP_NAME");
 		}
 
 		return "${newGeneratedClientSecret}";
