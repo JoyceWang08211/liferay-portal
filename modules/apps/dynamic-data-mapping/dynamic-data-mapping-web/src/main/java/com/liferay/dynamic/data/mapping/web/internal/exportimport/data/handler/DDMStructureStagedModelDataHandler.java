@@ -440,8 +440,8 @@ public class DDMStructureStagedModelDataHandler
 				structure.getType(), serviceContext);
 		}
 
-		structureIds.put(
-			structure.getStructureId(), importedStructure.getStructureId());
+		_importDEDataDefinitionFieldLinks(
+			importedStructure, portletDataContext, structure);
 
 		portletDataContext.importClassedModel(structure, importedStructure);
 
@@ -687,6 +687,33 @@ public class DDMStructureStagedModelDataHandler
 
 			ddmFormField.setProperty(
 				"ddmDataProviderInstanceId", newDDMDataProviderInstanceId);
+		}
+	}
+
+	private void _importDEDataDefinitionFieldLinks(
+			DDMStructure importedStructure,
+			PortletDataContext portletDataContext, DDMStructure structure)
+		throws Exception {
+
+		List<Element> elements = portletDataContext.getReferenceDataElements(
+			structure, DEDataDefinitionFieldLink.class);
+
+		Map<Long, Long> structureNewPrimaryKeys =
+			(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
+				DDMStructure.class);
+
+		structureNewPrimaryKeys.put(
+			structure.getStructureId(), importedStructure.getStructureId());
+
+		for (Element element : elements) {
+			String path = element.attributeValue("path");
+
+			DEDataDefinitionFieldLink deDataDefinitionFieldLink =
+				(DEDataDefinitionFieldLink)
+					portletDataContext.getZipEntryAsObject(element, path);
+
+			StagedModelDataHandlerUtil.importStagedModel(
+				portletDataContext, deDataDefinitionFieldLink);
 		}
 	}
 
