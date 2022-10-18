@@ -20,7 +20,6 @@ import com.liferay.dynamic.data.mapping.model.DDMStructureLayout;
 import com.liferay.dynamic.data.mapping.model.DDMStructureVersion;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLayoutLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
-import com.liferay.dynamic.data.mapping.service.DDMStructureVersionLocalService;
 import com.liferay.exportimport.data.handler.base.BaseStagedModelDataHandler;
 import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
@@ -85,20 +84,8 @@ public class DEDataDefinitionFieldLinkStagedModelDataHandler
 		Element deDataDefinitionFieldLinkElement =
 			portletDataContext.getExportDataElement(deDataDefinitionFieldLink);
 
-		String className = deDataDefinitionFieldLink.getClassName();
-
 		deDataDefinitionFieldLinkElement.addAttribute(
-			"link-class-name", className);
-
-		if (className.equals(DDMStructureLayout.class.getName())) {
-			DDMStructureLayout ddmStructureLayout =
-				_ddmStructureLayoutLocalService.getDDMStructureLayout(
-					deDataDefinitionFieldLink.getClassPK());
-
-			deDataDefinitionFieldLinkElement.addAttribute(
-				"layout-ddm-structure-id",
-				String.valueOf(ddmStructureLayout.getDDMStructureId()));
-		}
+			"link-class-name", deDataDefinitionFieldLink.getClassName());
 
 		portletDataContext.addClassedModel(
 			deDataDefinitionFieldLinkElement,
@@ -213,9 +200,6 @@ public class DEDataDefinitionFieldLinkStagedModelDataHandler
 
 	@Reference
 	private DDMStructureLocalService _ddmStructureLocalService;
-
-	@Reference
-	private DDMStructureVersionLocalService _ddmStructureVersionLocalService;
 
 	@Reference
 	private Portal _portal;
