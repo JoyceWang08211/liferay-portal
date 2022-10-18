@@ -774,6 +774,7 @@ definition {
 	@priority = "5"
 	test ImportLARsOnStagedSite {
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property testray.component.names = "Site Pages Administration,Training,Web Content Administration";
 
 		task ("Given: User import home page from LAR file on staging site") {
