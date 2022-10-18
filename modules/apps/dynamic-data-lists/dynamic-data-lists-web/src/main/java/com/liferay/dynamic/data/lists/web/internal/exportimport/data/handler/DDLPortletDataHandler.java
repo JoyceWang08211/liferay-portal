@@ -14,7 +14,6 @@
 
 package com.liferay.dynamic.data.lists.web.internal.exportimport.data.handler;
 
-import com.liferay.data.engine.model.DEDataDefinitionFieldLink;
 import com.liferay.dynamic.data.lists.constants.DDLConstants;
 import com.liferay.dynamic.data.lists.constants.DDLPortletKeys;
 import com.liferay.dynamic.data.lists.model.DDLRecord;
@@ -167,28 +166,6 @@ public class DDLPortletDataHandler extends BasePortletDataHandler {
 			for (Element ddmStructureElement : ddmStructureElements) {
 				StagedModelDataHandlerUtil.importStagedModel(
 					portletDataContext, ddmStructureElement);
-			}
-
-			for (Element ddmStructureElement : ddmStructureElements) {
-				List<Element> deDataDefinitionFieldLinkElements =
-					portletDataContext.getReferenceDataElements(
-						ddmStructureElement, DEDataDefinitionFieldLink.class,
-						null);
-
-				for (Element deDataDefinitionFieldLinkElement :
-						deDataDefinitionFieldLinkElements) {
-
-					String path =
-						deDataDefinitionFieldLinkElement.attributeValue("path");
-
-					DEDataDefinitionFieldLink deDataDefinitionFieldLink =
-						(DEDataDefinitionFieldLink)
-							portletDataContext.getZipEntryAsObject(
-								deDataDefinitionFieldLinkElement, path);
-
-					StagedModelDataHandlerUtil.importStagedModel(
-						portletDataContext, deDataDefinitionFieldLink);
-				}
 			}
 
 			Element ddmTemplatesElement =
