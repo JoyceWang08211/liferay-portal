@@ -361,7 +361,6 @@ public class DDMStructureStagedModelDataHandler
 			}
 		}
 
-		_updateDDMFormFieldsDDMStructureIds(ddmForm, structureIds);
 		_updateDDMFormFieldsPredefinedValues(
 			ddmForm, groupId, portletDataContext.getSourceGroupId());
 
@@ -749,24 +748,6 @@ public class DDMStructureStagedModelDataHandler
 		}
 
 		return false;
-	}
-
-	private void _updateDDMFormFieldsDDMStructureIds(
-		DDMForm ddmForm, Map<Long, Long> structureIds) {
-
-		List<DDMFormField> ddmFormFields = ddmForm.getDDMFormFields();
-
-		for (DDMFormField ddmFormField : ddmFormFields) {
-			long ddmStructureId = GetterUtil.getLong(
-				ddmFormField.getProperty("ddmStructureId"));
-
-			if (ddmStructureId != 0) {
-				ddmFormField.setProperty(
-					"ddmStructureId",
-					MapUtil.getLong(
-						structureIds, ddmStructureId, ddmStructureId));
-			}
-		}
 	}
 
 	private void _updateDDMFormFieldsPredefinedValues(
