@@ -107,6 +107,8 @@ definition {
 	@description = "This is a use case for LPS-83147."
 	@priority = "5"
 	test ActivateStagingWithPageScopedWebContent {
+		property portal.upstream = "joyce";
+
 		JSONLayout.addWidgetToPublicLayout(
 			groupName = "Site Name",
 			layoutName = "Staging Test Page",

@@ -939,6 +939,8 @@ definition {
 	@description = "This is a use case for LPS-128305."
 	@priority = "3"
 	test PublishContentPageWithDLReference {
+		property portal.upstream = "joyce";
+
 		task ("Given: User add a new Document file") {
 			JSONDocument.addFileWithUploadedFile(
 				dmDocumentDescription = "DM Document Description",
@@ -1070,6 +1072,7 @@ definition {
 
 	@priority = "5"
 	test PublishThemeFromStagedToLive {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "StagingUsecase#PublishThemeFromStagedToLive";
 
 		task ("Given: User deploy test theme on the portal and enables local staging") {
