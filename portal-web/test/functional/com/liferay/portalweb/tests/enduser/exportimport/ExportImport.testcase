@@ -921,6 +921,7 @@ definition {
 	@priority = "3"
 	test ExportImportGlobalPagesViaInstances {
 		property portal.release = "false";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "ExportImport#ExportImportGlobalPagesViaInstances";
 
 		task ("Given: User configure the export on Global Site to include Pages but exclude DM's and WC's then export it") {
