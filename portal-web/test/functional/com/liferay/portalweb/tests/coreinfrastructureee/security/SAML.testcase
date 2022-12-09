@@ -3121,6 +3121,7 @@ definition {
 		property custom.properties = "feature.flag.COMMERCE-8087=true";
 		property keystore.enabled = "true";
 		property portal.release = "false";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#ImportJSONFileToConfigureSAMLSPOnNonDefaultPort";
 
 		task ("Given: Login 9080 and add SAP") {
