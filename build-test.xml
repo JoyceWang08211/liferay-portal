@@ -2192,6 +2192,15 @@ war.path=${app.server.portal.dir}/</echo>
 				</then>
 			</if>
 
+			<get-testcase-property property.name="keystore.enabled" />
+
+			<if>
+				<equals arg1="${keystore.enabled}" arg2="true" />
+				<then>
+					<ant antfile="build-test-saml.xml" target="deploy-additional-keystore-file" />
+				</then>
+			</if>
+
 			<get-testcase-property property.name="databases.size" />
 
 			<if>
