@@ -12,19 +12,21 @@
 			verbose="true"
 		/>-->
 
-		<!-- <unzip
+		<!--<unzip
 			dest="${liferay.home}"
 			src="${project.dir}/portal-web/test/functional/com/liferay/portalweb/dependencies/${custom.database.zip.name}"
-		/> -->
+		/>-->
 
 		<copy
-			todir="${liferay.home}">
+			todir="${liferay.home}"
+		>
 			<fileset
 				dir="${project.dir}/portal-web/test/functional/com/liferay/portalweb/dependencies/${custom.database.file.name}"
 			/>
 		</copy>
 
-		<!-- <get-test-app-server-lib-portal-dir /> -->
+		<!--<get-test-app-server-lib-portal-dir />-->
+		<property name="database.type" value="mysql" />
 
 		<get-database-property property.name="database.docker.image" />
 
@@ -69,10 +71,10 @@
 						docker cp ${import.database.src.path} ${database.host}:${docker.database.dest.path}
 
 						docker exec ${database.host} /bin/bash /tmp/import-database.sh
-
-						<echo>Import process is finished</echo>
 					]]>
 				</execute>
+
+				<echo>Import process is finished</echo>
 			</then>
 		</if>
 	</target>
