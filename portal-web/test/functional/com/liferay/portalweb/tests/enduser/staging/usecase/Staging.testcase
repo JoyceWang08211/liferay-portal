@@ -609,6 +609,22 @@ definition {
 		Staging.deletePublishTemplate(publishTemplateName = "Publish Template Name");
 	}
 
+	@description = "This is a use case for LRQA-78789."
+	test DemoTestForDataDump {
+		property portal.upstream = "joyce";
+		property rebuild.staging.database = "true";
+
+		Navigator.gotoSitePage(
+			pageName = "Joyce Page",
+			siteName = "Staging Site");
+
+		takeScreenshot();
+
+		WebContentDisplayPortlet.viewContent(
+			webContentContent = "test content",
+			webContentTitle = "Web Content Title");
+	}
+
 	@description = "This is a use case for LPS-100807."
 	@priority = "4"
 	test EditWikiPageInLiveSiteWhenWikiNotStaged {
