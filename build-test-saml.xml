@@ -13,10 +13,10 @@
 			<then>
 				<copy
 					file="${project.dir}/portal-web/test/functional/com/liferay/portalweb/tests/coreinfrastructureee/security/dependencies/keystore.jks"
-					todir="${app.server.parent.dir}-${app.server.bundles.size}/data"
+					todir="${app.server.parent.dir}-1/data"
 				/>
 
-				<echo> The deploy dir of second bundle is: ${app.server.parent.dir}-${app.server.bundles.size}.</echo>
+				<echo> The deploy dir of second bundle is: ${app.server.parent.dir}-1</echo>
 
 				<echo> The process of deploying Keystore File is finished.</echo>
 			</then>
