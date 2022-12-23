@@ -3,6 +3,26 @@
 <project basedir="." name="portal-test-saml" xmlns:antelope="antlib:ise.antelope.tasks">
 	<import file="build-test.xml" />
 
+	<target name="deploy-additional-keystore-file">
+		<echo> The process of deploying Keystore File is starting.</echo>
+
+		<if>
+			<not>
+				<equals arg1="${app.server.bundles.size}" arg2="0" />
+			</not>
+			<then>
+				<copy
+					file="${project.dir}/portal-web/test/functional/com/liferay/portalweb/tests/coreinfrastructureee/security/dependencies/keystore.jks"
+					todir="${app.server.parent.dir}-${app.server.bundles.size}/data"
+				/>
+
+				<echo> The deploy dir of second bundle is: ${app.server.parent.dir}-${app.server.bundles.size}.</echo>
+
+				<echo> The process of deploying Keystore File is finished.</echo>
+			</then>
+		</if>
+	</target>
+
 	<target name="deploy-keystore-file">
 		<copy
 			file="${project.dir}/portal-web/test/functional/com/liferay/portalweb/tests/coreinfrastructureee/security/dependencies/keystore.jks"

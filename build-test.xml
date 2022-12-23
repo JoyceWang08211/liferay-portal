@@ -2233,6 +2233,16 @@ war.path=${app.server.portal.dir}/</echo>
 							operation="+"
 							result="app.server.bundle.index"
 						/>
+
+						<get-testcase-property property.name="keystore.enabled" />
+
+						<if>
+							<equals arg1="${keystore.enabled}" arg2="true" />
+							<then>
+								<ant antfile="build-test-saml.xml" target="deploy-additional-keystore-file" />
+								<property name="app.server.bundles.size" value="${app.server.bundles.size}" />
+							</then>
+						</if>
 					</antelope:repeat>
 
 					<var name="app.server.bundle.index" unset="true" />
