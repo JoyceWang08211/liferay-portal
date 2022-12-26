@@ -3123,6 +3123,7 @@ definition {
 		property custom.properties = "feature.flag.COMMERCE-8087=true";
 		property keystore.enabled = "true";
 		property portal.release = "false";
+		property portal.upstream = "joyce";
 		property skip.start.app.server.index = "1";
 		property test.name.skip.portal.instance = "SAML#ImportJSONFileToConfigureSAMLSPOnNonDefaultPort";
 
