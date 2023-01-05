@@ -167,7 +167,11 @@ definition {
 
 		var portalInstanceName = StringUtil.replace(${portalURL}, "http://", "");
 
-		var portalInstanceName = StringUtil.replace(${portalInstanceName}, ":8080", "");
+		var portalInstanceName = StringUtil.replace(${portalInstanceName}, ":88", "");
+
+		if (contains("${portalInstanceName}", "/liferay")) {
+			var portalInstanceName = StringUtil.replace(${portalInstanceName}, "/liferay", "");
+		}
 
 		return ${portalInstanceName};
 	}
