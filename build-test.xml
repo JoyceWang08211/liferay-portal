@@ -1855,15 +1855,20 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 					<var name="test.url" value="${test.url}/${portal.context}" />
 				</then>
 				<else>
-					<propertyregex
-						input="${test.url}"
-						property="proxy.url"
-						regexp="(http:\/\/.*)(:[0-9]+)"
-						select="\1"
-					/>
+					<if>
+						<contains string="${test.url}" substring=":8080" />
+						<then>
+							<propertyregex
+								input="${test.url}"
+								property="proxy.url"
+								regexp="(http:\/\/.*)(:[0-9]+)"
+								select="\1"
+							/>
 
-					<var name="test.url" value="${proxy.url}:88/liferay" />
-				</then>
+							<var name="test.url" value="${proxy.url}:88/liferay" />
+						</then>
+					</if>
+				</else>
 			</if>
 		</sequential>
 	</macrodef>
