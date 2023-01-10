@@ -939,6 +939,7 @@ definition {
 	@description = "This is a use case for LPS-167777 TC-1: Verify that the non-modified referred content(DM content) will not present in the LAR when 'Include if modified' is enabled for Web Content."
 	@priority = "4"
 	test NonModifiedReferredContentCannotPublishToLiveWhenEnableIncludeIfModifiedOption {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "StagingUsecase#NonModifiedReferredContentCannotPublishToLiveWhenEnableIncludeIfModifiedOption";
 
 		task ("Given: Create basic web content with a new image and publish to live") {
