@@ -115,6 +115,12 @@ Listen ${test.app.server.leading.port.number}8]]></echo>
 		</exec>
 
 		<print-file file.name="${liferay.home}/start-httpd.txt" />
+
+		<exec executable="systemctl" output="${liferay.home}/status-httpd.txt">
+			<arg line="status httpd.service" />
+		</exec>
+
+		<print-file file.name="${liferay.home}/status-httpd.txt" />
 	</target>
 
 	<target name="stop-httpd-server">
