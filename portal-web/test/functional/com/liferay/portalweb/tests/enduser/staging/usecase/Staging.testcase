@@ -273,6 +273,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "Staging#CanPublishWCWithURLReferenceViaRemoteStaging";
 
 		task ("Given: Add 10 content pages with 2 Grid modules and 2 WCD in each") {
