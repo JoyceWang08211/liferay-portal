@@ -134,6 +134,8 @@ definition {
 	@description = "User can enable local staging on site which is based on Speedwell site template."
 	@priority = "4"
 	test CanEnableLocalStagingOnSpeedwellSiteTemplate {
+		property portal.upstream = "joyce";
+
 		task ("Given: Add a new site based on Speedwell site template") {
 			Site.openSitesAdmin();
 
