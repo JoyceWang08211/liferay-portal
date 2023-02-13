@@ -214,7 +214,7 @@ definition {
 	}
 
 	macro openNodePort {
-		var nodePort = StringUtil.replace("${nodePort}", "080", "8");
+		var nodePort = StringUtil.replace(${nodePort}, "080", "8");
 
 		Open(locator1 = "http://localhost:${nodePort}/liferay");
 	}
@@ -232,8 +232,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		Open(locator1 = "${baseURL}/group/${siteNameURL}/${pageNameURL}");
@@ -249,8 +249,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		Open(locator1 = "${baseURL}/group/${siteNameURL}");
@@ -266,8 +266,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		Open(locator1 = "${baseURL}/group/${siteNameURL}-staging");
@@ -280,8 +280,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		Open(locator1 = "${baseURL}/group/guest");
@@ -297,8 +297,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		var pageNameURL = StringUtil.replace("${pageName}", " ", "-");
@@ -318,8 +318,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteNameURL}-staging/~/control_panel/manage?p_p_id=com_liferay_staging_processes_web_portlet_StagingProcessesPortlet");
@@ -335,16 +335,16 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		Open(locator1 = "${baseURL}/web/${siteNameURL}");
 	}
 
 	macro openSpecificURL {
-		if (contains("${url}", "080") && !(contains("${url}", "/liferay"))) {
-			var url = StringUtil.replace("${url}", "080", "8/liferay");
+		if (contains(${url}, "080") && !(contains(${url}, "/liferay"))) {
+			var url = StringUtil.replace(${url}, "080", "8/liferay");
 		}
 
 		Open(locator1 = "${url}");
@@ -362,8 +362,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		if (isSet(defaultSite)) {
@@ -403,8 +403,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		Open(locator1 = "${baseURL}/group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_layout_admin_web_portlet_GroupPagesPortlet&_com_liferay_layout_admin_web_portlet_GroupPagesPortlet_tabs1=pages&_com_liferay_layout_admin_web_portlet_GroupPagesPortlet_privateLayout=false&_com_liferay_layout_admin_web_portlet_GroupPagesPortlet_displayStyle=miller-columns&_com_liferay_layout_admin_web_portlet_GroupPagesPortlet_mvcRenderCommandName=%2Flayout_admin%2Fedit_layout&_com_liferay_layout_admin_web_portlet_GroupPagesPortlet_portletResource=com_liferay_layout_admin_web_portlet_GroupPagesPortlet&p_r_p_selPlid=${plid}&_com_liferay_layout_admin_web_portlet_GroupPagesPortlet_screenNavigationEntryKey=${screenNavigationEntryKey}");
@@ -419,8 +419,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		Open(locator1 = "${baseURL}/web/guest/home");
@@ -431,8 +431,8 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		if (contains("${baseURL}", "080") && !(contains("${baseURL}", "/liferay"))) {
-			var baseURL = StringUtil.replace("${baseURL}", "080", "8/liferay");
+		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
+			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
 		}
 
 		Open(locator1 = "${baseURL}/${urlAppend}");

@@ -173,7 +173,7 @@ definition {
 
 		var portalInstanceName = StringUtil.replace(${portalInstanceName}, ":88", "");
 
-		if (contains("${portalInstanceName}", "/liferay")) {
+		if (contains(${portalInstanceName}, "/liferay")) {
 			var portalInstanceName = StringUtil.replace(${portalInstanceName}, "/liferay", "");
 		}
 

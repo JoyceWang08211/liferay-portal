@@ -65,7 +65,7 @@ definition {
 
 		var portalURL = StringUtil.replace(${portalURL}, ":88", "");
 
-		if (contains("${portalURL}", "/liferay")) {
+		if (contains(${portalURL}, "/liferay")) {
 			var portalURL = StringUtil.replace(${portalURL}, "/liferay", "");
 		}
 

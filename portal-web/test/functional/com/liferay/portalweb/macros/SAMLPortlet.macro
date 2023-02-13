@@ -40,8 +40,8 @@ definition {
 			echo("## * IdP Metadata XML File Name: ${idPMetadataXML}");
 		}
 		else {
-			if (!(contains("${idpMetadataURL}", "/liferay"))) {
-				var idpMetadataURL = StringUtil.replace("${idpMetadataURL}", "080", "8/liferay");
+			if (!(contains(${idpMetadataURL}, "/liferay"))) {
+				var idpMetadataURL = StringUtil.replace(${idpMetadataURL}, "080", "8/liferay");
 			}
 
 			Type(
@@ -102,8 +102,8 @@ definition {
 		}
 
 		if (isSet(idpKeepAliveURL)) {
-			if (!(contains("${idpKeepAliveURL}", "/liferay"))) {
-				var idpKeepAliveURL = StringUtil.replace("${idpKeepAliveURL}", "080", "8/liferay");
+			if (!(contains(${idpKeepAliveURL}, "/liferay"))) {
+				var idpKeepAliveURL = StringUtil.replace(${idpKeepAliveURL}, "080", "8/liferay");
 			}
 
 			Type(
@@ -271,8 +271,8 @@ definition {
 			echo("## * SP Metadata XML File Name: ${spMetadataXML}");
 		}
 		else {
-			if (!(contains("${spMetadataURL}", "/liferay"))) {
-				var spMetadataURL = StringUtil.replace("${spMetadataURL}", "080", "8/liferay");
+			if (!(contains(${spMetadataURL}, "/liferay"))) {
+				var spMetadataURL = StringUtil.replace(${spMetadataURL}, "080", "8/liferay");
 			}
 
 			Type(
@@ -303,8 +303,8 @@ definition {
 		}
 
 		if (isSet(spKeepAliveURL)) {
-			if (!(contains("${spKeepAliveURL}", "/liferay"))) {
-				var spKeepAliveURL = StringUtil.replace("${spKeepAliveURL}", "080", "8/liferay");
+			if (!(contains(${spKeepAliveURL}, "/liferay"))) {
+				var spKeepAliveURL = StringUtil.replace(${spKeepAliveURL}, "080", "8/liferay");
 			}
 
 			Type(
