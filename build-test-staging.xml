@@ -4,28 +4,25 @@
 	<import file="build-test.xml" />
 
 	<target name="rebuild-staging-database">
-		<delete dir="${liferay.home}/data/elasticsearch7" />
+		<!-- <delete dir="${liferay.home}/data/elasticsearch7" /> -->
 
-		<!--<mirrors-get
-			dest="${liferay.home}/${custom.database.zip.name}"
-			src="${custom.database.zip.url}"
-			verbose="true"
-		/>-->
-
-		<!--<unzip
+		<mirrors-get
 			dest="${liferay.home}"
-			src="${project.dir}/portal-web/test/functional/com/liferay/portalweb/dependencies/${custom.database.zip.name}"
-		/>-->
+			src="${custom.database.zip.url}"
+		/>
 
-		<copy
+		<unzip
+			dest="${liferay.home}"
+			src="${liferay.home}/${custom.database.name}.zip"
+		/>
+
+		<!-- <copy
 			todir="${liferay.home}"
 		>
 			<fileset
 				dir="${project.dir}/portal-web/test/functional/com/liferay/portalweb/dependencies/${custom.database.file.name}"
 			/>
-		</copy>
-
-		<property name="database.type" value="mysql" />
+		</copy> -->
 
 		<get-database-property property.name="database.docker.image" />
 
@@ -62,6 +59,47 @@
 						<property name="docker.database.dest.path" value="/tmp/${database.type}.sql" />
 						<property name="import.database.src.path" value="${liferay.home}/${database.type}.sql" />
 					</then>
+					<elseif>
+						<equals arg1="${database.type}" arg2="oracle" />
+						<then>
+							<property location="${project.dir}/import-database.sql" name="oracle.setup.file.path" />
+
+							<echo file="${oracle.setup.file.path}">
+								<![CDATA[
+									drop user lportal cascade;
+
+									create or replace directory DATA_PUMP_DIR as '/tmp/data_pump_dir';
+
+									select directory_name, directory_path from dba_directories where directory_name='DATA_PUMP_DIR';
+
+									quit;
+								]]>
+							</echo>
+
+							<echo file="${import.database.sh.file.path}">
+								<![CDATA[
+									#!/bin/bash
+
+									impdp ${oracle.admin.user}/${oracle.admin.password} dumpfile=${custom.database.name}.dmp table_exists_action=replace
+								]]>
+							</echo>
+
+							<execute>
+								<![CDATA[
+									docker exec ${database.host} mkdir -p /tmp/data_pump_dir
+
+									docker exec ${database.host} chown -R oracle:oracle /tmp/data_pump_dir
+
+									docker cp ${oracle.setup.file.path} ${database.host}:/tmp/import-database.sql
+
+									docker exec ${database.host} sqlplus ${oracle.admin.user}/${oracle.admin.password} @/tmp/import-database.sql
+								]]>
+							</execute>
+
+							<property name="docker.database.dest.path" value="/tmp/data_pump_dir/${custom.database.name}.dmp" />
+							<property name="import.database.src.path" value="${liferay.home}/${custom.database.name}.dmp" />
+						</then>
+					</elseif>
 				</if>
 
 				<execute>
