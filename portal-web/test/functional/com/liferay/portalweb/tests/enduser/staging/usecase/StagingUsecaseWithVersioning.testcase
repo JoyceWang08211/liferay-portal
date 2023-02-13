@@ -4,6 +4,7 @@ definition {
 	property ci.retries.disabled = "true";
 	property portal.release = "true";
 	property portal.upstream = "true";
+	property rebuild.staging.database = "true";
 	property testray.main.component.name = "Staging";
 
 	setUp {
@@ -141,6 +142,8 @@ definition {
 
 	@priority = 4
 	test EnableAndDeleteSitePageVariationPage {
+		property rebuild.staging.database = "true";
+
 		Staging.addSitePagesVariationPG(
 			copySitePagesVariationName = "Main Variation",
 			sitePagesVariationName = "Test Site Pages Variation");

@@ -4,6 +4,7 @@ definition {
 	property ci.retries.disabled = "true";
 	property portal.release = "true";
 	property portal.upstream = "true";
+	property rebuild.staging.database = "true";
 	property testray.main.component.name = "Staging";
 
 	setUp {
@@ -111,6 +112,7 @@ definition {
 	@priority = 5
 	test AddPageWithPageVersioningEnabled {
 		property portal.acceptance = "true";
+		property rebuild.staging.database = "true";
 
 		task ("Given: I have a page") {
 			PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
