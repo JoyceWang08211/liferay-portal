@@ -8,12 +8,12 @@
 
 		<mirrors-get
 			dest="${liferay.home}"
-			src="${custom.database.zip.url}"
+			src="http://test-1-1/userContent/custom_db.zip"
 		/>
 
 		<unzip
 			dest="${liferay.home}"
-			src="${liferay.home}/${custom.database.name}.zip"
+			src="${liferay.home}/custom_db.zip"
 		/>
 
 		<!-- <copy
@@ -66,13 +66,39 @@
 
 							<echo file="${oracle.setup.file.path}">
 								<![CDATA[
-									drop user lportal cascade;
+									drop user liferay cascade;
+drop user liferay_cms cascade;
+drop tablespace liferay including contents and datafiles;
+drop tablespace liferay_cms including contents and datafiles;
 
-									create or replace directory DATA_PUMP_DIR as '/tmp/data_pump_dir';
+create user liferay identified by "123456";
+create user liferay_cms identified by "123456";
 
-									select directory_name, directory_path from dba_directories where directory_name='DATA_PUMP_DIR';
+create or replace directory DATA_PUMP_DIR as '/tmp/data_pump_dir';
+select directory_name, directory_path from dba_directories where directory_name='DATA_PUMP_DIR';
 
-									quit;
+create tablespace liferay datafile 'liferay.dbf' size 2g autoextend on;
+create tablespace liferay_cms datafile 'liferay_cms.dbf' size 2g autoextend on;
+
+alter user liferay default tablespace liferay;
+alter user liferay_cms default tablespace liferay_cms;
+
+grant unlimited tablespace to liferay;
+grant unlimited tablespace to liferay_cms;
+
+grant create session,create table to liferay;
+grant create session,create table to liferay_cms;
+
+grant connect,resource to liferay;
+grant connect,resource to liferay_cms;
+
+grant read, write on directory DATA_PUMP_DIR to liferay;
+grant read, write on directory DATA_PUMP_DIR to liferay_cms;
+
+grant exp_full_database,imp_full_database to liferay;
+grant exp_full_database,imp_full_database to liferay_cms;
+
+quit;
 								]]>
 							</echo>
 
@@ -80,7 +106,7 @@
 								<![CDATA[
 									#!/bin/bash
 
-									impdp ${oracle.admin.user}/${oracle.admin.password} dumpfile=${custom.database.name}.dmp table_exists_action=replace
+									impdp ${oracle.admin.user}/${oracle.admin.password} DIRECTORY=DATA_PUMP_DIR dumpfile=custom_db.dmp table_exists_action=replace full=y
 								]]>
 							</echo>
 
@@ -96,8 +122,8 @@
 								]]>
 							</execute>
 
-							<property name="docker.database.dest.path" value="/tmp/data_pump_dir/${custom.database.name}.dmp" />
-							<property name="import.database.src.path" value="${liferay.home}/${custom.database.name}.dmp" />
+							<property name="docker.database.dest.path" value="/tmp/data_pump_dir/custom_db.dmp" />
+							<property name="import.database.src.path" value="${liferay.home}/custom_db.dmp" />
 						</then>
 					</elseif>
 				</if>
