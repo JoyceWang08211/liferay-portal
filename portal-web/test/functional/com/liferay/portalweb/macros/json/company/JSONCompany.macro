@@ -171,7 +171,7 @@ definition {
 
 		var portalInstanceName = StringUtil.replace(${portalURL}, "http://", "");
 
-		var portalInstanceName = StringUtil.replace(${portalInstanceName}, ":88", "");
+		var portalInstanceName = StringUtil.extractFirst(${portalInstanceName}, ":");
 
 		if (contains(${portalInstanceName}, "/liferay")) {
 			var portalInstanceName = StringUtil.replace(${portalInstanceName}, "/liferay", "");

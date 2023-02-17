@@ -344,7 +344,9 @@ definition {
 
 	macro openSpecificURL {
 		if (contains(${url}, "080") && !(contains(${url}, "/liferay"))) {
-			var url = StringUtil.replace(${url}, "080", "8/liferay");
+			if (!(contains(${url}, "osbfarofrontend"))) {
+				var url = StringUtil.replace(${url}, "080", "8/liferay");
+			}
 		}
 
 		Open(locator1 = "${url}");
@@ -420,7 +422,9 @@ definition {
 		}
 
 		if (contains(${baseURL}, "080") && !(contains(${baseURL}, "/liferay"))) {
-			var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
+			if (!(contains(${baseURL}, "osbfarofrontend"))) {
+				var baseURL = StringUtil.replace(${baseURL}, "080", "8/liferay");
+			}
 		}
 
 		Open(locator1 = "${baseURL}/web/guest/home");
