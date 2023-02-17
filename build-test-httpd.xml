@@ -106,6 +106,12 @@ Listen ${test.app.server.leading.port.number}8]]></echo>
 			</then>
 		</if>
 
+		<echo append="true" file="${apache.http.conf.file}">
+		
+TimeOut 2400
+ProxyTimeout 2400
+ProxyBadHeader Ignore</echo>
+
 		<print-file file.name="${apache.http.conf.file}" />
 	</target>
 
