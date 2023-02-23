@@ -69,51 +69,12 @@ class OAuth2Client {
 		});
 	}
 
-	private _createIframe(challenge: any, sessionKey: string): Promise<any> {
-		const oauth2Client = this;
+	private _createIframe(): HTMLIFrameElement {
 		const ifrm = document.createElement('iframe');
 		ifrm.style.display = 'none';
-		ifrm.src = `${oauth2Client.authorizeURL}?response_type=code&client_id=${oauth2Client.clientId}&redirect_uri=${oauth2Client.encodedRedirectURL}&prompt=none&code_challenge=${challenge.code_challenge}&code_challenge_method=S256`;
-
 		document.body.appendChild(ifrm);
 
-		return new Promise((resolve, reject) => {
-			const eventHandler = (event: any) => {
-				try {
-					if (event.data.error) {
-						reject(event.data.error);
-
-						return;
-					}
-					else if (event.data.code === null) {
-						reject();
-
-						return;
-					}
-
-					const tokenResponse = oauth2Client._requestToken(
-						challenge.code_verifier,
-						event.data.code
-					);
-
-					resolve(tokenResponse);
-
-					tokenResponse.then((response) =>
-						sessionStorage.setItem(
-							sessionKey,
-							JSON.stringify(response)
-						)
-					);
-				}
-				finally {
-					ifrm.parentElement?.removeChild(ifrm);
-				}
-			};
-
-			if (ifrm.contentWindow) {
-				ifrm.contentWindow.addEventListener('message', eventHandler);
-			}
-		});
+		return ifrm;
 	}
 
 	private async _fetch(
@@ -180,8 +141,58 @@ class OAuth2Client {
 	private _requestTokenSilently(sessionKey: string): Promise<any> {
 		const oauth2Client = this;
 		const challenge = pkceChallenge(128);
+		const ifrm = oauth2Client._createIframe();
 
-		return oauth2Client._createIframe(challenge, sessionKey);
+		const promise = new Promise((resolve, reject) => {
+			if (ifrm) {
+				const iframeDocument =
+					ifrm.contentDocument || ifrm.contentWindow?.document;
+
+				if (iframeDocument) {
+					iframeDocument.addEventListener('message', (event: any) => {
+						try {
+							if (event.data.error) {
+								reject(event.data.error);
+
+								return;
+							}
+							else if (event.data.code === null) {
+								reject();
+
+								return;
+							}
+
+							const tokenResponse = oauth2Client._requestToken(
+								challenge.code_verifier,
+								event.data.code
+							);
+
+							resolve(tokenResponse);
+
+							tokenResponse.then((response) =>
+								sessionStorage.setItem(
+									sessionKey,
+									JSON.stringify(response)
+								)
+							);
+						}
+						finally {
+							ifrm?.parentElement?.removeChild(ifrm);
+						}
+					});
+				}
+				else {
+					reject('IFrame Document is null! Something is wrong.');
+				}
+			}
+			else {
+				reject('IFrame is null! Something is wrong.');
+			}
+		});
+
+		ifrm.src = `${oauth2Client.authorizeURL}?response_type=code&client_id=${oauth2Client.clientId}&redirect_uri=${oauth2Client.encodedRedirectURL}&prompt=none&code_challenge=${challenge.code_challenge}&code_challenge_method=S256`;
+
+		return promise;
 	}
 
 	private async _requestToken(
