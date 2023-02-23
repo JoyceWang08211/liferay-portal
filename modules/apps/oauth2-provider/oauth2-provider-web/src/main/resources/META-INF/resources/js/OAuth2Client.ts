@@ -74,7 +74,7 @@ class OAuth2Client {
 
 		const ifrm = document.createElement('iframe');
 
-		ifrm.src = `${oauth2Client.authorizeURL}?client_id=${oauth2Client.clientId}&code_challenge=${challenge.code_challenge}&code_challenge_method=S256&redirect_uri=${oauth2Client.encodedRedirectURL}&response_type=code&prompt=none`;
+		ifrm.src = `${oauth2Client.authorizeURL}?response_type=code&client_id=${oauth2Client.clientId}&redirect_uri=${oauth2Client.encodedRedirectURL}&prompt=none&code_challenge=${challenge.code_challenge}&code_challenge_method=S256`;
 		ifrm.style.display = 'none';
 
 		document.body.appendChild(ifrm);
