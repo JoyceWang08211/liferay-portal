@@ -2,23 +2,37 @@
 definition {
 
 	property ci.retries.disabled = "true";
+	property custom.properties = "upgrade.database.auto.run=true";
 	property portal.release = "true";
 	property portal.upstream = "true";
+	property rebuild.staging.database = "true";
 	property testray.main.component.name = "Staging";
 
 	setUp {
-		TestCase.setUpPortalInstance();
+		task ("Setup: Setup portal instance and login to portal") {
+			TestCase.setUpCustomPortalInstance();
 
-		User.firstLoginPG();
+			User.firstLoginPG();
+		}
 
-		JSONGroup.addGroup(groupName = "Site Name");
+		task ("Setup: Delete user profile image") {
+			MyAccount.openMyAccountAdmin();
+
+			User.deleteProfileImage();
+
+			PortletEntry.save();
+		}
+
+		task ("Setup: Add a group with the name Site Name") {
+			JSONGroup.addGroup(groupName = "Site Name");
+		}
 	}
 
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
 		if (${testPortalInstance} == "true") {
-			PortalInstances.tearDownCP();
+			PortalInstances.tearDownCustomPortal();
 		}
 		else {
 			JSONGroup.deleteGroupByName(groupName = "Site Name");
