@@ -2,21 +2,33 @@
 definition {
 
 	property ci.retries.disabled = "true";
+	property custom.properties = "upgrade.database.auto.run=true";
 	property portal.release = "true";
 	property portal.upstream = "true";
+	property rebuild.staging.database = "true";
 	property testray.main.component.name = "Export/Import Framework";
 
 	setUp {
-		TestCase.setUpPortalInstance();
+		task ("Setup: Setup portal instance and login to portal") {
+			TestCase.setUpCustomPortalInstance();
 
-		User.firstLoginPG();
+			User.firstLoginPG();
+		}
+
+		task ("Setup: Delete user profile image") {
+			MyAccount.openMyAccountAdmin();
+
+			User.deleteProfileImage();
+
+			PortletEntry.save();
+		}
 	}
 
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
 		if (${testPortalInstance} == "true") {
-			PortalInstances.tearDownCP();
+			PortalInstances.tearDownCustomPortal();
 		}
 		else {
 			Site.tearDownCP();

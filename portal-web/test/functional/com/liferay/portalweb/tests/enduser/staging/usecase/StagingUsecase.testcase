@@ -2,29 +2,47 @@
 definition {
 
 	property ci.retries.disabled = "true";
+	property custom.properties = "upgrade.database.auto.run=true";
 	property portal.release = "true";
 	property portal.upstream = "true";
+	property rebuild.staging.database = "true";
 	property testray.main.component.name = "Staging";
 
 	setUp {
-		TestCase.setUpPortalInstance();
+		task ("Setup: Setup portal instance and login to portal") {
+			TestCase.setUpCustomPortalInstance();
 
-		User.firstLoginPG();
+			User.firstLoginPG();
+		}
 
-		JSONGroup.addGroup(groupName = "Site Name");
+		task ("Setup: Delete user profile image") {
+			MyAccount.openMyAccountAdmin();
 
-		JSONLayout.addPublicLayout(
-			groupName = "Site Name",
-			layoutName = "Staging Test Page");
+			User.deleteProfileImage();
 
-		JSONStaging.enableLocalStaging(groupName = "Site Name");
+			PortletEntry.save();
+		}
+
+		task ("Setup: Add a group with the name Site Name") {
+			JSONGroup.addGroup(groupName = "Site Name");
+		}
+
+		task ("Setup: Add a public layout to the group") {
+			JSONLayout.addPublicLayout(
+				groupName = "Site Name",
+				layoutName = "Staging Test Page");
+		}
+
+		task ("Setup: Activate local live staging") {
+			JSONStaging.enableLocalStaging(groupName = "Site Name");
+		}
 	}
 
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
 		if (${testPortalInstance} == "true") {
-			PortalInstances.tearDownCP();
+			PortalInstances.tearDownCustomPortal();
 		}
 		else {
 			JSONGroup.deleteGroupByName(groupName = "Site Name");
