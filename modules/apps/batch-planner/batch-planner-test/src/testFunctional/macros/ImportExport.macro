@@ -227,7 +227,7 @@ definition {
 		if (isSet(importStrategy)) {
 			Select(
 				locator1 = "ImportExport#IMPORT_STRATEGY",
-				value1 = "${importStrategy}");
+				value1 = ${importStrategy});
 		}
 
 		if (${stopImportOnError} == "false") {
