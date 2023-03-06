@@ -326,7 +326,7 @@ definition {
 				category = "Site Builder",
 				portlet = "Pages");
 
-			PagesAdmin.addPage(pageName = "Test Page");
+			PagesAdmin.addPublicPage(pageName = "Test Page");
 		}
 
 		task ("Then: User shouldn't be able to create child page for the Home page ") {

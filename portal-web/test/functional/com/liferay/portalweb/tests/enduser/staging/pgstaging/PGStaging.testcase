@@ -829,7 +829,7 @@ definition {
 			category = "Site Builder",
 			portlet = "Pages");
 
-		PagesAdmin.addPage(pageName = "Test Variation Page");
+		PagesAdmin.addPublicPage(pageName = "Test Variation Page");
 
 		Navigator.gotoSitePage(
 			pageName = "Test Variation Page",
