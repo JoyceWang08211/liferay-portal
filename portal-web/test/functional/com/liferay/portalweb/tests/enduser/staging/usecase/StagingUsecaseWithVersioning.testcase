@@ -65,7 +65,7 @@ definition {
 
 		Staging.viewSitePagesVariationActiveCP(sitePagesVariationName = "Summer");
 
-		PagesAdmin.addPageUnderSitePagesVariation(pageName = "Test Page Name");
+		PagesAdmin.addPublicPageUnderSitePagesVariation(pageName = "Test Page Name");
 
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
@@ -137,7 +137,7 @@ definition {
 
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(
+		PagesAdmin.addPublicPage(
 			collectionName = "Page Template Collection",
 			pageName = "Test Page Name",
 			pageTemplateName = "Page Template Name");
@@ -165,7 +165,7 @@ definition {
 
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(pageName = "Test Page Name");
+		PagesAdmin.addPublicPage(pageName = "Test Page Name");
 
 		Navigator.gotoStagedSitePage(
 			pageName = "Test Page Name",
@@ -197,7 +197,7 @@ definition {
 	test PublicationWithoutReadyForPublication {
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(pageName = "Staging Test Page 2");
+		PagesAdmin.addPublicPage(pageName = "Staging Test Page 2");
 
 		Navigator.gotoStagedSitePage(
 			pageName = "Staging Test Page 2",
@@ -334,7 +334,7 @@ definition {
 
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(pageName = "Page Revision Page");
+		PagesAdmin.addPublicPage(pageName = "Page Revision Page");
 
 		Navigator.gotoStagedSitePage(
 			pageName = "Page Revision Page",
@@ -620,7 +620,7 @@ definition {
 
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(pageName = "Page 2");
+		PagesAdmin.addPublicPage(pageName = "Page 2");
 
 		Navigator.gotoStagedSitePage(
 			pageName = "Page 2",
@@ -677,7 +677,7 @@ definition {
 
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(pageName = "Page 2");
+		PagesAdmin.addPublicPage(pageName = "Page 2");
 
 		Navigator.gotoStagedSitePage(
 			pageName = "Page 2",
@@ -928,7 +928,7 @@ definition {
 
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(pageName = "Test Page Name");
+		PagesAdmin.addPublicPage(pageName = "Test Page Name");
 
 		Navigator.gotoStagedSitePage(
 			pageName = "Test Page Name",
@@ -960,7 +960,7 @@ definition {
 
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(
+		PagesAdmin.addPublicPage(
 			collectionName = "Page Template Collection",
 			inheritChanges = "false",
 			pageName = "Test Page Name",
@@ -1049,7 +1049,7 @@ definition {
 
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(pageName = "Page1");
+		PagesAdmin.addPublicPage(pageName = "Page1");
 
 		ProductMenu.gotoPortlet(
 			category = "Site Builder",
@@ -1154,7 +1154,7 @@ definition {
 	test ViewSummaryScreenWithDraftPage {
 		PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-		PagesAdmin.addPage(pageName = "Draft Page");
+		PagesAdmin.addPublicPage(pageName = "Draft Page");
 
 		Navigator.gotoStagedSitePage(
 			pageName = "Draft Page",

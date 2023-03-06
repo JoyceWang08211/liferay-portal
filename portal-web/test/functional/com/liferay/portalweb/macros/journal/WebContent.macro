@@ -24,7 +24,7 @@ definition {
 			else {
 				CKEditor.addContentInWebContent(
 					content = ${webContentContent},
-					fieldLabel = "Content");
+					fieldLabel = "content");
 			}
 		}
 

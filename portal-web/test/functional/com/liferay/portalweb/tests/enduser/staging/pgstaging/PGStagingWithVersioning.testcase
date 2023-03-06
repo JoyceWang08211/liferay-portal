@@ -125,7 +125,7 @@ definition {
 		task ("Given: I have a page") {
 			PagesAdmin.openPagesAdmin(siteURLKey = "site-name-staging");
 
-			PagesAdmin.addPage(pageName = "Staging Page Versioning");
+			PagesAdmin.addPublicPage(pageName = "Staging Page Versioning");
 
 			Navigator.gotoStagedSitePage(
 				pageName = "Staging Page Versioning",

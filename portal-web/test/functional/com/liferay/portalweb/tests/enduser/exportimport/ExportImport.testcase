@@ -476,6 +476,7 @@ definition {
 			WebContentNavigator.gotoEditCP(webContentTitle = "Web Content Title");
 
 			WebContent.viewCP(
+				upgradedFieldLabel = "true",
 				webContentContent = "Web Content Content",
 				webContentTitle = "Web Content Title");
 		}
@@ -1788,7 +1789,7 @@ definition {
 
 			PagesAdmin.openPagesAdmin(siteURLKey = "Site Name");
 
-			PagesAdmin.addPage(pageName = "Test Page");
+			PagesAdmin.addPublicPage(pageName = "Test Page");
 
 			PagesAdmin.openPagesAdmin(siteURLKey = "Site Name");
 		}
