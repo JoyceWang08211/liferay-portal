@@ -1782,7 +1782,9 @@ definition {
 		task ("Expand resource panels in resource scopes") {
 			Navigator.gotoNavUnderline(navUnderline = "Resource scopes");
 
-			OAuth2.viewResourcePanelCollapsed(scopeList = "Analytics,Liferay.Bulk.REST,Liferay.Data.Engine.REST,Liferay.Headless.Admin.Content");
+			OAuth2.viewResourcePanelNotCollapsed(scopeList = "Analytics");
+
+			OAuth2.viewResourcePanelCollapsed(scopeList = "Liferay.Bulk.REST,Liferay.Data.Engine.REST,Liferay.Headless.Admin.Content");
 		}
 
 		task ("Restart the portal server") {
@@ -1805,7 +1807,9 @@ definition {
 
 			Navigator.gotoNavUnderline(navUnderline = "Resource scopes");
 
-			OAuth2.viewResourcePanelCollapsed(scopeList = "Analytics,Liferay.Bulk.REST,Liferay.Data.Engine.REST,Liferay.Headless.Admin.Content");
+			OAuth2.viewResourcePanelNotCollapsed(scopeList = "Analytics");
+
+			OAuth2.viewResourcePanelCollapsed(scopeList = "Liferay.Bulk.REST,Liferay.Data.Engine.REST,Liferay.Headless.Admin.Content");
 		}
 	}
 
