@@ -11196,10 +11196,11 @@ login.secure.forgot.password=false</echo>
 				<echo append="true" file="portal-impl/src/portal-ext.properties">
 
 					// HikariCP
-
-					jdbc.default.connectionTimeout=600000
-					jdbc.default.maximumPoolSize=20
-					jdbc.default.minimumIdle=0
+					jdbc.default.connectionTimeout=90000
+					jdbc.default.idleTimeout=600000
+					jdbc.default.maximumPoolSize=250
+					jdbc.default.maxLifetime=0
+					jdbc.default.minimumIdle=10 
 
 					jdbc.counter.maximumPoolSize=5
 					jdbc.counter.minimumIdle=0
