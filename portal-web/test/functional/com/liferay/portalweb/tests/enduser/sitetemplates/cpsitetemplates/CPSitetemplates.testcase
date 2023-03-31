@@ -149,7 +149,7 @@ definition {
 	@description = "This is a use case for LPS-121137. Admin can enable and disable the porpagation of site template changes on site templates admin page."
 	@priority = 4
 	test AdminCanControlWhenPropagateSiteTemplateChanges {
-		property portal.acceptance = "true";
+		property portal.acceptance = "joyce";
 		property test.name.skip.portal.instance = "CPSitetemplates#AdminCanControlWhenPropagateSiteTemplateChanges";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
