@@ -763,6 +763,7 @@ definition {
 	@priority = 4
 	test AssertSSOIdleSessionTakesPrecedenceOverIdPSessionTimeout {
 		property custom.properties = "session.timeout=2${line.separator}jsonws.web.service.paths.excludes=";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#AssertSSOIdleSessionTakesPrecedenceOverIdPSessionTimeout";
 		property web.xml.timeout = "2";
 
@@ -820,6 +821,8 @@ definition {
 			User.logoutPG();
 
 			User.viewLoggedOutPG();
+
+			Pause(locator1 = 5000);
 
 			SAML.executeIdPInitiatedSSO(
 				idpInitiatedSsourl = "${portalURL}/c/portal/saml/sso?entityId=samlsp&RelayState=http://www.able.com:9080",
@@ -1150,6 +1153,7 @@ definition {
 	@description = "This is a use case for LPS-128578 and LPS-69388. Assert SSO with sign auth and request."
 	@priority = 4
 	test AssertSSOWithSignAuthnRequests {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#AssertSSOWithSignAuthnRequests";
 
 		task ("Configure samlidp as IdP") {
@@ -1212,6 +1216,8 @@ definition {
 
 		task ("Logout and wait for SLO") {
 			User.logoutPG();
+
+			Pause(locator1 = 5000);
 
 			SAML.waitForSLO();
 		}
@@ -1574,6 +1580,7 @@ definition {
 	test ConfigureSAMLToImportUsersFromLDAP {
 		property apacheds.enabled = "true";
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#ConfigureSAMLToImportUsersFromLDAP";
 
 		task ("Configure samlidp as IdP") {
@@ -3196,6 +3203,7 @@ definition {
 	@priority = 5
 	test ImportSigningCertificateFromPKCS12KeystoreFile {
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#ImportSigningCertificateFromPKCS12KeystoreFile";
 
 		task ("Configure samlidp as IdP and samlsp as SP") {
@@ -3241,6 +3249,8 @@ definition {
 
 		task ("Logout, open able.com and login") {
 			User.logoutPG();
+
+			Pause(locator1 = 5000);
 
 			User.viewLoggedOutPG();
 
@@ -3514,6 +3524,7 @@ definition {
 	@priority = 4
 	test SPInitiatedSSODoesNotSyncAttributesIfNotSent {
 		property app.server.bundles.size = "0";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#SPInitiatedSSODoesNotSyncAttributesIfNotSent";
 
 		var identityProviderEntityId = "samlidp";
@@ -3591,6 +3602,10 @@ definition {
 
 			User.logoutPG(specificURL = "http://www.able.com:8080");
 
+			Pause(locator1 = 5000);
+
+			takeScreenshot();
+
 			SAML.editServiceProviderConnection(
 				idpURL = "http://localhost:8080",
 				spAttributes = '''emailAddress
@@ -3598,6 +3613,10 @@ definition {
 					screenName
 					uuid''',
 				spEntityId = ${serviceProviderEntityId});
+
+			Pause(locator1 = 5000);
+
+			takeScreenshot();
 		}
 
 		task ("Update user and execute SP initiated SSO") {
@@ -4121,6 +4140,7 @@ definition {
 	@priority = 4
 	test ViewIdPSingleLogoutWithMultipleSPs {
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "SAML#ViewIdPSingleLogoutWithMultipleSPs";
 
 		task ("Add CP able.com and baker.com") {
@@ -4248,6 +4268,8 @@ definition {
 
 		task ("Initiate Single Logout for IdP") {
 			User.logoutPG();
+
+			Pause(locator1 = 5000);
 
 			User.viewLoggedOutPG();
 		}

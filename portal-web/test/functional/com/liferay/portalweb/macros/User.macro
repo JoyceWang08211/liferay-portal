@@ -1467,7 +1467,13 @@ definition {
 			newPassword = ${newPassword},
 			requirePasswordReset = ${requirePasswordReset});
 
+		takeScreenshot();
+
 		User.logoutPG();
+
+		Pause(locator1 = 5000);
+
+		takeScreenshot();
 
 		if (${samlEnabled} == "true") {
 			User.viewLoggedOutPG();
