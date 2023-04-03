@@ -476,6 +476,7 @@ definition {
 			WebContentNavigator.gotoEditCP(webContentTitle = "Web Content Title");
 
 			WebContent.viewCP(
+				upgradedFieldLabel = "true",
 				webContentContent = "Web Content Content",
 				webContentTitle = "Web Content Title");
 		}

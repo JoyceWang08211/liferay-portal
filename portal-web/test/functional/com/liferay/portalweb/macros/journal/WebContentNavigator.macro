@@ -27,7 +27,20 @@ definition {
 	macro gotoAddCP {
 		LexiconEntry.gotoAdd();
 
-		MenuItem.click(menuItem = "Basic Web Content");
+		if (IsElementPresent(key_menuItem = "Basic Web Content", locator1 = "MenuItem#ANY_MENU_ITEM")) {
+			MenuItem.click(menuItem = "Basic Web Content");
+		}
+		else {
+			Button.clickMore();
+
+			IFrame.selectConfigurationFrame();
+
+			Search.searchCP(searchTerm = "Basic Web Content");
+
+			LexiconEntry.gotoEntry(rowEntry = "Basic Web Content");
+
+			IFrame.selectTopFrame();
+		}
 
 		AssertVisible(locator1 = "TextInput#TITLE");
 
