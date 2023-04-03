@@ -4195,6 +4195,12 @@ tell application "Safari" to quit
 		</sequential>
 	</macrodef>
 
+	<macrodef name="prepare-selenium-private-page-config">
+		<sequential>
+			<echo file="${liferay.home}/osgi/configs/com.liferay.release.feature.flag.web.internal.configuration.ReleaseFeatureFlagConfiguration.config">disabledReleaseFeatureFlags="true"</echo>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="prepare-selenium-recaptcha-properties">
 		<sequential>
 			<if>
@@ -11119,6 +11125,8 @@ ${update.properties}</echo>
 		<prepare-portal-template-freemarker-osgi-configuration />
 
 		<prepare-selenium-login-config />
+
+		<prepare-selenium-private-page-config />
 	</target>
 
 	<target name="prepare-patching-tool">
@@ -11196,10 +11204,11 @@ login.secure.forgot.password=false</echo>
 				<echo append="true" file="portal-impl/src/portal-ext.properties">
 
 					// HikariCP
-
-					jdbc.default.connectionTimeout=600000
-					jdbc.default.maximumPoolSize=20
-					jdbc.default.minimumIdle=0
+					jdbc.default.connectionTimeout=90000
+					jdbc.default.idleTimeout=600000
+					jdbc.default.maximumPoolSize=250
+					jdbc.default.maxLifetime=0
+					jdbc.default.minimumIdle=10
 
 					jdbc.counter.maximumPoolSize=5
 					jdbc.counter.minimumIdle=0
@@ -12391,7 +12400,7 @@ auto.deploy.dest.dir=C:/WINDOWS/system32/config/systemprofile/liferay/websphere-
 		</antcall>
 
 		<prepare-selenium-login-config />
-
+		<prepare-selenium-private-page-config />
 		<prepare-selenium-analytics-cloud-properties />
 		<prepare-selenium-app-server-properties />
 		<prepare-selenium-aws-translation-properties />
