@@ -591,6 +591,7 @@ definition {
 	test AssertSiteTemplatePropagationOnPrivatePage {
 		property custom.properties = "feature.flag.LPS-166286=true";
 		property portal.release = "false";
+		property portal.upstream = "joyce";
 		property release.feature.flags.disable.DISABLE_PRIVATE_LAYOUTS = "true";
 		property test.name.skip.portal.instance = "CPSitetemplates#AssertSiteTemplatePropagationOnPrivatePage";
 
@@ -614,6 +615,8 @@ definition {
 
 			PageEditor.publish();
 
+			takeScreenshot();
+
 			SiteTemplates.addSitePageViaSiteTemplateCP(
 				pageName = "Page B",
 				siteTemplateName = "Site Template Name");
@@ -623,6 +626,12 @@ definition {
 			Navigator.openPrivateSiteURL(siteName = "site-name");
 
 			Refresh();
+
+			takeScreenshot();
+
+			Refresh();
+
+			takeScreenshot();
 		}
 
 		task ("Then: Verify content page and widget page should appear in priavte site") {
