@@ -226,6 +226,7 @@ definition {
 	test ViewAndEditUserAfterUpgrade740 {
 		property data.archive.type = "data-archive-user";
 		property database.types = "mariadb,mysql,postgresql";
+		property portal.upstream = "joyce";
 		property portal.version = "7.4.0";
 
 		SignIn.signIn();
@@ -262,6 +263,7 @@ definition {
 	@priority = 5
 	test ViewAndEditUserAfterUpgrade7413 {
 		property data.archive.type = "data-archive-user";
+		property portal.upstream = "joyce";
 		property portal.version = "7.4.13";
 
 		SignIn.signIn();
