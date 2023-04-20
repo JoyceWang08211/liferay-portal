@@ -13540,10 +13540,19 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 				/>
 			</then>
 			<else>
+				<mirrors-get
+					dest="${liferay.home}"
+					src="https://github.com/JoyceWang08211/liferay-qa-portal-legacy-ee/raw/master-qa-78849/7.2.10.1/data-archive/data-archive-saml-broken-mapping-db2.zip"
+				/>
+
 				<unzip
 					dest="${liferay.home}"
-					src="${portal.legacy.dir}/${portal.version}/data-archive/${data.archive.type}-${database.type}.zip"
+					src="${liferay.home}/data-archive-saml-broken-mapping-db2.zip"
 				/>
+				<!-- <unzip
+					dest="${liferay.home}"
+					src="${portal.legacy.dir}/${portal.version}/data-archive/${data.archive.type}-${database.type}.zip"
+				/> -->
 			</else>
 		</if>
 
