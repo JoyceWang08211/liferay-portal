@@ -2320,6 +2320,8 @@ definition {
 	@description = "This is a use case for LPS-182704. TC-7 and TC9: Verify that a confirmation pop-up should show up when Delete Application Data Before Importing checkbox is checked during Blogs and Forms portlet import process on live site"
 	@priority = 5
 	test ViewDeleteApplicationDataPopUpInBlogsAndFormsImportProgressOnLiveSite {
+		property portal.upstream = "joyce";
+
 		task ("Export blank Blogs lar from the default site and add a blog entry in staging site") {
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 
@@ -2398,6 +2400,8 @@ definition {
 	@description = "This is a use case for LPS-182704. TC-6 and TC8: Verify that a confirmation pop-up should show up when Delete Application Data Before Importing checkbox is checked during Blogs and Forms portlet import process on staging site"
 	@priority = 5
 	test ViewDeleteApplicationDataPopUpInBlogsAndFormsImportProgressOnStagingSite {
+		property portal.upstream = "joyce";
+
 		task ("Export blank Blogs lar from the default site and add a blog entry in staging site") {
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 
@@ -2466,6 +2470,8 @@ definition {
 	@description = "This is a use case for LPS-182704. TC-5 and TC11: Verify that a confirmation pop-up should show up when Delete Application Data Before Importing checkbox is checked during WCM portlet import process on live site"
 	@priority = 5
 	test ViewDeleteApplicationDataPopUpInWCMImportProgressOnLiveSite {
+		property portal.upstream = "joyce";
+
 		task ("Export web content from the default site and add a new web content entry in staging site") {
 			WebContentNavigator.openWebContentAdmin(siteURLKey = "guest");
 
@@ -2504,6 +2510,8 @@ definition {
 	@description = "This is a use case for LPS-182704. TC-4 and TC10: Verify that a confirmation pop-up should show up when Delete Application Data Before Importing checkbox is checked during WCM portlet import process on staging site"
 	@priority = 5
 	test ViewDeleteApplicationDataPopUpInWCMImportProgressOnStagingSite {
+		property portal.upstream = "joyce";
+
 		task ("Export web content from the default site and add a new web content entry in staging site") {
 			WebContentNavigator.openWebContentAdmin(siteURLKey = "guest");
 

@@ -851,6 +851,7 @@ definition {
 	@description = "This is a use case for LPS-182704. TC-12: Verify that a confirmation pop-up should show up when Delete Application Data Before Importing checkbox is checked during portlet import process on remote staging site."
 	@priority = 5
 	test ViewDeleteApplicationDataPopUpInPortletImportProgressOnRemoteStagingSite {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "RemoteStaging#ViewDeleteApplicationDataPopUpInPortletImportProgressOnRemoteStagingSite";
 
 		task ("Export web content from the default site and add a new web content entry") {
@@ -943,6 +944,7 @@ definition {
 	@description = "This is a use case for LPS-182704. TC-13: Verify that a confirmation pop-up should show up when Delete Application Data Before Importing checkbox is checked during WCM portlet import process on remote live site"
 	@priority = 5
 	test ViewDeleteApplicationDataPopUpInPortletImportProgressOnRemoteLiveSite {
+		property portal.upstream = "joyce";
 		property test.name.skip.portal.instance = "RemoteStaging#ViewDeleteApplicationDataPopUpInPortletImportProgressOnRemoteLiveSite";
 
 		task ("Export web content from the default site and add a new web content entry") {
