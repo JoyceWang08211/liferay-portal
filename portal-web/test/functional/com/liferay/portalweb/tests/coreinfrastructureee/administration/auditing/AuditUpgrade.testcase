@@ -4,7 +4,7 @@ definition {
 	property ci.retries.disabled = "true";
 	property database.types = "db2,mariadb,mysql,oracle,postgresql,sqlserver";
 	property portal.release = "false";
-	property portal.upstream = "true";
+	property portal.upstream = "joyce";
 	property testray.component.names = "Audit";
 	property testray.main.component.name = "Upgrades Security";
 
