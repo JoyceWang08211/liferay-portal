@@ -72,7 +72,7 @@ definition {
 		property test.name.skip.portal.instance = "ContentSecurityPolicy#VerifyCSPCouldConfiguredByWebId";
 
 		task ("Add the OSGI configuration file") {
-			ContentSecurityPolicy.deployInstanceConfigFile(osgiConfigFileName = "com.liferay.portal.security.content.security.policy.configuration.ContentSecurityPolicyConfiguration.scoped~custom-image-source-webid.config");
+			ContentSecurityPolicy.deployInstanceConfigFile(osgiConfigFileName = "com.liferay.portal.security.content.security.policy.internal.configuration.ContentSecurityPolicyConfiguration.scoped~custom-image-source-webid.config");
 
 			OSGiConfig.waitForOSGiConfig();
 		}
@@ -92,7 +92,7 @@ definition {
 
 			var curl = '''${baseURL} -X HEAD -I''';
 
-			var response = JSONCurlUtil.post(${curl});
+			var response = JSONCurlUtil.get(${curl});
 
 			TestUtils.assertPartialEquals(
 				actual = ${response},
@@ -106,7 +106,7 @@ definition {
 		property test.name.skip.portal.instance = "ContentSecurityPolicy#VerifyCSPCouldConfiguredToBlockImageSource";
 
 		task ("Add the OSGI configuration file") {
-			ContentSecurityPolicy.deployInstanceConfigFile(osgiConfigFileName = "com.liferay.portal.security.content.security.policy.configuration.ContentSecurityPolicyConfiguration.scoped~custom-image-source.config");
+			ContentSecurityPolicy.deployInstanceConfigFile(osgiConfigFileName = "com.liferay.portal.security.content.security.policy.internal.configuration.ContentSecurityPolicyConfiguration.scoped~custom-image-source.config");
 
 			OSGiConfig.waitForOSGiConfig();
 		}
@@ -126,7 +126,7 @@ definition {
 
 			var curl = '''${baseURL} -X HEAD -I''';
 
-			var response = JSONCurlUtil.post(${curl});
+			var response = JSONCurlUtil.get(${curl});
 
 			TestUtils.assertPartialEquals(
 				actual = ${response},
