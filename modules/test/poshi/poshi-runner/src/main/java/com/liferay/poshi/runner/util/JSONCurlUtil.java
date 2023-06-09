@@ -71,6 +71,14 @@ public class JSONCurlUtil {
 		return _getParsedResponse(request, jsonPath);
 	}
 
+	public static String head(String requestString)
+		throws IOException, TimeoutException {
+
+		Request request = new Request(requestString, "HEAD");
+
+		return request.send();
+	}
+
 	public static String patch(String requestString)
 		throws IOException, TimeoutException {
 
