@@ -980,6 +980,7 @@ definition {
 	test URLPatternShouldWorkAfterUpgrade73101 {
 		property custom.properties = "virtual.hosts.default.site.name=Guest";
 		property data.archive.type = "data-archive-web-content-with-custom-url";
+		property portal.upstream = "joyce";
 		property portal.version = "7.3.10.1";
 
 		task ("When: Not set URL pattern and edit web content") {
