@@ -29,6 +29,7 @@ definition {
 		}
 
 		OAuth2.inputApplicationValues(
+			clientAuthenticationMethod = ${clientAuthenticationMethod},
 			clientId = ${clientId},
 			clientSecret = ${clientSecret});
 
