@@ -552,8 +552,6 @@ definition {
 				pageName = "Page B",
 				siteTemplateName = "Site Template Name");
 
-			SiteTemplatesNavigator.openSiteTemplatesAdmin();
-
 			SiteTemplates.addChildPageViaSiteTemplateCP(
 				childPageName = "Child Page A",
 				parentPageName = "Page A",
@@ -561,8 +559,6 @@ definition {
 				siteTemplateName = "Site Template Name");
 
 			PageEditor.publish();
-
-			SiteTemplatesNavigator.openSiteTemplatesAdmin();
 
 			SiteTemplates.addChildPageViaSiteTemplateCP(
 				childPageName = "Child Page B",
@@ -781,8 +777,6 @@ definition {
 			SelectFrameTop();
 
 			PageEditor.publish();
-
-			SiteTemplatesNavigator.openSiteTemplatesAdmin();
 
 			SiteTemplates.addChildPageViaSiteTemplateCP(
 				childPageName = "Child Content Page",
@@ -1967,7 +1961,8 @@ definition {
 		}
 
 		task ("When User adds page with Friendly URL conflicts in site template") {
-			SiteTemplates.addSitePageWithConfirmViaSiteTemplateCP(
+			SiteTemplates.addSitePageViaSiteTemplateCP(
+				conflictPage = "true",
 				pageName = "Page1",
 				siteTemplateName = "Site Template Name");
 		}
@@ -1989,7 +1984,7 @@ definition {
 		task ("When: User adds javascript code to the site") {
 			SiteTemplates.gotoSettingsCP(siteTemplateName = "Site Template Name");
 
-			SiteTemplates.AddSiteTemplateJavaScript(
+			SiteTemplates.addSiteTemplateJavaScript(
 				javaScript = ${javascript},
 				pageSet = "true");
 		}
@@ -2170,7 +2165,8 @@ definition {
 		}
 
 		task ("When User adds page with same Friendly URL conflicts in site template") {
-			SiteTemplates.addSitePageWithConfirmViaSiteTemplateCP(
+			SiteTemplates.addSitePageViaSiteTemplateCP(
+				conflictPage = "true",
 				pageName = "Page1",
 				siteTemplateName = "Site Template Name");
 
@@ -2286,7 +2282,8 @@ definition {
 		}
 
 		task ("When User adds child page with Friendly URL conflicts in site template") {
-			SiteTemplates.addSitePageWithConfirmViaSiteTemplateCP(
+			SiteTemplates.addSitePageViaSiteTemplateCP(
+				conflictPage = "true",
 				pageName = "Page1",
 				siteTemplateName = "Site Template Name");
 
