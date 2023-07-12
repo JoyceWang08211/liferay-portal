@@ -4,7 +4,7 @@ definition {
 	property ci.retries.disabled = "true";
 	property log.context.enabled = "true";
 	property portal.release = "true";
-	property portal.upstream = "true";
+	property portal.upstream = "joyce";
 	property test.run.environment = "EE";
 	property testray.main.component.name = "Audit";
 	property testray.testcase.product.edition = "EE";
