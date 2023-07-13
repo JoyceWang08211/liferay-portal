@@ -860,9 +860,10 @@ definition {
 		task ("Then: The sign in action LOGIN_FAILURE info audit event message is written out to the log with the reason of the failure") {
 			Navigator.openURL();
 
-			User.loginPG(
+			User.firstLoginUI(
+				authenticationMethod = "By Screen Name",
 				password = "test",
-				userEmailAddress = "test@liferay.com");
+				userScreenName = "test");
 
 			Audit.openAuditAdmin();
 
@@ -898,6 +899,8 @@ definition {
 		}
 
 		task ("And: Change to authenticate by user ID") {
+			var userId = JSONUserSetter.setUserId(userEmailAddress = "test@liferay.com");
+
 			PortalSettings.gotoConfiguration(
 				configurationCategory = "User Authentication",
 				configurationName = "General",
@@ -930,9 +933,10 @@ definition {
 		task ("Then: The sign in action LOGIN_DNE info audit event message is written out to the log with the reason of the failure") {
 			Navigator.openURL();
 
-			User.loginPG(
+			User.firstLoginUI(
+				authenticationMethod = "By User ID",
 				password = "test",
-				userEmailAddress = "test@liferay.com");
+				userId = ${userId});
 
 			Audit.openAuditAdmin();
 
@@ -1061,9 +1065,10 @@ definition {
 		task ("Then: The sign in action LOGIN_FAILURE info audit event message is written out to the log with the reason of the failure") {
 			Navigator.openURL();
 
-			User.loginPG(
+			User.firstLoginUI(
+				authenticationMethod = "By Screen Name",
 				password = "test",
-				userEmailAddress = "test@liferay.com");
+				userScreenName = "test");
 
 			Audit.openAuditAdmin();
 
@@ -1134,9 +1139,10 @@ definition {
 		task ("Then: The sign in action LOGIN_FAILURE info audit event message is written out to the log with the reason of the failure") {
 			Navigator.openURL();
 
-			User.loginPG(
+			User.firstLoginUI(
+				authenticationMethod = "By User ID",
 				password = "test",
-				userEmailAddress = "test@liferay.com");
+				userId = ${userId});
 
 			Audit.openAuditAdmin();
 
