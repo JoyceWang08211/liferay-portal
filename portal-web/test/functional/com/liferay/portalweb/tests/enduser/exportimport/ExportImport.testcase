@@ -1657,6 +1657,7 @@ definition {
 	@priority = 5
 	test ExportViaGuest {
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Given: Add a new user") {
