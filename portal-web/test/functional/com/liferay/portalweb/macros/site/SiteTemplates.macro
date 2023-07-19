@@ -725,6 +725,12 @@ definition {
 			value1 = ${siteTemplateActiveEdit});
 	}
 
+	macro viewNoExclamationMark {
+		AssertElementNotPresent(
+			key_pageName = ${pageName},
+			locator1 = "Icon#EXCLAMATION_MARK");
+	}
+
 	macro viewTooltipOfExclamationMark {
 		MouseOver(
 			key_pageName = ${pageName},
