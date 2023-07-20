@@ -100,7 +100,7 @@ definition {
 
 		task ("When: Navigate to page tree of the site") {
 			Navigator.gotoSitePage(
-				pageName = "Home",
+				pageName = "home",
 				siteName = "Site Name");
 		}
 
