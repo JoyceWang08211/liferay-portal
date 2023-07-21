@@ -29,6 +29,7 @@ definition {
 	@priority = 4
 	test ApplicationCanBeAuthorizedWithoutUserSession {
 		property oauth2.application.enabled = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Add the OSGI configuration file") {
@@ -95,6 +96,7 @@ definition {
 	test ApplicationCanBeAuthorizedWithRememberDeviceEnabled {
 		property oauth2.application.enabled = "true";
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Add the OSGI configuration file") {
@@ -442,6 +444,7 @@ definition {
 	test AuthorizationCanBeRevokedViaKebabMenu {
 		property oauth2.application.enabled = "true";
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Add the OSGI configuration file") {
@@ -497,6 +500,7 @@ definition {
 	@priority = 3
 	test AuthorizationCanBeRevokedViaKebabMenuWithTrustedDevice {
 		property oauth2.application.enabled = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Add the OSGI configuration file") {
@@ -1084,6 +1088,7 @@ definition {
 		property custom.properties = "virtual.hosts.default.site.name=Guest";
 		property oauth2.application.enabled = "true";
 		property portal.acceptance = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Add the OSGI configuration file") {
@@ -1116,6 +1121,7 @@ definition {
 	test ExternalApplicationCanBeTrustedAndAuthorized {
 		property custom.properties = "virtual.hosts.default.site.name=Guest";
 		property oauth2.application.enabled = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Add the OSGI configuration file") {
@@ -1892,6 +1898,7 @@ definition {
 	@priority = 4
 	test RememberDeviceShouldWorkWithMultipleAuthorizations {
 		property oauth2.application.enabled = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Add the OSGI configuration file") {
@@ -1953,6 +1960,7 @@ definition {
 	@priority = 3
 	test RevokeAuthorizationViaKebabMenuWithRememberDevice {
 		property oauth2.application.enabled = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Add the OSGI configuration file") {
