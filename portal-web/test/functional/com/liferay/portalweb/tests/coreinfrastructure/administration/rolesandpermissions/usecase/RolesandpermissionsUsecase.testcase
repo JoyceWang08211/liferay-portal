@@ -89,6 +89,7 @@ definition {
 	@priority = 3
 	test CanOnlyViewPortletsWithPermissionsGranted {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
+		property portal.upstream = "joyce";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
 

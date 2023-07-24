@@ -342,8 +342,9 @@ definition {
 	@priority = 5
 	test ViewSAMLConfigurationAfterUpgrade7412 {
 		property data.archive.type = "data-archive-saml";
-		property osgi.module.configuration.file.names = "com.liferay.portal.search.configuration.IndexStatusManagerConfiguration.config";
+		property osgi.module.configuration.file.names = "com.liferay.portal.search.configuration.IndexStatusManagerConfiguration.cfg";
 		property osgi.module.configurations = "indexReadOnly=\"true\"";
+		property portal.upstream = "joyce";
 		property portal.version = "7.4.12";
 		property test.liferay.virtual.instance = "false";
 
@@ -430,8 +431,9 @@ definition {
 	@priority = 5
 	test ViewSAMLWithEncryptionConfigurationAfterUpgrade7412 {
 		property data.archive.type = "data-archive-saml-encryption";
-		property osgi.module.configuration.file.names = "com.liferay.portal.search.configuration.IndexStatusManagerConfiguration.config";
+		property osgi.module.configuration.file.names = "com.liferay.portal.search.configuration.IndexStatusManagerConfiguration.cfg";
 		property osgi.module.configurations = "indexReadOnly=\"true\"";
+		property portal.upstream = "joyce";
 		property portal.version = "7.4.12";
 		property test.liferay.virtual.instance = "false";
 
