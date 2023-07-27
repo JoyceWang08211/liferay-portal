@@ -1680,12 +1680,18 @@ definition {
 			FileInstall.deployFileOnServer(jarFile = "liferay-sample-batch-0.zip");
 
 			WaitForConsoleTextPresent(value1 = "STARTED liferaysamplebatch0_7.4.13");
+
+			// We need this pause for waiting for the Client Extension to present
+
+			Pause(locator1 = 10000);
 		}
 
 		task ("And: Verify oAuthApplication* are present in scopes on node1") {
 			var baseURL = PropsUtil.get("portal.url");
 
 			OAuth2.openOAuth2Admin();
+
+			Refresh();
 
 			OAuth2.viewScopes(
 				applicationName = "LPS-190491 Liferay Sample Batch 0 OAuth Application Headless Server",
@@ -1704,11 +1710,6 @@ definition {
 		}
 
 		task ("Then: Log in node2 and oAuthApplication* are present in scopes on node2") {
-			User.loginPG(
-				nodePort = 9080,
-				password = "test",
-				userEmailAddress = "test@liferay.com");
-
 			OAuth2.openOAuth2Admin(baseURL = "http://localhost:9080");
 
 			OAuth2.viewScopes(
