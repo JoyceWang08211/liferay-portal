@@ -27,7 +27,7 @@ definition {
 	@priority = 4
 	test AssertCaptchaEnabled {
 		property captcha.enabled = "true";
-		property portal.acceptance = "true";
+		property portal.acceptance = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("View captcha") {
