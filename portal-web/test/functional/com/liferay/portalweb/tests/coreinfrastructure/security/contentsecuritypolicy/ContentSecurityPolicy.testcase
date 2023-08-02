@@ -270,6 +270,7 @@ definition {
 	@description = "This is a use case for LPS-179552. TC-2. Verify the CSP configuration could be loaded from OSGi configuration file."
 	@priority = 5
 	test VerifyCSPConfigurationCanBeLoadedFromOSGiFile {
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Given Add virtual instance and enable CSP at Instance level") {
