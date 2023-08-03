@@ -84,6 +84,7 @@ definition {
 	@priority = 3
 	test SAPCanBeDeleted {
 		property liferay.online.properties = "true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Given: Add 2 virtual instances") {
