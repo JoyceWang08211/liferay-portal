@@ -2329,6 +2329,7 @@ definition {
 
 	@priority = 4
 	test StagingWithPublishTemplate {
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		JSONLayout.addPublicLayout(
