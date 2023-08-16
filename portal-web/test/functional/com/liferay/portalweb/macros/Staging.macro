@@ -858,7 +858,9 @@ definition {
 	}
 
 	macro openStagingAdmin {
-		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_staging_processes_web_portlet_StagingProcessesPortlet");
+		Navigator.openWithAppendToBaseURL(
+			baseURL = ${baseURL},
+			urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_staging_processes_web_portlet_StagingProcessesPortlet");
 	}
 
 	macro publishCustomPublication {
@@ -1101,6 +1103,25 @@ definition {
 			contentName = ${contentName},
 			pageVersioningEnabled = ${pageVersioningEnabled},
 			remotePort = ${remotePort},
+			remoteStaging = "true",
+			siteId = ${siteId},
+			siteName = ${siteName},
+			uncheckContent = ${uncheckContent});
+	}
+
+	macro remoteStagingSetUpBetweenInstancesOnDefaultSite {
+		var siteId = JSONGroupSetter.setGroupId(
+			groupName = "Guest",
+			portalURL = ${remoteURL});
+
+		Staging.openStagingAdmin(
+			baseURL = ${baseURL},
+			siteURLKey = "guest");
+
+		Staging.activateStagingCP(
+			contentName = ${contentName},
+			pageVersioningEnabled = ${pageVersioningEnabled},
+			remotePort = 9080,
 			remoteStaging = "true",
 			siteId = ${siteId},
 			siteName = ${siteName},
