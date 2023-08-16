@@ -927,7 +927,8 @@ definition {
 
 			if (contains(${portletID}, "com_liferay_client_extension_web_internal_portlet_ClientExtensionEntryPortlet")) {
 				echo(${portletID});
-
+			}
+			else {
 				fail("Failed: The portletID of the ClientExtensionEntryPortlet on the live site doesn't contain the companyId of live instance.");
 			}
 		}
