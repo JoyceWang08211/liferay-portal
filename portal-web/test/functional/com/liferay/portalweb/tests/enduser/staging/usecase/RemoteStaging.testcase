@@ -788,6 +788,151 @@ definition {
 			value1 = 12345);
 	}
 
+	@description = "This is a use case for LPS-190628. Verify client extension related portlets can be transferred during staging process."
+	@priority = 5
+	test VerifyClientExtensionRelatedPortletsCanBeTransferredAfterPublication {
+		property custom.properties = "feature.flag.LPS-188873=true${line.separator}feature.flag.LPS-182184=true${line.separator}tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
+		property test.liferay.virtual.instance = "false";
+
+		task ("Given: Add virtual instance able.com and create a new Client Extension with Custom Element") {
+			HeadlessPortalInstanceAPI.addPortalInstance(
+				domain = "www.able.com",
+				portalInstanceId = "www.able.com",
+				virtualHost = "www.able.com");
+
+			User.firstLoginUI(
+				password = "test",
+				specificURL = "http://www.able.com:8080",
+				userEmailAddress = "test@www.able.com");
+
+			User.openUsersAdmin(baseURL = "http://www.able.com:8080");
+
+			User.editEmailAddressCP(
+				password = "test",
+				userEmailAddress = "test@liferay.com",
+				userScreenName = "test");
+
+			DMNavigator.openDocumentsAndMediaAdmin(
+				baseURL = "http://www.able.com:8080",
+				siteURLKey = "global");
+
+			DMDocument.addCP(
+				dmDocumentDescription = "DM Document Description",
+				dmDocumentFile = "testjs.js",
+				dmDocumentTitle = "testjs.js");
+
+			ClientExtensionGeneral.goToRemoteAppsPortlet();
+
+			ClientExtensionGeneral.addCustomElement(
+				entryHtmlName = "test-element",
+				entryName = "TestCXElement",
+				entryURL = " http://www.able.com:8080/documents/d/global/testjs");
+
+			ClientExtensionGeneral.viewTableEntries(
+				entryName = "TestCXElement",
+				entryType = "Custom Element");
+
+			User.logoutPG(specificURL = "http://www.able.com:8080");
+		}
+
+		task ("And: Add virtual instance beker.com and create a new Client Extension with Custom Element") {
+			User.firstLoginUI(
+				password = "test",
+				specificURL = "http://localhost:9080",
+				userEmailAddress = "test@liferay.com");
+
+			PortalInstances.openVirtualInstancesAdmin(baseURL = "http://localhost:9080");
+
+			PortalInstances.addCP(
+				mailDomain = "www.baker.com",
+				virtualHost = "www.baker.com",
+				webId = "www.baker.com");
+
+			User.firstLoginUI(
+				password = "test",
+				specificURL = "http://www.baker.com:9080",
+				userEmailAddress = "test@www.baker.com");
+
+			User.openUsersAdmin(baseURL = "http://www.baker.com:9080");
+
+			User.editEmailAddressCP(
+				password = "test",
+				userEmailAddress = "test@liferay.com",
+				userScreenName = "test");
+
+			DMNavigator.openDocumentsAndMediaAdmin(
+				baseURL = "http://www.baker.com:9080",
+				siteURLKey = "global");
+
+			DMDocument.addCP(
+				dmDocumentDescription = "DM Document Description",
+				dmDocumentFile = "testjs.js",
+				dmDocumentTitle = "testjs.js");
+
+			ClientExtensionGeneral.goToRemoteAppsPortlet();
+
+			ClientExtensionGeneral.addCustomElement(
+				entryHtmlName = "test-element",
+				entryName = "TestCXElement",
+				entryURL = " http://www.baker.com:9080/documents/d/global/testjs");
+
+			ClientExtensionGeneral.viewTableEntries(
+				entryName = "TestCXElement",
+				entryType = "Custom Element");
+
+			User.logoutPG(specificURL = "http://www.baker.com:9080");
+		}
+
+		task ("And: Set up remote staging between two virtual instances") {
+			User.firstLoginUI(
+				password = "test",
+				specificURL = "http://www.able.com:8080",
+				userEmailAddress = "test@liferay.com");
+
+			Staging.remoteStagingSetUpBetweenInstancesOnDefaultSite(
+				baseURL = "http://www.able.com:8080",
+				remoteURL = "http://www.baker.com:9080",
+				siteName = "www.able.com");
+
+			PagesAdmin.openPagesAdmin(
+				baseURL = "http://www.able.com:8080",
+				siteURLKey = "guest");
+
+			ContentPages.addPage(pageName = "Test Page");
+
+			PageEditor.addWidget(
+				popUp = "true",
+				portletName = "TestCXElement");
+
+			PageEditor.publish();
+		}
+
+		task ("When: Publish the whole site to remote live") {
+			Navigator.openSpecificURL(url = "http://www.able.com:8080");
+
+			Staging.gotoPublishToLive();
+
+			Staging.publishToLive(remoteStaging = "true");
+		}
+
+		task ("Then: Assert that the portletID of the ClientExtensionEntryPortlet on the live site should contain the companyId of live instance") {
+			var companyId = JSONCompany.getCompanyId(
+				portalInstanceName = "www.baker.com",
+				portalURL = "http://www.baker.com:9080");
+
+			var portletID = SQL.executeMySQLStatement(mysqlStatement = '''
+				use lportal1;
+				select portletId from Portlet where portletId like '%${companyId}%';''');
+
+			if (contains(${portletID}, "com_liferay_client_extension_web_internal_portlet_ClientExtensionEntryPortlet")) {
+				echo(${portletID});
+			}
+			else {
+				fail("Failed: The portletID of the ClientExtensionEntryPortlet on the live site doesn't contain the companyId of live instance.");
+			}
+		}
+	}
+
 	@description = "This is a use case for LPS-178088. Verify the error message displays the missing reference information with the implicated Site's name."
 	@priority = 4
 	test VerifyErrorMessageWithMissingReferenceInformation {
