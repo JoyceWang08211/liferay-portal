@@ -30,6 +30,7 @@ definition {
 	@description = "This test Audit can capture events when assign, unassign user to user group or role, and event details contain the correct info."
 	@priority = 3
 	test CanCaptureEventsAboutAssignAndUnassignUserToUserGroupAndRole {
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 
