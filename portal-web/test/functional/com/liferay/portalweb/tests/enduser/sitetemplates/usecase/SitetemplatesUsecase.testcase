@@ -623,10 +623,8 @@ definition {
 
 			Navigator._gotoPage(pageName = "Page2 Name");
 
-			var page2URL = Navigator.getCurrentURL();
-
-			var entryExternalURL = StringUtil.replace(${page2URL}, "http://", "");
-			var webContentAdminURL = StringUtil.replace(${page2URL}, "page2-name", "");
+			var entryExternalURL = Navigator.getCurrentURL();
+			var webContentAdminURL = StringUtil.replace(${entryExternalURL}, "page2-name", "");
 		}
 
 		task ("And: Create WC on the Site template and use the copied URL as external URL") {
@@ -637,7 +635,7 @@ definition {
 			PortletEntry.inputTitle(title = "Web Content Title");
 
 			CKEditor.addEntryExternalURL(
-				displayText = ${page2URL},
+				displayText = ${entryExternalURL},
 				entryExternalURL = ${entryExternalURL},
 				fieldLabel = "Content");
 
@@ -679,7 +677,7 @@ definition {
 				siteName = "Site Name");
 
 			WebContentDisplayPortlet.viewContent(
-				displayText = ${page2URL},
+				displayText = ${entryExternalURL},
 				url = "${portalURL}/web/site-name/page2-name",
 				webContentTitle = "Web Content Title");
 		}
