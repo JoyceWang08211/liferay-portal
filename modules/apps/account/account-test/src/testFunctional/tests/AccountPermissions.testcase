@@ -617,6 +617,7 @@ definition {
 	@priority = 5
 	test AccountAdminCanManageAndInviteUserToAccount {
 		property custom.properties = "feature.flag.LPS-188798=true";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 
 		task ("Given: There is an Account Administrator assigned to a Business Account") {

@@ -441,6 +441,7 @@ definition {
 	test ViewAccountRolesPermissionAfterUpgrade7413u63 {
 		property data.archive.type = "data-archive-account-permission";
 		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.upstream = "joyce";
 		property portal.version = "7.4.13.u63";
 
 		task ("View the invite user permission is unchecked in Account Administrator role") {
