@@ -75,11 +75,11 @@ definition {
 		task ("And: Delete the OIDC user") {
 			User.openUsersAdmin();
 
-			User.deactivateCP(userFirstName = "user1");
+			User.deactivateCP(userFirstName = "First1");
 
 			User.deleteCP(
 				deactivateType = "Actions",
-				userFirstName = "user1");
+				userFirstName = "First1");
 
 			User.logoutPG();
 		}
