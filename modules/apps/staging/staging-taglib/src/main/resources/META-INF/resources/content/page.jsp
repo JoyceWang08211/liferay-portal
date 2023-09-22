@@ -104,6 +104,14 @@
 											}
 											%>
 
+											<ul class="hide list-unstyled" id="<portlet:namespace />warningSection">
+												<clay:alert
+													displayType="warning"
+													message="please-consider-publishing-all-content-or-using-wide-date-range-may-take-some-time-click-refresh-counts-to-see-how-many-contents-will-be-included-in-the-publishing-process"
+													symbol="page"
+												/>
+											</ul>
+
 											<ul class="date-range-options hide list-unstyled" id="<portlet:namespace />startEndDate">
 												<li class="d-flex flex-wrap">
 													<liferay-ui:input-date
