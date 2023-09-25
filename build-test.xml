@@ -4395,10 +4395,10 @@ tell application "Safari" to quit
 			</if>
 
 			<if>
-				<isset property="openid.provider.okta.client.secret" />
+				<isset property="openid.provider.okta.client.password" />
 				<then>
 					<echo append="true" file="${test.ext.properties.file}">
-						openid.provider.okta.client.secret=${openid.provider.okta.client.secret}
+						openid.provider.okta.client.password=${openid.provider.okta.client.password}
 					</echo>
 				</then>
 			</if>
