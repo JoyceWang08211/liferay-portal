@@ -221,7 +221,7 @@ definition {
 
 			// This pause is required to allow the test to wait for the access token to expire.
 
-			Pause(locator1 = 60000);
+			Pause(locator1 = 70000);
 		}
 
 		task ("Assert that user is logged out as OIDC provider session is over") {
