@@ -197,6 +197,7 @@ definition {
 	test AssertUserIsLoggedOutWhenAccessTokenIsExpiredByOIDCProvider {
 		property osgi.module.configuration.file.names = "com.liferay.portal.security.sso.openid.connect.configuration.OpenIdConnectConfiguration.config";
 		property osgi.module.configurations = "enabled=\"true\"${line.separator}tokenRefreshOffset=\"30\"";
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 
