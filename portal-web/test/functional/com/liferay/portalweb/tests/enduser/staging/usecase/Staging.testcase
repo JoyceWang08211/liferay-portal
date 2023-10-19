@@ -1726,6 +1726,7 @@ definition {
 	@description = "This is a use case for LPS-96155."
 	@priority = 3
 	test PublishReviewedPageRevision {
+		property portal.upstream = "joyce";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 
