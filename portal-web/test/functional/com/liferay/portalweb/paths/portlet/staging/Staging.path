@@ -362,7 +362,7 @@
 </tr>
 <tr>
 	<td>STAGING_MENU_SUBMIT_FOR_WORKFLOW</td>
-	<td>//button[contains(.,'Submit for Workflow')]</td>
+	<td>//a[contains(.,'Submit for Workflow')] | //button[contains(.,'Submit for Workflow')]</td>
 	<td></td>
 </tr>
 <tr>
