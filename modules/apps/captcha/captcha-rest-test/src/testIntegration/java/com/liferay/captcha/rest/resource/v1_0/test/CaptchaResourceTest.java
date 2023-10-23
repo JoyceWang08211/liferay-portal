@@ -13,7 +13,32 @@ import org.junit.runner.RunWith;
 /**
  * @author Loc Pham
  */
-@Ignore
 @RunWith(Arquillian.class)
 public class CaptchaResourceTest extends BaseCaptchaResourceTestCase {
+
+    @ClassRule
+	@Rule
+	public static final AggregateTestRule aggregateTestRule =
+		new LiferayIntegrationTestRule();
+
+    @Test
+	public void testPostSimpleCaptchaWithCorrectAnswer() throws Exception {
+		Captcha simpleCaptcha = CaptchaResource.getSimpleCaptcha();
+
+
+	}
+
+    @Test
+	public void testPostSimpleCaptchaWithWrongAnswer() throws Exception {
+		Captcha simpleCaptcha = CaptchaResource.getSimpleCaptcha();
+
+
+	}
+
+    @Test
+	public void testPostSimpleCaptchaWithWrongToken() throws Exception {
+		Captcha simpleCaptcha = CaptchaResource.getSimpleCaptcha();
+
+
+	}
 }
