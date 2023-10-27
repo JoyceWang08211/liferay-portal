@@ -27,15 +27,15 @@ definition {
 
 		var captchaToken = JSONUtil.getWithJSONPath(${responseBody}, "$..captchaToken");
 
+		echo("Captcha Token is: ${captchaToken}");
+
 		var image = JSONUtil.getWithJSONPath(${responseBody}, "$..image");
 
 		var base64CaptchaImage = StringUtil.extractLast(${image}, "data:image/png;base64,");
 
-		var answer = OCRUtil.extractTextFromImage(${base64CaptchaImage});
-
-		echo("Captcha Token is: ${captchaToken}");
-
 		echo("Base64 Captcha Image is: ${base64CaptchaImage}");
+
+		var answer = OCRUtil.extractTextFromImage(${base64CaptchaImage});
 
 		echo("Answer is: ${answer}");
 
