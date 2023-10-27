@@ -1,0 +1,55 @@
+definition {
+
+	macro generateCaptchaImage {
+		var baseURL = ${baseURL};
+
+		if (!(isSet(portalURL))) {
+			var portalURL = JSONCompany.getPortalURL();
+		}
+
+		var curl = '''
+			${portalURL}/o/captcha/v1.0/simple-captcha \
+				-u test@liferay.com:test \
+				-H Content-Type: application/json
+		''';
+
+		var responseBody = JSONCurlUtil.get(${curl});
+
+		return ${responseBody};
+	}
+
+	macro validateCaptchaImage {
+		Variables.assertDefined(parameterList = ${responseBody});
+
+		if (!(isSet(portalURL))) {
+			var portalURL = JSONCompany.getPortalURL();
+		}
+
+		var captchaToken = JSONUtil.getWithJSONPath(${responseBody}, "$..captchaToken");
+
+		var image = JSONUtil.getWithJSONPath(${responseBody}, "$..image");
+
+		var base64CaptchaImage = StringUtil.extractLast(${image}, "data:image/png;base64,");
+
+		var answer = OCRUtil.extractTextFromImage(${base64CaptchaImage});
+
+		echo("Captcha Token is: ${captchaToken}");
+
+		echo("Base64 Captcha Image is: ${base64CaptchaImage}");
+
+		echo("Answer is: ${answer}");
+
+		var curl = '''
+			${portalURL}/o/captcha/v1.0/simple-captcha \
+				-u test@liferay.com:test \
+				-H Content-Type: application/json \
+				-d {
+					"answer": "${answer}",
+					"captchaToken": "${captchaToken}"
+				}
+		''';
+
+		JSONCurlUtil.post(${curl});
+	}
+
+}

@@ -38,6 +38,20 @@ definition {
 		}
 	}
 
+	@description = "This is a use case for LPS-185213. TC1 and TC2: Verify there is an endpoint that can validate the input and send a response either if it failed or passed."
+	@priority = 4
+	test CanValidateCaptchaImage {
+		property custom.properties = "feature.flag.LPS-185213=true";
+		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
+
+		task ("View captcha") {
+			var responseBody = HeadlessCaptchaAPI.generateCaptchaImage();
+
+			HeadlessCaptchaAPI.validateCaptchaImage(responseBody = ${responseBody});
+		}
+	}
+
 	@description = "This is a use case for LPS-84310. Verify reCAPTCHA is enabled in account creation after deploying a CAPTCHA OSGi config file."
 	@priority = 5
 	test AssertRecaptchaEnabled {
