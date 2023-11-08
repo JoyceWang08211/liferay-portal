@@ -152,7 +152,9 @@ public class ScimClientOAuth2ApplicationConfigurationFactory {
 		return _oAuth2ApplicationLocalService.updateScopeAliases(
 			oAuth2Application.getUserId(), oAuth2Application.getUserName(),
 			oAuth2Application.getOAuth2ApplicationId(),
-			ListUtil.fromArray("Liferay.Scim.REST.everything"));
+			ListUtil.fromArray(
+				"Liferay.Headless.Admin.User.everything.read",
+				"liferay-json-web-services.everything.read.userprofile"));
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
