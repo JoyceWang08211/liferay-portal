@@ -259,7 +259,7 @@ definition {
 		if (isSet(tempFile)) {
 			UploadTempFile.uploadTempFileHiddenNoMouseOver(
 				locator1 = "TextInput#FILE",
-				value1 = ${fileName});
+				value1 = ${tempFile});
 		}
 		else {
 			UploadDependencyFile.uploadFile(fileName = ${fileName});
@@ -388,6 +388,7 @@ definition {
 			importStrategy = ${importStrategy},
 			scope = ${scope},
 			stopImportOnError = ${stopImportOnError},
+			tempFile = ${tempFile},
 			templateName = ${templateName});
 
 		if (!(isSet(noImport))) {

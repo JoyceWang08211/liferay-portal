@@ -59,7 +59,9 @@ definition {
 
 			ObjectAdmin.goToFieldsTab();
 
-			ObjectAdmin.assertObjectFieldPresent(fieldLabel = "additional");
+			ObjectAdmin.assertObjectField(
+				key_fieldLabel = "additional",
+				key_fieldType = "Text");
 		}
 	}
 
@@ -79,7 +81,7 @@ definition {
 			ImportExport.importFile(
 				entityType = "ObjectDefinition (v1_0 - Liferay Object Admin REST)",
 				fileName = "student_and_teacher_objectDefinition_import.json",
-				stopImportOnError = "true");
+				stopImportOnError = "false");
 		}
 
 		task ("Then the new object definition is imported successfully") {
@@ -136,8 +138,7 @@ definition {
 		task ("When I import the exported student object with JSONL file") {
 			ImportExport.importFile(
 				entityType = "ObjectDefinition (v1_0 - Liferay Object Admin REST)",
-				fileName = "export.jsonl",
-				tempFile = "true");
+				tempFile = "export.jsonl");
 		}
 
 		task ("Then the student object can be imported successfully") {
@@ -182,7 +183,7 @@ definition {
 				entityType = "ObjectDefinition (v1_0 - Liferay Object Admin REST)",
 				fileName = "student_additional_objectDefinition_import.jsonl",
 				importStrategy = "Only Add New Records",
-				stopImportOnError = "true");
+				stopImportOnError = "false");
 		}
 
 		task ("Then the import task successful with the message and no new fields updating in existing object definition") {
