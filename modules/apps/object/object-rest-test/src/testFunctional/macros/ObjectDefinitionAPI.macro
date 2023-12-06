@@ -149,6 +149,28 @@ definition {
 	}
 
 	@summary = "Default summary"
+	macro _deleteObjectDefinition(objectDefinitionName = null) {
+		Variables.assertDefined(parameterList = ${objectDefinitionName});
+
+		var baseURL = ${baseURL};
+
+		if (!(isSet(baseURL))) {
+			var baseURL = JSONCompany.getPortalURL();
+		}
+
+		var objectDefinitionId = ObjectDefinitionAPI.getObjectDefinitionIdByName(name = ${objectDefinitionName});
+		var userLoginInfo = JSONUtil2.formatJSONUser();
+
+		var curl = '''
+			${baseURL}/o/object-admin/v1.0/object-definitions/${objectDefinitionId} \
+				-u ${userLoginInfo} \
+				-H 'accept: application/json' \
+		''';
+
+		JSONCurlUtil.delete(${curl});
+	}
+
+	@summary = "Default summary"
 	macro _deleteObjectEntry(objectEntryId = null, en_US_plural_label = null) {
 		Variables.assertDefined(parameterList = "${en_US_plural_label},${objectEntryId}");
 
@@ -902,6 +924,11 @@ definition {
 			virtualHost = ${virtualHost});
 
 		return ${relationshipName};
+	}
+
+	@summary = "Default summary"
+	macro deleteObjectDefinition(objectDefinitionName = null) {
+		ObjectDefinitionAPI._deleteObjectDefinition(objectDefinitionName = ${objectDefinitionName});
 	}
 
 	@summary = "Default summary"
